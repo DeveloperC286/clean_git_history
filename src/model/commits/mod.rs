@@ -7,7 +7,7 @@ use crate::model::commits::commit::Commit;
 mod commit;
 
 pub struct Commits {
-    _commits: Vec<Commit>,
+    commits: Vec<Commit>,
 }
 
 impl Commits {
@@ -55,11 +55,10 @@ impl Commits {
                         exit(crate::ERROR_EXIT_CODE);
                     }
                 })
-                .flatten()
                 .collect();
 
             commits.reverse();
-            Commits { _commits: commits }
+            Commits { commits }
         }
 
         fn get_repository() -> Repository {
@@ -192,5 +191,17 @@ impl Commits {
 
         error!("Provide either the --from-reference or --from-commit-hash argument.");
         exit(crate::ERROR_EXIT_CODE);
+    }
+
+    pub fn is_git_history_clean(&self) -> bool {
+        let mut is_git_history_clean = true;
+
+        for commit in self.commits.iter() {
+            if commit.is_merge_commit() {
+                is_git_history_clean = false;
+            }
+        }
+
+        is_git_history_clean
     }
 }

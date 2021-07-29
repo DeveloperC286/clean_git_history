@@ -2,6 +2,7 @@
 extern crate log;
 extern crate pretty_env_logger;
 
+use std::process::exit;
 use structopt::StructOpt;
 
 use crate::model::commits::Commits;
@@ -16,5 +17,9 @@ fn main() {
     let arguments = cli::Arguments::from_args();
     debug!("The command line arguments provided are {:?}.", arguments);
 
-    let _commits = Commits::from_git(arguments.from_commit_hash, arguments.from_reference);
+    let commits = Commits::from_git(arguments.from_commit_hash, arguments.from_reference);
+
+    if !commits.is_git_history_clean() {
+        exit(ERROR_EXIT_CODE);
+    }
 }

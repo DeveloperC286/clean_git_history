@@ -3,35 +3,41 @@ use std::process::exit;
 use git2::{Oid, Repository};
 
 pub struct Commit {
-    _message: String,
+    commit_hash: git2::Oid,
+    number_of_parents: usize,
 }
 
 impl Commit {
-    pub fn from_git(repository: &Repository, oid: Oid) -> Option<Self> {
+    pub fn from_git(repository: &Repository, oid: Oid) -> Self {
         match repository.find_commit(oid) {
-            Ok(commit) => match commit.message().map(|m| m.to_string()) {
-                Some(message) => {
-                    trace!(
-                        "Found the commit message {:?} for the commit with the hash '{}'.",
-                        message,
-                        commit.id()
-                    );
+            Ok(commit) => {
+                let number_of_parents = commit.parents().len();
+                trace!(
+                    "Found {:?} partent for the commit with the hash '{}'.",
+                    number_of_parents,
+                    commit.id()
+                );
 
-                    Some(Commit { _message: message })
+                Commit {
+                    commit_hash: commit.id(),
+                    number_of_parents,
                 }
-                None => {
-                    error!(
-                        "Can not find commit message for the commit with the hash '{}'.",
-                        oid
-                    );
-                    None
-                }
-            },
+            }
             Err(error) => {
                 error!("{:?}", error);
                 error!("Can not find commit with the hash '{}'.", oid);
                 exit(crate::ERROR_EXIT_CODE);
             }
         }
+    }
+
+    pub fn is_merge_commit(&self) -> bool {
+        let is_merge_commit = self.number_of_parents > 1;
+
+        if is_merge_commit {
+            warn!("Commit {:?} is a merge commit.", self.commit_hash);
+        }
+
+        is_merge_commit
     }
 }
