@@ -1,7 +1,13 @@
 [package]
 name = "clean_git_history"
+description = "A Git history linter to make sure it stays clean."
+authors = ["C <DeveloperC@protonmail.com>"]
 version = "0.0.1"
 edition = "2018"
+repository = "https://gitlab.com/DeveloperC/clean_git_history"
+readme = "README.md"
+keywords = ["clean", "history", "lint", "linting", "git"]
+categories = ["command-line-utilities", "development-tools"]
 
 
 [dependencies]
