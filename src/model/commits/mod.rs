@@ -193,12 +193,14 @@ impl Commits {
         exit(crate::ERROR_EXIT_CODE);
     }
 
-    pub fn is_git_history_clean(&self) -> bool {
+    pub fn is_git_history_clean(&self, ignore_merge_commits: bool) -> bool {
         let mut is_git_history_clean = true;
 
         for commit in self.commits.iter() {
-            if commit.is_merge_commit() {
-                is_git_history_clean = false;
+            if !ignore_merge_commits {
+                if commit.is_merge_commit() {
+                    is_git_history_clean = false;
+                }
             }
         }
 

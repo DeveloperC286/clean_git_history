@@ -20,4 +20,10 @@ pub struct Arguments {
         help = "The Git reference from where to start taking the range of commits from till HEAD. The range is inclusive of HEAD and exclusive of the provided reference."
     )]
     pub from_reference: Option<String>,
+
+    #[structopt(
+        long,
+        help = "If the flag is enabled then any Git merge commits are ignored, otherwise a merge commit's presence will cause linting to fail."
+    )]
+    pub ignore_merge_commits: bool,
 }
