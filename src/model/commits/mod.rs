@@ -194,16 +194,9 @@ impl Commits {
     }
 
     pub fn is_git_history_clean(&self, ignore_merge_commits: bool) -> bool {
-        let mut is_git_history_clean = true;
-
-        for commit in self.commits.iter() {
-            if !ignore_merge_commits {
-                if commit.is_merge_commit() {
-                    is_git_history_clean = false;
-                }
-            }
-        }
-
-        is_git_history_clean
+        self.commits
+            .iter()
+            .map(|commit| !ignore_merge_commits && commit.is_merge_commit())
+            .any(|is_commit_clean| is_commit_clean)
     }
 }
