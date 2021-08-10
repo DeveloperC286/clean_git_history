@@ -1,5 +1,5 @@
-# Clean History
-[![crates.io](https://img.shields.io/crates/v/clean_git_history)](https://crates.io/crates/clean_git_history) [![pipeline status](https://gitlab.com/DeveloperC/clean_history/badges/main/pipeline.svg)](https://gitlab.com/DeveloperC/clean_history/-/commits/main) [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![License: AGPL v3](https://img.shields.io/badge/License-AGPLv3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+# Clean Git History
+[![crates.io](https://img.shields.io/crates/v/clean_git_history)](https://crates.io/crates/clean_git_history) [![pipeline status](https://gitlab.com/DeveloperC/clean_git_history/badges/main/pipeline.svg)](https://gitlab.com/DeveloperC/clean_git_history/-/commits/main) [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![License: AGPL v3](https://img.shields.io/badge/License-AGPLv3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
 A Git history linter to make sure it stays clean.
 
@@ -56,14 +56,14 @@ See [Compiling via Cargo](#compiling-via-cargo) for more details about installin
 __Note - This example downloads the latest `0.*` version.__
 
 ```
-clean-history-checking:
-    stage: clean-history-checking
+clean-git-history-checking:
+    stage: clean-git-history-checking
     image: rust
     before_script:
-        - cargo install clean_history --version ^0
+        - cargo install clean_git_history --version ^0
     script:
         - ROOT_COMMIT_HASH=$(git rev-list --max-parents=0 HEAD)
-        - /usr/local/cargo/bin/clean_history --from-commit-hash "$ROOT_COMMIT_HASH"
+        - /usr/local/cargo/bin/clean_git_history --from-commit-hash "$ROOT_COMMIT_HASH"
     rules:
         - if: $CI_MERGE_REQUEST_ID
 		- if: $CI_COMMIT_BRANCH == "main"
@@ -76,14 +76,14 @@ See [Downloading Binary](#downloading-binary) for more details about Binary down
 __Note - This example downloads version `0.1.0`.__
 
 ```
-clean-history-checking:
-    stage: clean-history-checking
+clean-git-history-checking:
+    stage: clean-git-history-checking
     image: rust
     before_script:
-        - wget -q -O tmp.zip "https://gitlab.com/DeveloperC/clean_history/-/jobs/artifacts/0.1.0/download?job=release-binary-compiling-x86_64-linux-musl" && unzip tmp.zip && rm tmp.zip
+        - wget -q -O tmp.zip "https://gitlab.com/DeveloperC/clean_git_history/-/jobs/artifacts/0.1.0/download?job=release-binary-compiling-x86_64-linux-musl" && unzip tmp.zip && rm tmp.zip
     script:
         - ROOT_COMMIT_HASH=$(git rev-list --max-parents=0 HEAD)
-        - /usr/local/cargo/bin/clean_history --from-commit-hash "$ROOT_COMMIT_HASH"
+        - /usr/local/cargo/bin/clean_git_history --from-commit-hash "$ROOT_COMMIT_HASH"
     rules:
         - if: $CI_MERGE_REQUEST_ID
 		- if: $CI_COMMIT_BRANCH == "main"
@@ -100,13 +100,13 @@ set -o errexit
 set -o pipefail
 
 root_commit_hash=$(git rev-list --max-parents=0 HEAD)
-"/home/${USER}/.cargo/bin/clean_history"  --from-commit-hash "$root_commit_hash"
+"/home/${USER}/.cargo/bin/clean_git_history"  --from-commit-hash "$root_commit_hash"
 ```
 
 
 ## Downloading Binary
 Statically linked compiled binaries are available for download.
-Visit the releases page at [https://gitlab.com/DeveloperC/clean_history/-/releases](https://gitlab.com/DeveloperC/clean_history/-/releases) to see all the releases, the release notes contains links to binary downloads for various architectures.
+Visit the releases page at [https://gitlab.com/DeveloperC/clean_git_history/-/releases](https://gitlab.com/DeveloperC/clean_git_history/-/releases) to see all the releases, the release notes contains links to binary downloads for various architectures.
 
 If you do not trust the provided binaries another option is to compile your own and then make it available for remote download, so your CICD etc can then download it.
 
@@ -116,19 +116,19 @@ Checkout the code repository locally, change into the repository's directory and
 Using the `--release` flag produces an optimised binary but takes longer to compile.
 
 ```
-git clone git@gitlab.com:DeveloperC/clean_history.git
-cd clean_history/
+git clone git@gitlab.com:DeveloperC/clean_git_history.git
+cd clean_git_history/
 cargo build --release
 ```
 
-The compiled binary is present in `target/release/clean_history`.
+The compiled binary is present in `target/release/clean_git_history`.
 
 
 ## Compiling via Cargo
-Cargo is the Rust package manager, the `install` sub-command pulls from [crates.io](https://crates.io/crates/clean_history) and then compiles the binary locally, placing the compiled binary at `$HOME/.cargo/bin/clean_history`.
+Cargo is the Rust package manager, the `install` sub-command pulls from [crates.io](https://crates.io/crates/clean_git_history) and then compiles the binary locally, placing the compiled binary at `$HOME/.cargo/bin/clean_git_history`.
 
 ```
-cargo install clean_history
+cargo install clean_git_history
 ```
 
 By default it installs the latest version at the time of execution.
@@ -138,7 +138,7 @@ For certain environments such as CICD etc you may want to pin the version.
 e.g.
 
 ```
-cargo install clean_history --version 0.2.0
+cargo install clean_git_history --version 0.2.0
 ```
 
 Rather than pinning to a specific version you can specify the major or minor version.
@@ -146,7 +146,7 @@ Rather than pinning to a specific version you can specify the major or minor ver
 e.g.
 
 ```
-cargo install clean_history --version ^0
+cargo install clean_git_history --version ^0
 ```
 
 Will download the latest `0.*` release whether that is `0.2.2` or `0.7.0`.
@@ -161,4 +161,4 @@ cargo test
 
 
 ## Issues/Feature Requests
-To report an issue or request a new feature use [https://gitlab.com/DeveloperC/clean_history/-/issues](https://gitlab.com/DeveloperC/clean_history/-/issues).
+To report an issue or request a new feature use [https://gitlab.com/DeveloperC/clean_git_history/-/issues](https://gitlab.com/DeveloperC/clean_git_history/-/issues).

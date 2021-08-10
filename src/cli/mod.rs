@@ -2,7 +2,7 @@ use structopt::{clap::ArgGroup, StructOpt};
 
 #[derive(Debug, StructOpt)]
 #[structopt(
-    name = "clean_history",
+    name = "clean_git_history",
     about = "A Git history linter to make sure it stays clean.",
     group = ArgGroup::with_name("from").required(true)
 )]
