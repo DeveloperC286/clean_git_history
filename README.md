@@ -72,13 +72,13 @@ clean-git-history-checking:
 #### Via Binary Download
 See [Downloading Binary](#downloading-binary) for more details about Binary downloads.
 
-__Note - This example downloads version `0.1.0`.__
+__Note - This example downloads version `0.1.1`.__
 ```
 clean-git-history-checking:
   stage: clean-git-history-checking
   image: rust
   before_script:
-    - wget -q -O tmp.zip "https://gitlab.com/DeveloperC/clean_git_history/-/jobs/artifacts/0.1.0/download?job=release-binary-compiling-x86_64-linux-musl" && unzip tmp.zip && rm tmp.zip
+    - wget -q -O tmp.zip "https://gitlab.com/DeveloperC/clean_git_history/-/jobs/artifacts/0.1.1/download?job=release-binary-compiling-x86_64-linux-musl" && unzip tmp.zip && rm tmp.zip
   script:
     # Check all the commits in the branch.
     - ./clean_git_history --from-reference "origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
@@ -135,7 +135,7 @@ For certain environments such as CICD etc you may want to pin the version.
 e.g.
 
 ```
-cargo install clean_git_history --version 0.2.0
+cargo install clean_git_history --version 0.1.1
 ```
 
 Rather than pinning to a specific version you can specify the major or minor version.

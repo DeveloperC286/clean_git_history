@@ -13,7 +13,7 @@ impl Commit {
             Ok(commit) => {
                 let number_of_parents = commit.parents().len();
                 trace!(
-                    "Found {:?} partent for the commit with the hash '{}'.",
+                    "Found {:?} parents for the commit with the hash '{}'.",
                     number_of_parents,
                     commit.id()
                 );

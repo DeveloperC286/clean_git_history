@@ -19,7 +19,7 @@ fn main() {
 
     let commits = Commits::from_git(arguments.from_commit_hash, arguments.from_reference);
 
-    if !commits.is_git_history_clean(arguments.ignore_merge_commits) {
+    if !arguments.ignore_merge_commits && commits.contains_merge_commits() {
         exit(ERROR_EXIT_CODE);
     }
 }
