@@ -66,7 +66,7 @@ clean-git-history-checking:
         - /usr/local/cargo/bin/clean_git_history --from-commit-hash "$ROOT_COMMIT_HASH"
     rules:
         - if: $CI_MERGE_REQUEST_ID
-		- if: $CI_COMMIT_BRANCH == "main"
+        - if: $CI_COMMIT_BRANCH == "main"
 ```
 
 
@@ -86,7 +86,7 @@ clean-git-history-checking:
         - /usr/local/cargo/bin/clean_git_history --from-commit-hash "$ROOT_COMMIT_HASH"
     rules:
         - if: $CI_MERGE_REQUEST_ID
-		- if: $CI_COMMIT_BRANCH == "main"
+        - if: $CI_COMMIT_BRANCH == "main"
 ```
 
 
