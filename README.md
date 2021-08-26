@@ -57,16 +57,15 @@ __Note - This example downloads the latest `0.*` version.__
 
 ```
 clean-git-history-checking:
-    stage: clean-git-history-checking
-    image: rust
-    before_script:
-        - cargo install clean_git_history --version ^0
-    script:
-        - ROOT_COMMIT_HASH=$(git rev-list --max-parents=0 HEAD)
-        - /usr/local/cargo/bin/clean_git_history --from-commit-hash "$ROOT_COMMIT_HASH"
-    rules:
-        - if: $CI_MERGE_REQUEST_ID
-        - if: $CI_COMMIT_BRANCH == "main"
+  stage: clean-git-history-checking
+  image: rust
+  before_script:
+    - cargo install clean_git_history --version ^0
+  script:
+    # Check all the commits in the branch.
+    - /usr/local/cargo/bin/clean_git_history --from-reference "origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
 ```
 
 
@@ -74,19 +73,17 @@ clean-git-history-checking:
 See [Downloading Binary](#downloading-binary) for more details about Binary downloads.
 
 __Note - This example downloads version `0.1.0`.__
-
 ```
 clean-git-history-checking:
-    stage: clean-git-history-checking
-    image: rust
-    before_script:
-        - wget -q -O tmp.zip "https://gitlab.com/DeveloperC/clean_git_history/-/jobs/artifacts/0.1.0/download?job=release-binary-compiling-x86_64-linux-musl" && unzip tmp.zip && rm tmp.zip
-    script:
-        - ROOT_COMMIT_HASH=$(git rev-list --max-parents=0 HEAD)
-        - /usr/local/cargo/bin/clean_git_history --from-commit-hash "$ROOT_COMMIT_HASH"
-    rules:
-        - if: $CI_MERGE_REQUEST_ID
-        - if: $CI_COMMIT_BRANCH == "main"
+  stage: clean-git-history-checking
+  image: rust
+  before_script:
+    - wget -q -O tmp.zip "https://gitlab.com/DeveloperC/clean_git_history/-/jobs/artifacts/0.1.0/download?job=release-binary-compiling-x86_64-linux-musl" && unzip tmp.zip && rm tmp.zip
+  script:
+    # Check all the commits in the branch.
+    - ./clean_git_history --from-reference "origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
 ```
 
 
