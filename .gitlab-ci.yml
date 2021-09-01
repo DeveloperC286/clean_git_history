@@ -5,6 +5,7 @@ stages:
   - linting
   - compiling
   - unit-testing
+  - end-to-end-testing
   - releasing
   - crates-io-publishing
   - release-binary-compiling
@@ -34,13 +35,28 @@ conventional-commits-linting:
     - if: $CI_MERGE_REQUEST_ID
 
 
-formatting:
+git-clean-history-formatting:
   stage: formatting
   image: rust
   before_script:
     - rustup component add rustfmt
   script:
     - cargo fmt --all -- --check
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+
+
+end-to-end-tests-formatting:
+  stage: formatting
+  image: python:3-slim
+  before_script:
+    - pip3 install autopep8
+  script:
+    - for i in $(du -a "./end-to-end-tests/" | awk '{print $2}' | grep -i "[.]py$"); do
+    - cp "$i" "temp.txt"
+    - autopep8 --in-place --aggressive --aggressive "$i"
+    - cmp "$i" "temp.txt" || ( echo "$i needs formatted." && exit 1 )
+    - done
   rules:
     - if: $CI_MERGE_REQUEST_ID
 
@@ -80,6 +96,22 @@ unit-testing:
   rules:
     - if: $CI_MERGE_REQUEST_ID
     - if: $CI_COMMIT_BRANCH == "main"
+
+
+end-to-end-testing:
+  stage: end-to-end-testing
+  image: rust
+  before_script:
+    - apt update
+    - apt install python3-minimal python3-pip git -y
+    - cargo build
+    - cd end-to-end-tests/
+    - pip3 install -r requirements.txt
+  script:
+    - behave
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+    - if: $CI_COMMIT_BRANCH == "master"
 
 
 releasing:
