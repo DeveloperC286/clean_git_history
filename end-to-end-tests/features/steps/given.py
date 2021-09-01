@@ -5,6 +5,7 @@ from behave import given
 from utilities import execute_command
 
 
+@given('the arguments are reset.')
 def reset_arguments(context):
     context.arguments = ""
 
