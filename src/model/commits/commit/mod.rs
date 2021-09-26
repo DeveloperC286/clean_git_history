@@ -2,13 +2,13 @@ use std::process::exit;
 
 use git2::{Oid, Repository};
 
-pub struct Commit {
+pub(crate) struct Commit {
     commit_hash: git2::Oid,
     number_of_parents: usize,
 }
 
 impl Commit {
-    pub fn from_git(repository: &Repository, oid: Oid) -> Self {
+    pub(crate) fn from_git(repository: &Repository, oid: Oid) -> Self {
         match repository.find_commit(oid) {
             Ok(commit) => {
                 let number_of_parents = commit.parents().len();
@@ -31,7 +31,7 @@ impl Commit {
         }
     }
 
-    pub fn is_merge_commit(&self) -> bool {
+    pub(crate) fn is_merge_commit(&self) -> bool {
         let is_merge_commit = self.number_of_parents > 1;
 
         if is_merge_commit {

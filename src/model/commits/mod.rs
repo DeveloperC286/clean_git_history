@@ -6,12 +6,15 @@ use crate::model::commits::commit::Commit;
 
 mod commit;
 
-pub struct Commits {
+pub(crate) struct Commits {
     commits: Vec<Commit>,
 }
 
 impl Commits {
-    pub fn from_git(from_commit_hash: Option<String>, from_reference: Option<String>) -> Self {
+    pub(crate) fn from_git(
+        from_commit_hash: Option<String>,
+        from_reference: Option<String>,
+    ) -> Self {
         fn get_commits_till_head_from_oid(
             repository: &Repository,
             from_commit_hash: Oid,
@@ -193,7 +196,7 @@ impl Commits {
         exit(crate::ERROR_EXIT_CODE);
     }
 
-    pub fn contains_merge_commits(&self) -> bool {
+    pub(crate) fn contains_merge_commits(&self) -> bool {
         self.commits
             .iter()
             .map(|commit| commit.is_merge_commit())
