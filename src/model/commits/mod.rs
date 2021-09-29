@@ -52,7 +52,12 @@ impl Commits {
 
             let mut commits: Vec<Commit> = get_commit_revwalker(repository, from_commit_hash)
                 .map(|oid| match oid {
-                    Ok(oid) => Commit::from_git(repository, oid),
+                    Ok(oid) => match Commit::new(repository, oid) {
+                        Ok(commit) => commit,
+                        Err(_) => {
+                            exit(crate::ERROR_EXIT_CODE);
+                        }
+                    },
                     Err(error) => {
                         error!("{:?}", error);
                         exit(crate::ERROR_EXIT_CODE);
