@@ -1,3 +1,4 @@
+use anyhow::Result;
 use git2::{Oid, Repository};
 
 pub(super) struct Commit {
@@ -6,26 +7,19 @@ pub(super) struct Commit {
 }
 
 impl Commit {
-    pub(super) fn new(repository: &Repository, oid: Oid) -> Result<Self, ()> {
-        match repository.find_commit(oid) {
-            Ok(commit) => {
-                let number_of_parents = commit.parents().len();
-                trace!(
-                    "The commit with the hash '{}' has {:?} parents.",
-                    commit.id(),
-                    number_of_parents,
-                );
+    pub(super) fn new(repository: &Repository, oid: Oid) -> Result<Self> {
+        let commit = repository.find_commit(oid)?;
+        let number_of_parents = commit.parents().len();
+        trace!(
+            "The commit with the hash '{}' has {:?} parents.",
+            commit.id(),
+            number_of_parents,
+        );
 
-                Ok(Commit {
-                    commit_hash: commit.id(),
-                    number_of_parents,
-                })
-            }
-            Err(_) => {
-                error!("Can not find a commit with the hash '{}'.", oid);
-                Err(())
-            }
-        }
+        Ok(Commit {
+            commit_hash: commit.id(),
+            number_of_parents,
+        })
     }
 
     pub(super) fn is_merge_commit(&self) -> bool {

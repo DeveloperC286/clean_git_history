@@ -66,6 +66,7 @@ fn get_commits_till_head_from_oid(repository: &Repository, from_commit_hash: Oid
             Ok(oid) => match Commit::new(repository, oid) {
                 Ok(commit) => commit,
                 Err(_) => {
+                    error!("Can not find a commit with the hash '{}'.", oid);
                     exit(crate::ERROR_EXIT_CODE);
                 }
             },

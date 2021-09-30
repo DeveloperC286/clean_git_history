@@ -22,6 +22,9 @@ pretty_env_logger = "0.4.0"
 # Reading commits
 git2 = { version = "0.13.22", default-features = false, features=[] }
 
+# Error handling
+anyhow = "1.0.44"
+
 
 [profile.release]
 lto = 'fat'
