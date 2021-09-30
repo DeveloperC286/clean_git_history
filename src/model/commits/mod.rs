@@ -3,26 +3,24 @@ use std::process::exit;
 use git2::{Oid, Repository, Revwalk};
 
 use crate::model::commits::commit::Commit;
+use std::collections::VecDeque;
 
 mod commit;
 
 pub(crate) struct Commits {
-    commits: Vec<Commit>,
+    commits: VecDeque<Commit>,
 }
 
 impl Commits {
     pub(crate) fn from_reference(from_reference: String) -> Result<Self, git2::Error> {
         let repository = get_repository()?;
         let reference_oid = get_reference_oid(&repository, &from_reference)?;
-        Ok(get_commits_till_head_from_oid(&repository, reference_oid))
+        get_commits_till_head_from_oid(&repository, reference_oid)
     }
 
     pub(crate) fn from_commit_hash(from_commit_hash: String) -> Result<Self, git2::Error> {
         let repository = get_repository()?;
-        Ok(get_commits_till_head_from_oid(
-            &repository,
-            parse_to_oid(&repository, from_commit_hash),
-        ))
+        get_commits_till_head_from_oid(&repository, parse_to_oid(&repository, from_commit_hash))
     }
 
     pub(crate) fn contains_merge_commits(&self) -> bool {
@@ -33,56 +31,45 @@ impl Commits {
     }
 }
 
-fn get_commits_till_head_from_oid(repository: &Repository, from_commit_hash: Oid) -> Commits {
-    fn get_commit_revwalker(repository: &Repository, from_commit_hash: Oid) -> Revwalk {
-        match repository.revwalk() {
-            Ok(mut commits) => {
-                match commits.push_head() {
-                    Ok(_) => {}
-                    Err(_) => {
-                        error!("Unable to push HEAD onto the Git revision walker.");
-                        exit(crate::ERROR_EXIT_CODE);
-                    }
-                }
+fn get_commits_till_head_from_oid(
+    repository: &Repository,
+    from_commit_hash: Oid,
+) -> Result<Commits, git2::Error> {
+    fn get_revwalker(
+        repository: &Repository,
+        from_commit_hash: Oid,
+    ) -> Result<Revwalk, git2::Error> {
+        let mut commits = repository.revwalk()?;
+        commits.push_head()?;
 
-                match commits.hide(from_commit_hash) {
-                    Ok(_) => {}
-                    Err(_) => {
-                        error!(
-                            "Can not find commit hash '{}' on the Git revision walker.",
-                            from_commit_hash
-                        );
-                        exit(crate::ERROR_EXIT_CODE);
-                    }
-                }
-
-                commits
-            }
+        match commits.hide(from_commit_hash) {
+            Ok(_) => Ok(commits),
             Err(error) => {
-                error!("{:?}", error);
-                exit(crate::ERROR_EXIT_CODE);
+                error!(
+                    "Can not find a commit with the hash '{}'.",
+                    from_commit_hash
+                );
+                Err(error)
             }
         }
     }
 
-    let mut commits: Vec<Commit> = get_commit_revwalker(repository, from_commit_hash)
-        .map(|oid| match oid {
-            Ok(oid) => match Commit::new(repository, oid) {
-                Ok(commit) => commit,
-                Err(_) => {
-                    error!("Can not find a commit with the hash '{}'.", oid);
-                    exit(crate::ERROR_EXIT_CODE);
-                }
-            },
-            Err(error) => {
-                error!("{:?}", error);
-                exit(crate::ERROR_EXIT_CODE);
-            }
-        })
-        .collect();
+    let revwalker = get_revwalker(repository, from_commit_hash)?;
+    let mut commits = VecDeque::new();
 
-    commits.reverse();
-    Commits { commits }
+    for commit in revwalker {
+        let oid = commit?;
+
+        match Commit::new(repository, oid) {
+            Ok(commit) => commits.push_front(commit),
+            Err(error) => {
+                error!("Can not find a commit with the hash '{}'.", oid);
+                return Err(error);
+            }
+        }
+    }
+
+    Ok(Commits { commits })
 }
 
 fn get_repository() -> Result<Repository, git2::Error> {
