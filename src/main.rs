@@ -17,7 +17,15 @@ fn main() {
     let arguments = cli::Arguments::from_args();
     debug!("The command line arguments provided are {:?}.", arguments);
 
-    let commits = Commits::from_git(arguments.from_commit_hash, arguments.from_reference);
+    let commits = match (arguments.from_commit_hash, arguments.from_reference) {
+        (Some(from_commit_hash), None) => Commits::from_commit_hash(from_commit_hash),
+        (None, Some(from_reference)) => Commits::from_reference(from_reference),
+        (_, _) => {
+            unreachable!(
+                "Invalid combination of from arguments, should have been caught by structopt."
+            );
+        }
+    };
 
     if !arguments.ignore_merge_commits && commits.contains_merge_commits() {
         exit(ERROR_EXIT_CODE);
