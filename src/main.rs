@@ -27,7 +27,15 @@ fn main() {
         }
     };
 
-    if !arguments.ignore_merge_commits && commits.contains_merge_commits() {
-        exit(ERROR_EXIT_CODE);
+    match commits {
+        Ok(commits) => {
+            if !arguments.ignore_merge_commits && commits.contains_merge_commits() {
+                exit(ERROR_EXIT_CODE);
+            }
+        }
+        Err(_) => {
+            // Different error code to the assertion failure?
+            exit(ERROR_EXIT_CODE);
+        }
     }
 }

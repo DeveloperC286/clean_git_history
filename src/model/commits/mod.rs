@@ -1,5 +1,6 @@
 use std::process::exit;
 
+use anyhow::Result;
 use git2::{Oid, Repository, Revwalk};
 
 use crate::model::commits::commit::Commit;
@@ -11,14 +12,20 @@ pub(crate) struct Commits {
 }
 
 impl Commits {
-    pub(crate) fn from_reference(from_reference: String) -> Self {
+    pub(crate) fn from_reference(from_reference: String) -> Result<Self> {
         let repository = get_repository();
-        get_commits_till_head_from_oid(&repository, get_reference(&repository, &from_reference))
+        Ok(get_commits_till_head_from_oid(
+            &repository,
+            get_reference(&repository, &from_reference),
+        ))
     }
 
-    pub(crate) fn from_commit_hash(from_commit_hash: String) -> Self {
+    pub(crate) fn from_commit_hash(from_commit_hash: String) -> Result<Self> {
         let repository = get_repository();
-        get_commits_till_head_from_oid(&repository, parse_to_oid(&repository, from_commit_hash))
+        Ok(get_commits_till_head_from_oid(
+            &repository,
+            parse_to_oid(&repository, from_commit_hash),
+        ))
     }
 
     pub(crate) fn contains_merge_commits(&self) -> bool {
