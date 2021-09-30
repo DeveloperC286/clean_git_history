@@ -11,15 +11,13 @@ pub(crate) struct Commits {
 }
 
 impl Commits {
-    pub(crate) fn from_reference(from_reference: String) -> Result<Self, ()> {
+    pub(crate) fn from_reference(from_reference: String) -> Result<Self, git2::Error> {
         let repository = get_repository()?;
-        Ok(get_commits_till_head_from_oid(
-            &repository,
-            get_reference(&repository, &from_reference),
-        ))
+        let reference_oid = get_reference_oid(&repository, &from_reference)?;
+        Ok(get_commits_till_head_from_oid(&repository, reference_oid))
     }
 
-    pub(crate) fn from_commit_hash(from_commit_hash: String) -> Result<Self, ()> {
+    pub(crate) fn from_commit_hash(from_commit_hash: String) -> Result<Self, git2::Error> {
         let repository = get_repository()?;
         Ok(get_commits_till_head_from_oid(
             &repository,
@@ -87,36 +85,30 @@ fn get_commits_till_head_from_oid(repository: &Repository, from_commit_hash: Oid
     Commits { commits }
 }
 
-fn get_repository() -> Result<Repository, ()> {
+fn get_repository() -> Result<Repository, git2::Error> {
     match Repository::open_from_env() {
         Ok(repository) => Ok(repository),
-        Err(_) => {
+        Err(error) => {
             error!("Failed to open a Git repository from the current directory or Git environment variables.");
-            Err(())
+            Err(error)
         }
     }
 }
 
-fn get_reference(repository: &Repository, matching: &str) -> Oid {
+fn get_reference_oid(repository: &Repository, matching: &str) -> Result<Oid, git2::Error> {
     match repository.resolve_reference_from_short_name(matching) {
-        Ok(reference) => match reference.peel_to_commit() {
-            Ok(commit) => {
-                trace!(
-                    "Matched {:?} to the reference {:?} at the commit hash '{}'.",
-                    matching,
-                    reference.name().unwrap(),
-                    commit.id()
-                );
-                commit.id()
-            }
-            Err(error) => {
-                error!("{:?}", error);
-                exit(crate::ERROR_EXIT_CODE);
-            }
-        },
-        Err(_) => {
+        Ok(reference) => {
+            trace!(
+                "Matched {:?} to the reference {:?}.",
+                matching,
+                reference.name().unwrap()
+            );
+            let commit = reference.peel_to_commit()?;
+            Ok(commit.id())
+        }
+        Err(error) => {
             error!("Could not find a reference with the name {:?}.", matching);
-            exit(crate::ERROR_EXIT_CODE);
+            Err(error)
         }
     }
 }
