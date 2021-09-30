@@ -1,6 +1,5 @@
 use std::process::exit;
 
-use anyhow::Result;
 use git2::{Oid, Repository, Revwalk};
 
 use crate::model::commits::commit::Commit;
@@ -12,16 +11,16 @@ pub(crate) struct Commits {
 }
 
 impl Commits {
-    pub(crate) fn from_reference(from_reference: String) -> Result<Self> {
-        let repository = get_repository();
+    pub(crate) fn from_reference(from_reference: String) -> Result<Self, ()> {
+        let repository = get_repository()?;
         Ok(get_commits_till_head_from_oid(
             &repository,
             get_reference(&repository, &from_reference),
         ))
     }
 
-    pub(crate) fn from_commit_hash(from_commit_hash: String) -> Result<Self> {
-        let repository = get_repository();
+    pub(crate) fn from_commit_hash(from_commit_hash: String) -> Result<Self, ()> {
+        let repository = get_repository()?;
         Ok(get_commits_till_head_from_oid(
             &repository,
             parse_to_oid(&repository, from_commit_hash),
@@ -88,12 +87,12 @@ fn get_commits_till_head_from_oid(repository: &Repository, from_commit_hash: Oid
     Commits { commits }
 }
 
-fn get_repository() -> Repository {
+fn get_repository() -> Result<Repository, ()> {
     match Repository::open_from_env() {
-        Ok(repository) => repository,
-        Err(error) => {
-            error!("{:?}", error);
-            exit(crate::ERROR_EXIT_CODE);
+        Ok(repository) => Ok(repository),
+        Err(_) => {
+            error!("Failed to open a Git repository from the current directory or Git environment variables.");
+            Err(())
         }
     }
 }
