@@ -29,7 +29,7 @@ def git_history_is_not_clean(context):
 @then('their is a could not find commit hash "{commit_hash}" error.')
 def then_could_not_find_commit_hash(context, commit_hash):
     # Given
-    could_not_find_commit_hash_error = " ERROR clean_git_history::model::commits > Can not find a commit with the hash '" + commit_hash + "'.\n"
+    could_not_find_commit_hash_error = " ERROR clean_git_history_lib > Can not find a commit with the hash '" + commit_hash + "'.\n"
 
     # When
     execute_clean_git_history(context)
@@ -45,7 +45,7 @@ def then_could_not_find_commit_hash(context, commit_hash):
 @then('their is a could not find reference "{reference}" error.')
 def then_could_not_find_reference(context, reference):
     # Given
-    could_not_find_reference_error = " ERROR clean_git_history::model::commits > Could not find a reference with the name \"" + \
+    could_not_find_reference_error = " ERROR clean_git_history_lib > Could not find a reference with the name \"" + \
                                      reference + "\".\n"
 
     # When
@@ -60,7 +60,7 @@ def then_could_not_find_reference(context, reference):
     'their is a could not find shortened commit hash "{shortened_commit_hash}" error.')
 def then_could_not_find_shortened_commit_hash(context, shortened_commit_hash):
     # Given
-    could_not_find_shortened_commit_hash = " ERROR clean_git_history::model::commits > No actual commit hashes start with the provided short commit hash \"" + \
+    could_not_find_shortened_commit_hash = " ERROR clean_git_history_lib > No actual commit hashes start with the provided short commit hash \"" + \
         shortened_commit_hash + "\".\n"
 
     # When
@@ -77,7 +77,7 @@ def then_could_not_find_shortened_commit_hash(context, shortened_commit_hash):
 def then_could_not_find_shortened_commit_hash(context, shortened_commit_hash):
     # Given
     ambiguous_shortened_commit_hash = re.compile(
-        '^ ERROR clean_git_history::model::commits > Ambiguous short commit hash, the commit hashes [[](' +
+        '^ ERROR clean_git_history_lib > Ambiguous short commit hash, the commit hashes [[](' +
         shortened_commit_hash +
         '[a-f0-9]*(, )?)*[]] all start with the provided short commit hash "' +
         shortened_commit_hash +

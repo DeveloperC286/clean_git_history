@@ -1,28 +1,31 @@
+#[macro_use]
+extern crate log;
+
 use git2::{Oid, Repository, Revwalk};
 
-use crate::model::commits::commit::Commit;
+use crate::commit::Commit;
 use std::collections::VecDeque;
 
 mod commit;
 
-pub(crate) struct Commits {
+pub struct Commits {
     commits: VecDeque<Commit>,
 }
 
 impl Commits {
-    pub(crate) fn from_reference(from_reference: String) -> Result<Self, git2::Error> {
+    pub fn from_reference(from_reference: String) -> Result<Self, git2::Error> {
         let repository = get_repository()?;
         let reference_oid = get_reference_oid(&repository, &from_reference)?;
         get_commits_till_head_from_oid(&repository, reference_oid)
     }
 
-    pub(crate) fn from_commit_hash(from_commit_hash: String) -> Result<Self, git2::Error> {
+    pub fn from_commit_hash(from_commit_hash: String) -> Result<Self, git2::Error> {
         let repository = get_repository()?;
         let commit_oid = parse_to_oid(&repository, from_commit_hash)?;
         get_commits_till_head_from_oid(&repository, commit_oid)
     }
 
-    pub(crate) fn contains_merge_commits(&self) -> bool {
+    pub fn contains_merge_commits(&self) -> bool {
         self.commits
             .iter()
             .map(|commit| commit.is_merge_commit())

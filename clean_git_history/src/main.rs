@@ -5,10 +5,9 @@ extern crate pretty_env_logger;
 use std::process::exit;
 use structopt::StructOpt;
 
-use crate::model::commits::Commits;
+use clean_git_history_lib::Commits;
 
 mod cli;
-mod model;
 
 const ERROR_EXIT_CODE: i32 = 1;
 
