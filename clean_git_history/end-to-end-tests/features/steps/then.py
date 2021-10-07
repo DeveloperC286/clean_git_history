@@ -35,8 +35,6 @@ def then_could_not_find_commit_hash(context, commit_hash):
     execute_clean_git_history(context)
 
     # Then
-    print(context.stderr)
-    print(could_not_find_commit_hash_error)
     assert context.stdout == ""
     assert int(context.exit_code) != 0
     assert context.stderr == could_not_find_commit_hash_error
