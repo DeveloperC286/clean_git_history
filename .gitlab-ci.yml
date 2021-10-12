@@ -1,11 +1,20 @@
 stages:
   - clean-git-history-checking
   - conventional-commits-linting
+  - conventional-commits-next-version-checking
   - formatting
   - linting
   - compiling
   - unit-testing
   - end-to-end-testing
+
+
+variables:
+  SEMANTIC_VERSIONING_REGEX: "[0-9][0-9]*[.][0-9][0-9]*[.][0-9][0-9]*"
+  BIN_DIRECTORY: "clean_git_history/"
+  LIB_DIRECTORY: "clean_git_history_lib/"
+  BIN_TAG_REGEX: "bin-${SEMANTIC_VERSIONING_REGEX}"
+  LIB_TAG_REGEX: "lib-${SEMANTIC_VERSIONING_REGEX}"
 
 
 clean-git-history-checking:
@@ -28,6 +37,42 @@ conventional-commits-linting:
   script:
     # Lint all the commits in the branch.
     - /usr/local/cargo/bin/conventional_commits_linter --from-reference "origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" --allow-angular-type-only
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+
+
+bin-conventional-commits-next-version-checking:
+  stage: conventional-commits-next-version-checking
+  image: rust
+  before_script:
+    - cargo install conventional_commits_next_version
+  script:
+    - cd ${BIN_DIRECTORY}
+    # Get current version and latest tag.
+    - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" Cargo.toml | cut -d '"' -f 2)
+    # Get latest tag.
+    - LATEST_TAG=$(git tag --sort=-committerdate | grep "${BIN_TAG_REGEX}" | head -1)
+    - LATEST_VERSION=$(echo "${LATEST_TAG}" | cut -d '-' -f 2)
+    # Check current vs expected.
+    - /usr/local/cargo/bin/conventional_commits_next_version --batch-commits --from-reference "${LATEST_TAG}" --from-version "${LATEST_VERSION}" --current-version "${CURRENT_VERSION}"
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
+
+
+lib-conventional-commits-next-version-checking:
+  stage: conventional-commits-next-version-checking
+  image: rust
+  before_script:
+    - cargo install conventional_commits_next_version
+  script:
+    - cd ${LIB_DIRECTORY}
+    # Get current version and latest tag.
+    - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" Cargo.toml | cut -d '"' -f 2)
+    # Get latest tag.
+    - LATEST_TAG=$(git tag --sort=-committerdate | grep "${LIB_TAG_REGEX}" | head -1)
+    - LATEST_VERSION=$(echo "${LATEST_TAG}" | cut -d '-' -f 2)
+    # Check current vs expected.
+    - /usr/local/cargo/bin/conventional_commits_next_version --batch-commits --from-reference "${LATEST_TAG}" --from-version "${LATEST_VERSION}" --current-version "${CURRENT_VERSION}" --monorepo "^${LIB_DIRECTORY}"
   rules:
     - if: $CI_MERGE_REQUEST_ID
 
