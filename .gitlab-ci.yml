@@ -18,6 +18,7 @@ variables:
   LIB_DIRECTORY: "clean_git_history_lib/"
   BIN_TAG_REGEX: "bin-${SEMANTIC_VERSIONING_REGEX}"
   LIB_TAG_REGEX: "lib-${SEMANTIC_VERSIONING_REGEX}"
+  END_TO_END_TESTS_DIRECTORY: "${BIN_DIRECTORY}end-to-end-tests/"
 
 
 clean-git-history-checking:
@@ -97,7 +98,7 @@ end-to-end-tests-formatting:
   before_script:
     - pip3 install autopep8
   script:
-    - for i in $(du -a "./clean_git_history/end-to-end-tests/" | awk '{print $2}' | grep -i "[.]py$"); do
+    - for i in $(find "${END_TO_END_TESTS_DIRECTORY}features/steps/" -type f | grep -i "[.]py$"); do
     - cp "$i" "temp.txt"
     - autopep8 --in-place --aggressive --aggressive "$i"
     - cmp "$i" "temp.txt" || ( echo "$i needs formatted." && exit 1 )
@@ -150,7 +151,7 @@ end-to-end-testing:
     - apt update
     - apt install python3-minimal python3-pip git -y
     - cargo build
-    - cd clean_git_history/end-to-end-tests/
+    - cd ${END_TO_END_TESTS_DIRECTORY}
     - pip3 install -r requirements.txt
   script:
     - behave
