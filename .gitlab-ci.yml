@@ -197,11 +197,11 @@ lib-releasing:
   script:
     - cd ${LIB_DIRECTORY}
     - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" Cargo.toml | cut -d '"' -f 2)
-    - NEW_TAG=bin-${CURRENT_VERSION}
+    - NEW_TAG=lib-${CURRENT_VERSION}
     # If the tag already exist then exit.
     - git tag -l | grep "^${NEW_TAG}$" && exit 0
     # Get latest tag.
-    - LATEST_TAG=$(git tag --sort=-committerdate | grep "${BIN_TAG_REGEX}" | head -1)
+    - LATEST_TAG=$(git tag --sort=-committerdate | grep "${LIB_TAG_REGEX}" | head -1)
     # Install release description generator.
     - apk add rust
     - cargo install git-cliff
