@@ -174,7 +174,7 @@ bin-releasing:
     # Get latest tag.
     - LATEST_TAG=$(git tag --sort=-committerdate | grep "${BIN_TAG_REGEX}" | head -1)
     # Install release description generator.
-    - apk add rust
+    - apk add cargo rust
     - cargo install git-cliff
     # Generate the release description.
     - RELEASE_DESCRIPTION=$(/usr/local/cargo/bin/git-cliff ${NEW_TAG}.. --tag ${NEW_TAG} --strip all)
@@ -203,7 +203,7 @@ lib-releasing:
     # Get latest tag.
     - LATEST_TAG=$(git tag --sort=-committerdate | grep "${LIB_TAG_REGEX}" | head -1)
     # Install release description generator.
-    - apk add rust
+    - apk add cargo rust
     - cargo install git-cliff
     # Generate the release description.
     - RELEASE_DESCRIPTION=$(/usr/local/cargo/bin/git-cliff ${NEW_TAG}.. --tag ${NEW_TAG} --strip all --src ${LIB_DIRECTORY})
