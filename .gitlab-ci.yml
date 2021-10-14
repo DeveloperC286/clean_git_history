@@ -165,7 +165,6 @@ bin-releasing:
   image: registry.gitlab.com/gitlab-org/release-cli
   before_script:
     - apk add git
-    - cargo install git-cliff
   script:
     - cd ${BIN_DIRECTORY}
     - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" Cargo.toml | cut -d '"' -f 2)
@@ -174,6 +173,9 @@ bin-releasing:
     - git tag -l | grep "^${NEW_TAG}$" && exit 0
     # Get latest tag.
     - LATEST_TAG=$(git tag --sort=-committerdate | grep "${BIN_TAG_REGEX}" | head -1)
+    # Install release description generator.
+    - apk add rust
+    - cargo install git-cliff
     # Generate the release description.
     - RELEASE_DESCRIPTION=$(/usr/local/cargo/bin/git-cliff ${NEW_TAG}.. --tag ${NEW_TAG} --strip all)
     # Create the new release.
@@ -192,7 +194,6 @@ lib-releasing:
   image: registry.gitlab.com/gitlab-org/release-cli
   before_script:
     - apk add git
-    - cargo install git-cliff
   script:
     - cd ${LIB_DIRECTORY}
     - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" Cargo.toml | cut -d '"' -f 2)
@@ -201,6 +202,9 @@ lib-releasing:
     - git tag -l | grep "^${NEW_TAG}$" && exit 0
     # Get latest tag.
     - LATEST_TAG=$(git tag --sort=-committerdate | grep "${BIN_TAG_REGEX}" | head -1)
+    # Install release description generator.
+    - apk add rust
+    - cargo install git-cliff
     # Generate the release description.
     - RELEASE_DESCRIPTION=$(/usr/local/cargo/bin/git-cliff ${NEW_TAG}.. --tag ${NEW_TAG} --strip all --src ${LIB_DIRECTORY})
     # Create the new release.
