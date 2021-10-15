@@ -16,8 +16,10 @@ variables:
   SEMANTIC_VERSIONING_REGEX: "[0-9][0-9]*[.][0-9][0-9]*[.][0-9][0-9]*"
   BIN_DIRECTORY: "clean_git_history/"
   LIB_DIRECTORY: "clean_git_history_lib/"
-  BIN_TAG_REGEX: "bin-${SEMANTIC_VERSIONING_REGEX}"
-  LIB_TAG_REGEX: "lib-${SEMANTIC_VERSIONING_REGEX}"
+  BIN_PREFIX: "bin-"
+  LIB_PREFIX: "lib-"
+  BIN_TAG_REGEX: "${BIN_PREFIX}${SEMANTIC_VERSIONING_REGEX}"
+  LIB_TAG_REGEX: "${LIB_PREFIX}${SEMANTIC_VERSIONING_REGEX}"
   END_TO_END_TESTS_DIRECTORY: "${BIN_DIRECTORY}end-to-end-tests/"
 
 
@@ -168,7 +170,7 @@ bin-releasing:
   script:
     - cd ${BIN_DIRECTORY}
     - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" Cargo.toml | cut -d '"' -f 2)
-    - NEW_TAG=bin-${CURRENT_VERSION}
+    - NEW_TAG=${BIN_PREFIX}${CURRENT_VERSION}
     # If the tag already exist then exit.
     - git tag -l | grep "^${NEW_TAG}$" && exit 0
     # Get latest tag.
@@ -197,7 +199,7 @@ lib-releasing:
   script:
     - cd ${LIB_DIRECTORY}
     - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" Cargo.toml | cut -d '"' -f 2)
-    - NEW_TAG=lib-${CURRENT_VERSION}
+    - NEW_TAG=${LIB_PREFIX}${CURRENT_VERSION}
     # If the tag already exist then exit.
     - git tag -l | grep "^${NEW_TAG}$" && exit 0
     # Get latest tag.
