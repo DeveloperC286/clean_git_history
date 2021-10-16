@@ -50,6 +50,7 @@ fn get_commits_till_head_from_oid(
         from_commit_hash: Oid,
     ) -> Result<Revwalk, git2::Error> {
         let mut commits = repository.revwalk()?;
+        commits.simplify_first_parent()?;
         commits.push_head()?;
 
         match commits.hide(from_commit_hash) {
