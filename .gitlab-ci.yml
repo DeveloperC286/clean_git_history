@@ -170,16 +170,17 @@ bin-releasing:
   script:
     - cd ${BIN_DIRECTORY}
     - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" Cargo.toml | cut -d '"' -f 2)
+    - cd ../
     - NEW_TAG=${BIN_PREFIX}${CURRENT_VERSION}
     # If the tag already exist then exit.
     - git tag -l | grep "^${NEW_TAG}$" && exit 0
     # Get latest tag.
     - LATEST_TAG=$(git tag --sort=-committerdate | grep "${BIN_TAG_REGEX}" | head -1)
     # Install release description generator.
-    - apk add cargo rust
-    - cargo install git-cliff
+    - wget "https://github.com/orhun/git-cliff/releases/download/v0.4.0/git-cliff-0.4.0-x86_64-unknown-linux-musl.tar.gz"
+    - tar xzvf git-cliff-0.4.0-x86_64-unknown-linux-musl.tar.gz
     # Generate the release description.
-    - RELEASE_DESCRIPTION=$(/usr/local/cargo/bin/git-cliff ${NEW_TAG}.. --tag ${NEW_TAG} --strip all --src ${BIN_DIRECTORY})
+    - RELEASE_DESCRIPTION=$(./git-cliff-0.4.0/git-cliff ${LATEST_TAG}.. --tag ${NEW_TAG} --strip all --commit-path ${BIN_DIRECTORY})
     # Create the new release.
     - release-cli create
       --name "${CURRENT_VERSION}"
@@ -199,16 +200,17 @@ lib-releasing:
   script:
     - cd ${LIB_DIRECTORY}
     - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" Cargo.toml | cut -d '"' -f 2)
+    - cd ../
     - NEW_TAG=${LIB_PREFIX}${CURRENT_VERSION}
     # If the tag already exist then exit.
     - git tag -l | grep "^${NEW_TAG}$" && exit 0
     # Get latest tag.
     - LATEST_TAG=$(git tag --sort=-committerdate | grep "${LIB_TAG_REGEX}" | head -1)
     # Install release description generator.
-    - apk add cargo rust
-    - cargo install git-cliff
+    - wget https://github.com/orhun/git-cliff/releases/download/v0.4.0/git-cliff-0.4.0-x86_64-unknown-linux-musl.tar.gz
+    - tar xzvf git-cliff-0.4.0-x86_64-unknown-linux-musl.tar.gz
     # Generate the release description.
-    - RELEASE_DESCRIPTION=$(/usr/local/cargo/bin/git-cliff ${NEW_TAG}.. --tag ${NEW_TAG} --strip all --src ${LIB_DIRECTORY})
+    - RELEASE_DESCRIPTION=$(./git-cliff-0.4.0/git-cliff ${LATEST_TAG}.. --tag ${NEW_TAG} --strip all --commit-path ${LIB_DIRECTORY})
     # Create the new release.
     - release-cli create
       --name "${CURRENT_VERSION}"
