@@ -17,7 +17,29 @@ pub struct Commits {
 }
 
 impl Commits {
-    /// Create a new range of commits from a reference exclusively from the commit specified till inclusively of `HEAD`.
+    /// Create a new range of commits from a reference exclusively from the commit specified by the reference till inclusively of `HEAD`.
+    ///
+    /// Supports providing either the full or short name of the reference.
+    ///
+    /// E.g. short name.
+    ///
+    /// ```
+    /// use git2::Repository;
+    /// use clean_git_history_lib::Commits;
+    ///
+    /// let repository = Repository::open_from_env().unwrap();
+    /// let commits = Commits::from_reference(&repository, "v1.0.0");
+    /// ```
+    ///
+    /// E.g. full name.
+    ///
+    /// ```
+    /// use git2::Repository;
+    /// use clean_git_history_lib::Commits;
+    ///
+    /// let repository = Repository::open_from_env().unwrap();
+    /// let commits = Commits::from_reference(&repository, "refs/tags/v1.0.0");
+    /// ```
     pub fn from_reference(
         repository: &Repository,
         reference: &str,
@@ -27,6 +49,28 @@ impl Commits {
     }
 
     /// Create a new range of commits from a commit hash exclusively from the commit specified till inclusively of `HEAD`.
+    ///
+    /// Supports providing either the full commit hash or a shortened commit hash.
+    ///
+    /// E.g. shortened commit hash.
+    ///
+    /// ```
+    /// use git2::Repository;
+    /// use clean_git_history_lib::Commits;
+    ///
+    /// let repository = Repository::open_from_env().unwrap();
+    /// let commits = Commits::from_commit_hash(&repository, "d58f1598");
+    /// ```
+    ///
+    /// E.g. full commit hash.
+    ///
+    /// ```
+    /// use git2::Repository;
+    /// use clean_git_history_lib::Commits;
+    ///
+    /// let repository = Repository::open_from_env().unwrap();
+    /// let commits = Commits::from_commit_hash(&repository, "d58f159849a1551dbe7f67019208c2e0de08da80");
+    /// ```
     pub fn from_commit_hash(
         repository: &Repository,
         commit_hash: &str,
@@ -35,7 +79,8 @@ impl Commits {
         get_commits_till_head_from_oid(repository, commit_oid)
     }
 
-    /// Returns true if any of the commits within the range are a merge commit.
+    /// A lint that can be performed on the range of commits, which returns true if any of the
+    /// commits are merge commits, i.e. has multiple parents.
     pub fn contains_merge_commits(&self) -> bool {
         self.commits
             .iter()
