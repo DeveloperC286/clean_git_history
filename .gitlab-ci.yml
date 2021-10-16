@@ -179,7 +179,7 @@ bin-releasing:
     - apk add cargo rust
     - cargo install git-cliff
     # Generate the release description.
-    - RELEASE_DESCRIPTION=$(/usr/local/cargo/bin/git-cliff ${NEW_TAG}.. --tag ${NEW_TAG} --strip all)
+    - RELEASE_DESCRIPTION=$(/usr/local/cargo/bin/git-cliff ${NEW_TAG}.. --tag ${NEW_TAG} --strip all --src ${BIN_DIRECTORY})
     # Create the new release.
     - release-cli create
       --name "${CURRENT_VERSION}"
