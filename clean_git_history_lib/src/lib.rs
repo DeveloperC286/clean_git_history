@@ -1,5 +1,4 @@
 #![doc = include_str!("../README.md")]
-//! [https://gitlab.com/DeveloperC/clean_git_history](https://gitlab.com/DeveloperC/clean_git_history)
 #![deny(missing_docs)]
 
 #[macro_use]
