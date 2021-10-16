@@ -18,7 +18,10 @@ pub struct Commits {
 
 impl Commits {
     /// Create a new range of commits from a reference exclusively from the commit specified till inclusively of `HEAD`.
-    pub fn from_reference(repository: &Repository, reference: &str) -> Result<Self, git2::Error> {
+    pub fn from_reference(
+        repository: &Repository,
+        reference: &str,
+    ) -> Result<Commits, git2::Error> {
         let reference_oid = get_reference_oid(repository, reference)?;
         get_commits_till_head_from_oid(repository, reference_oid)
     }
@@ -27,7 +30,7 @@ impl Commits {
     pub fn from_commit_hash(
         repository: &Repository,
         commit_hash: &str,
-    ) -> Result<Self, git2::Error> {
+    ) -> Result<Commits, git2::Error> {
         let commit_oid = parse_to_oid(repository, commit_hash)?;
         get_commits_till_head_from_oid(repository, commit_oid)
     }
