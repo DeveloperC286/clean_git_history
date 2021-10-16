@@ -3,7 +3,7 @@ use structopt::{clap::ArgGroup, StructOpt};
 #[derive(Debug, StructOpt)]
 #[structopt(
     name = "clean_git_history",
-    about = "A Git history linter to make sure it stays clean.",
+    about = "A Git history linter to ensure it stays clean for those who prefer rebasing and fast-forwarding compared to merge and squash commits.",
     group = ArgGroup::with_name("from").required(true)
 )]
 pub(crate) struct Arguments {
