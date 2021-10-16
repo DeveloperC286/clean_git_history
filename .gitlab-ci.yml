@@ -60,7 +60,7 @@ bin-conventional-commits-next-version-checking:
     - LATEST_TAG=$(git tag --sort=-committerdate | grep "${BIN_TAG_REGEX}" | head -1)
     - LATEST_VERSION=$(echo "${LATEST_TAG}" | cut -d '-' -f 2)
     # Check current vs expected.
-    - /usr/local/cargo/bin/conventional_commits_next_version --batch-commits --from-reference "${LATEST_TAG}" --from-version "${LATEST_VERSION}" --current-version "${CURRENT_VERSION}" --monorepo "^${BIN_DIRECTORY}"
+    - /usr/local/cargo/bin/conventional_commits_next_version --batch-commits --from-reference "${LATEST_TAG}" --from-version "${LATEST_VERSION}" --current-version "${CURRENT_VERSION}" --monorepo "${BIN_DIRECTORY}"
   rules:
     - if: $CI_MERGE_REQUEST_ID
 
@@ -78,7 +78,7 @@ lib-conventional-commits-next-version-checking:
     - LATEST_TAG=$(git tag --sort=-committerdate | grep "${LIB_TAG_REGEX}" | head -1)
     - LATEST_VERSION=$(echo "${LATEST_TAG}" | cut -d '-' -f 2)
     # Check current vs expected.
-    - /usr/local/cargo/bin/conventional_commits_next_version --batch-commits --from-reference "${LATEST_TAG}" --from-version "${LATEST_VERSION}" --current-version "${CURRENT_VERSION}" --monorepo "^${LIB_DIRECTORY}"
+    - /usr/local/cargo/bin/conventional_commits_next_version --batch-commits --from-reference "${LATEST_TAG}" --from-version "${LATEST_VERSION}" --current-version "${CURRENT_VERSION}" --monorepo "${LIB_DIRECTORY}"
   rules:
     - if: $CI_MERGE_REQUEST_ID
 
