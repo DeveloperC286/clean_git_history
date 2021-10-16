@@ -1,3 +1,7 @@
+#![doc = include_str!("../README.md")]
+//! [https://gitlab.com/DeveloperC/clean_git_history](https://gitlab.com/DeveloperC/clean_git_history)
+#![deny(missing_docs)]
+
 #[macro_use]
 extern crate log;
 
@@ -8,23 +12,27 @@ use std::collections::VecDeque;
 
 mod commit;
 
+/// A representation of a range of commits within a Git repository, which can have various lints performed upon it after construction.
 pub struct Commits {
     commits: VecDeque<Commit>,
 }
 
 impl Commits {
-    pub fn from_reference(from_reference: String) -> Result<Self, git2::Error> {
+    /// Create a new range of commits from a reference exclusively from the commit specified till inclusively of `HEAD`.
+    pub fn from_reference(reference: String) -> Result<Self, git2::Error> {
         let repository = get_repository()?;
-        let reference_oid = get_reference_oid(&repository, &from_reference)?;
+        let reference_oid = get_reference_oid(&repository, &reference)?;
         get_commits_till_head_from_oid(&repository, reference_oid)
     }
 
-    pub fn from_commit_hash(from_commit_hash: String) -> Result<Self, git2::Error> {
+    /// Create a new range of commits from a commit hash exclusively from the commit specified till inclusively of `HEAD`.
+    pub fn from_commit_hash(commit_hash: String) -> Result<Self, git2::Error> {
         let repository = get_repository()?;
-        let commit_oid = parse_to_oid(&repository, from_commit_hash)?;
+        let commit_oid = parse_to_oid(&repository, commit_hash)?;
         get_commits_till_head_from_oid(&repository, commit_oid)
     }
 
+    /// Returns true if any of the commits within the range are a merge commit.
     pub fn contains_merge_commits(&self) -> bool {
         self.commits
             .iter()
