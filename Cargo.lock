@@ -72,6 +72,7 @@ name = "clean_git_history"
 version = "0.1.1"
 dependencies = [
  "clean_git_history_lib",
+ "git2",
  "log",
  "pretty_env_logger",
  "structopt",
