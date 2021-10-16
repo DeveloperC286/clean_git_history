@@ -1,6 +1,6 @@
 [package]
 name = "clean_git_history_lib"
-description = "A Git history linter to make sure it stays clean."
+description = "A Git history linter to ensure it stays clean for those who prefer rebasing and fast-forwarding compared to merge and squash commits."
 authors = ["C <DeveloperC@protonmail.com>"]
 version = "0.1.1"
 edition = "2018"
