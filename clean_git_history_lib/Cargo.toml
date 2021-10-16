@@ -16,4 +16,4 @@ categories = ["development-tools"]
 log = "0.4.14"
 
 # Reading commits
-git2 = { version = "0.13.22", default-features = false, features=[] }
+git2 = { version = "0.13.23", default-features = false, features=[] }
