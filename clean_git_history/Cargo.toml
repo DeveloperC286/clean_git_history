@@ -2,7 +2,7 @@
 name = "clean_git_history"
 description = "A Git history linter to make sure it stays clean."
 authors = ["C <DeveloperC@protonmail.com>"]
-version = "0.1.1"
+version = "0.1.2"
 edition = "2018"
 license = "AGPL-3.0"
 repository = "https://gitlab.com/DeveloperC/clean_git_history"
@@ -19,4 +19,4 @@ structopt = "0.3.23"
 log = "0.4.14"
 pretty_env_logger = "0.4.0"
 
-clean_git_history_lib = { path = "../clean_git_history_lib" , version = "0.1.0" }
+clean_git_history_lib = { path = "../clean_git_history_lib" , version = "0.1.1" }

@@ -19,14 +19,14 @@ pub struct Commits {
 
 impl Commits {
     /// Create a new range of commits from a reference exclusively from the commit specified till inclusively of `HEAD`.
-    pub fn from_reference(reference: String) -> Result<Self, git2::Error> {
+    pub fn from_reference(reference: &str) -> Result<Self, git2::Error> {
         let repository = get_repository()?;
-        let reference_oid = get_reference_oid(&repository, &reference)?;
+        let reference_oid = get_reference_oid(&repository, reference)?;
         get_commits_till_head_from_oid(&repository, reference_oid)
     }
 
     /// Create a new range of commits from a commit hash exclusively from the commit specified till inclusively of `HEAD`.
-    pub fn from_commit_hash(commit_hash: String) -> Result<Self, git2::Error> {
+    pub fn from_commit_hash(commit_hash: &str) -> Result<Self, git2::Error> {
         let repository = get_repository()?;
         let commit_oid = parse_to_oid(&repository, commit_hash)?;
         get_commits_till_head_from_oid(&repository, commit_oid)
@@ -110,7 +110,7 @@ fn get_reference_oid(repository: &Repository, matching: &str) -> Result<Oid, git
     }
 }
 
-fn parse_to_oid(repository: &Repository, oid: String) -> Result<Oid, git2::Error> {
+fn parse_to_oid(repository: &Repository, oid: &str) -> Result<Oid, git2::Error> {
     match oid.len() {
         1..=39 => {
             trace!(
@@ -160,7 +160,7 @@ fn parse_to_oid(repository: &Repository, oid: String) -> Result<Oid, git2::Error
                 }
             }
         }
-        _ => match git2::Oid::from_str(&oid) {
+        _ => match git2::Oid::from_str(oid) {
             Ok(oid) => Ok(oid),
             Err(error) => {
                 error!("{:?} is not a valid commit hash.", oid);
