@@ -69,7 +69,7 @@ dependencies = [
 
 [[package]]
 name = "clean_git_history"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "clean_git_history_lib",
  "git2",
