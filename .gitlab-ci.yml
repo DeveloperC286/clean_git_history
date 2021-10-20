@@ -8,18 +8,19 @@ stages:
   - unit-testing
   - end-to-end-testing
   - releasing
-  - crates-io-publishing
+  - lib-crates-io-publishing
+  - bin-crates-io-publishing
   - release-binary-compiling
 
 
 variables:
   SEMANTIC_VERSIONING_REGEX: "[0-9][0-9]*[.][0-9][0-9]*[.][0-9][0-9]*"
-  BIN_DIRECTORY: "clean_git_history/"
-  LIB_DIRECTORY: "clean_git_history_lib/"
   BIN_PREFIX: "bin-"
   LIB_PREFIX: "lib-"
   BIN_TAG_REGEX: "${BIN_PREFIX}${SEMANTIC_VERSIONING_REGEX}"
   LIB_TAG_REGEX: "${LIB_PREFIX}${SEMANTIC_VERSIONING_REGEX}"
+  BIN_DIRECTORY: "clean_git_history/"
+  LIB_DIRECTORY: "clean_git_history_lib/"
   END_TO_END_TESTS_DIRECTORY: "${BIN_DIRECTORY}end-to-end-tests/"
 
 
@@ -162,6 +163,35 @@ end-to-end-testing:
     - if: $CI_COMMIT_BRANCH == "main"
 
 
+lib-releasing:
+  stage: releasing
+  image: registry.gitlab.com/gitlab-org/release-cli
+  before_script:
+    - apk add git
+  script:
+    - cd ${LIB_DIRECTORY}
+    - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" Cargo.toml | cut -d '"' -f 2)
+    - cd ../
+    - NEW_TAG=${LIB_PREFIX}${CURRENT_VERSION}
+    # If the tag already exist then exit.
+    - git tag -l | grep "^${NEW_TAG}$" && exit 0
+    # Get latest tag.
+    - LATEST_TAG=$(git tag --sort=-committerdate | grep "${LIB_TAG_REGEX}" | head -1)
+    # Install release description generator.
+    - wget https://github.com/orhun/git-cliff/releases/download/v0.4.0/git-cliff-0.4.0-x86_64-unknown-linux-musl.tar.gz
+    - tar xzvf git-cliff-0.4.0-x86_64-unknown-linux-musl.tar.gz
+    # Generate the release description.
+    - RELEASE_DESCRIPTION=$(./git-cliff-0.4.0/git-cliff ${LATEST_TAG}.. --tag ${NEW_TAG} --strip all --commit-path ${LIB_DIRECTORY})
+    # Create the new release.
+    - release-cli create
+      --name "${CURRENT_VERSION}"
+      --description "${RELEASE_DESCRIPTION}"
+      --tag-name "${NEW_TAG}"
+      --ref "${CI_COMMIT_SHA}"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+
+
 bin-releasing:
   stage: releasing
   image: registry.gitlab.com/gitlab-org/release-cli
@@ -192,53 +222,24 @@ bin-releasing:
     - if: $CI_COMMIT_BRANCH == "main"
 
 
-lib-releasing:
-  stage: releasing
-  image: registry.gitlab.com/gitlab-org/release-cli
-  before_script:
-    - apk add git
+lib-crates-io-publishing:
+  stage: lib-crates-io-publishing
+  image: rust
   script:
     - cd ${LIB_DIRECTORY}
-    - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" Cargo.toml | cut -d '"' -f 2)
-    - cd ../
-    - NEW_TAG=${LIB_PREFIX}${CURRENT_VERSION}
-    # If the tag already exist then exit.
-    - git tag -l | grep "^${NEW_TAG}$" && exit 0
-    # Get latest tag.
-    - LATEST_TAG=$(git tag --sort=-committerdate | grep "${LIB_TAG_REGEX}" | head -1)
-    # Install release description generator.
-    - wget https://github.com/orhun/git-cliff/releases/download/v0.4.0/git-cliff-0.4.0-x86_64-unknown-linux-musl.tar.gz
-    - tar xzvf git-cliff-0.4.0-x86_64-unknown-linux-musl.tar.gz
-    # Generate the release description.
-    - RELEASE_DESCRIPTION=$(./git-cliff-0.4.0/git-cliff ${LATEST_TAG}.. --tag ${NEW_TAG} --strip all --commit-path ${LIB_DIRECTORY})
-    # Create the new release.
-    - release-cli create
-      --name "${CURRENT_VERSION}"
-      --description "${RELEASE_DESCRIPTION}"
-      --tag-name "${NEW_TAG}"
-      --ref "${CI_COMMIT_SHA}"
+    - cargo publish --token "$GITLAB_CRATES_IO_TOKEN"
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
 
 
 bin-crates-io-publishing:
-  stage: crates-io-publishing
+  stage: bin-crates-io-publishing
   image: rust
   script:
     - cd ${BIN_DIRECTORY}
     - cargo publish --token "$GITLAB_CRATES_IO_TOKEN"
   rules:
-    - if: '$CI_COMMIT_TAG =~ /^${BIN_TAG_REGEX}$/'
-
-
-lib-crates-io-publishing:
-  stage: crates-io-publishing
-  image: rust
-  script:
-    - cd ${LIB_DIRECTORY}
-    - cargo publish --token "$GITLAB_CRATES_IO_TOKEN"
-  rules:
-    - if: '$CI_COMMIT_TAG =~ /^${LIB_TAG_REGEX}$/'
+    - if: $CI_COMMIT_BRANCH == "main"
 
 
 release-binary-compiling-x86_64-linux-musl:
@@ -254,4 +255,4 @@ release-binary-compiling-x86_64-linux-musl:
     paths:
       - conventional_commits_next_version
   rules:
-    - if: '$CI_COMMIT_TAG =~ /^${BIN_TAG_REGEX}$/'
+    - if: '$CI_COMMIT_TAG =~ /^bin-.*$/'
