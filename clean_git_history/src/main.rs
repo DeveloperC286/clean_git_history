@@ -28,9 +28,7 @@ fn main() {
                     Commits::from_reference(&repository, &from_reference)
                 }
                 (_, _) => {
-                    unreachable!(
-                        "Invalid combination of from arguments, should have been caught by structopt."
-                    );
+                    unreachable!("Invalid combination of from arguments, should have been caught by the command line arguments parser.");
                 }
             };
 
@@ -46,7 +44,7 @@ fn main() {
             }
         }
         Err(_) => {
-            error!("Failed to open a Git repository from the current directory or Git environment variables.");
+            error!("Failed to open an existing Git repository from the current directory or the Git environment variables.");
             exit(ERROR_EXIT_CODE);
         }
     }
