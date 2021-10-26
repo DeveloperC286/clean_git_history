@@ -31,3 +31,6 @@ impl Commit {
         is_merge_commit
     }
 }
+
+#[cfg(test)]
+mod tests;
