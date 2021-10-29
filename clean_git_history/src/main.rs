@@ -40,7 +40,6 @@ fn main() {
                     }
                 }
                 Err(_) => {
-                    // Different error code to the assertion failure?
                     exit(ERROR_EXIT_CODE);
                 }
             }
