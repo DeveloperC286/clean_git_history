@@ -4,10 +4,11 @@
 #[macro_use]
 extern crate log;
 
+use std::collections::VecDeque;
+
 use git2::{Oid, Repository, Revwalk};
 
 use crate::commit::Commit;
-use std::collections::VecDeque;
 
 mod commit;
 

@@ -1,5 +1,4 @@
 import re
-
 from behave import then
 
 from utilities import execute_clean_git_history
