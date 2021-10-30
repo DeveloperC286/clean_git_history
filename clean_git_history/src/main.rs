@@ -15,6 +15,7 @@ const ERROR_EXIT_CODE: i32 = 1;
 
 fn main() {
     pretty_env_logger::init();
+    trace!("Version {}.", env!("CARGO_PKG_VERSION"));
     let arguments = cli::Arguments::from_args();
     debug!("The command line arguments provided are {:?}.", arguments);
 
