@@ -41,11 +41,11 @@ impl Commits {
     /// let repository = Repository::open_from_env().unwrap();
     /// let commits = Commits::from_reference(&repository, "refs/tags/v1.0.0");
     /// ```
-    pub fn from_reference(
+    pub fn from_reference<T: AsRef<str>>(
         repository: &Repository,
-        reference: &str,
+        reference: T,
     ) -> Result<Commits, git2::Error> {
-        let reference_oid = get_reference_oid(repository, reference)?;
+        let reference_oid = get_reference_oid(repository, reference.as_ref())?;
         get_commits_till_head_from_oid(repository, reference_oid)
     }
 
@@ -72,11 +72,11 @@ impl Commits {
     /// let repository = Repository::open_from_env().unwrap();
     /// let commits = Commits::from_commit_hash(&repository, "d58f159849a1551dbe7f67019208c2e0de08da80");
     /// ```
-    pub fn from_commit_hash(
+    pub fn from_commit_hash<T: AsRef<str>>(
         repository: &Repository,
-        commit_hash: &str,
+        commit_hash: T,
     ) -> Result<Commits, git2::Error> {
-        let commit_oid = parse_to_oid(repository, commit_hash)?;
+        let commit_oid = parse_to_oid(repository, commit_hash.as_ref())?;
         get_commits_till_head_from_oid(repository, commit_oid)
     }
 
