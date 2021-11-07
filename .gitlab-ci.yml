@@ -14,13 +14,14 @@ stages:
 
 variables:
   SEMANTIC_VERSIONING_REGEX: "[0-9][0-9]*[.][0-9][0-9]*[.][0-9][0-9]*"
-  BIN_PREFIX: "bin-"
-  LIB_PREFIX: "lib-"
-  BIN_TAG_REGEX: "${BIN_PREFIX}${SEMANTIC_VERSIONING_REGEX}"
-  LIB_TAG_REGEX: "${LIB_PREFIX}${SEMANTIC_VERSIONING_REGEX}"
-  BIN_DIRECTORY: "clean_git_history/"
-  LIB_DIRECTORY: "clean_git_history_lib/"
-  END_TO_END_TESTS_DIRECTORY: "${BIN_DIRECTORY}end-to-end-tests/"
+  BIN_TAG_PREFIX: "bin-"
+  LIB_TAG_PREFIX: "lib-"
+  BIN_TAG_REGEX: "${BIN_TAG_PREFIX}${SEMANTIC_VERSIONING_REGEX}"
+  LIB_TAG_REGEX: "${LIB_TAG_PREFIX}${SEMANTIC_VERSIONING_REGEX}"
+  BIN_DIRECTORY: "clean_git_history"
+  LIB_DIRECTORY: "clean_git_history_lib"
+  END_TO_END_TESTS_DIRECTORY: "${BIN_DIRECTORY}/end-to-end-tests"
+  BIN_NAME: "clean_git_history"
 
 
 clean-git-history-checking:
@@ -60,7 +61,7 @@ bin-conventional-commits-next-version-checking:
     - LATEST_TAG=$(git tag --sort=-committerdate | grep "${BIN_TAG_REGEX}" | head -1)
     - LATEST_VERSION=$(echo "${LATEST_TAG}" | cut -d '-' -f 2)
     # Check current vs expected.
-    - /usr/local/cargo/bin/conventional_commits_next_version --batch-commits --from-reference "${LATEST_TAG}" --from-version "${LATEST_VERSION}" --current-version "${CURRENT_VERSION}" --monorepo "${BIN_DIRECTORY}"
+    - /usr/local/cargo/bin/conventional_commits_next_version --batch-commits --from-reference "${LATEST_TAG}" --from-version "${LATEST_VERSION}" --current-version "${CURRENT_VERSION}" --monorepo "${BIN_DIRECTORY}/"
   rules:
     - if: $CI_MERGE_REQUEST_ID
 
@@ -78,7 +79,7 @@ lib-conventional-commits-next-version-checking:
     - LATEST_TAG=$(git tag --sort=-committerdate | grep "${LIB_TAG_REGEX}" | head -1)
     - LATEST_VERSION=$(echo "${LATEST_TAG}" | cut -d '-' -f 2)
     # Check current vs expected.
-    - /usr/local/cargo/bin/conventional_commits_next_version --batch-commits --from-reference "${LATEST_TAG}" --from-version "${LATEST_VERSION}" --current-version "${CURRENT_VERSION}" --monorepo "${LIB_DIRECTORY}"
+    - /usr/local/cargo/bin/conventional_commits_next_version --batch-commits --from-reference "${LATEST_TAG}" --from-version "${LATEST_VERSION}" --current-version "${CURRENT_VERSION}" --monorepo "${LIB_DIRECTORY}/"
   rules:
     - if: $CI_MERGE_REQUEST_ID
 
@@ -100,7 +101,7 @@ end-to-end-tests-formatting:
   before_script:
     - pip3 install autopep8
   script:
-    - for i in $(find "${END_TO_END_TESTS_DIRECTORY}features/steps/" -type f | grep -i "[.]py$"); do
+    - for i in $(find "${END_TO_END_TESTS_DIRECTORY}/features/steps/" -type f | grep -i "[.]py$"); do
     - cp "$i" "temp.txt"
     - autopep8 --in-place --aggressive --aggressive "$i"
     - cmp "$i" "temp.txt" || ( echo "$i needs formatted." && exit 1 )
@@ -168,7 +169,7 @@ lib-crates-io-publishing:
   script:
     - cd ${LIB_DIRECTORY}
     - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" Cargo.toml | cut -d '"' -f 2)
-    - NEW_TAG=${LIB_PREFIX}${CURRENT_VERSION}
+    - NEW_TAG=${LIB_TAG_PREFIX}${CURRENT_VERSION}
     # If the tag already exist then exit.
     - git tag -l | grep "^${NEW_TAG}$" && exit 0
     # Get latest tag.
@@ -179,7 +180,7 @@ lib-crates-io-publishing:
     - wget "https://github.com/orhun/git-cliff/releases/download/v0.4.0/git-cliff-0.4.0-x86_64-unknown-linux-musl.tar.gz"
     - tar xzvf git-cliff-0.4.0-x86_64-unknown-linux-musl.tar.gz
     # Generate the release description.
-    - RELEASE_DESCRIPTION=$(./git-cliff-0.4.0/git-cliff ${LATEST_TAG}.. --tag ${NEW_TAG} --strip all --commit-path ${LIB_DIRECTORY})
+    - RELEASE_DESCRIPTION=$(./git-cliff-0.4.0/git-cliff ${LATEST_TAG}.. --tag "${NEW_TAG}" --strip all --commit-path "${LIB_DIRECTORY}/")
     # Install GitlabCI cli releasing tool.
     - wget "https://release-cli-downloads.s3.amazonaws.com/latest/release-cli-linux-amd64"
     # Create the new release.
@@ -198,7 +199,7 @@ bin-crates-io-publishing:
   script:
     - cd ${BIN_DIRECTORY}
     - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" Cargo.toml | cut -d '"' -f 2)
-    - NEW_TAG=${BIN_PREFIX}${CURRENT_VERSION}
+    - NEW_TAG=${BIN_TAG_PREFIX}${CURRENT_VERSION}
     # If the tag already exist then exit.
     - git tag -l | grep "^${NEW_TAG}$" && exit 0
     # Get latest tag.
@@ -209,7 +210,7 @@ bin-crates-io-publishing:
     - wget "https://github.com/orhun/git-cliff/releases/download/v0.4.0/git-cliff-0.4.0-x86_64-unknown-linux-musl.tar.gz"
     - tar xzvf git-cliff-0.4.0-x86_64-unknown-linux-musl.tar.gz
     # Generate the release description.
-    - RELEASE_DESCRIPTION=$(./git-cliff-0.4.0/git-cliff ${LATEST_TAG}.. --tag ${NEW_TAG} --strip all --commit-path ${BIN_DIRECTORY})
+    - RELEASE_DESCRIPTION=$(./git-cliff-0.4.0/git-cliff ${LATEST_TAG}.. --tag "${NEW_TAG}" --strip all --commit-path "${BIN_DIRECTORY}/")
     # Install GitlabCI cli releasing tool.
     - wget "https://release-cli-downloads.s3.amazonaws.com/latest/release-cli-linux-amd64"
     # Create the new release.
@@ -230,10 +231,10 @@ release-binary-compiling-x86_64-linux-musl:
     - apk add --no-cache musl-dev git
   script:
     - cargo build --release --target x86_64-unknown-linux-musl
-    - mv target/x86_64-unknown-linux-musl/release/clean_git_history clean_git_history
-    - strip clean_git_history
+    - mv "target/x86_64-unknown-linux-musl/release/${BIN_NAME}" "${BIN_NAME}"
+    - strip "${BIN_NAME}"
   artifacts:
     paths:
-      - clean_git_history
+      - $BIN_NAME
   rules:
     - if: '$CI_COMMIT_TAG =~ /^bin-.*$/'
