@@ -31,7 +31,7 @@ clean-git-history-checking:
     - cargo install clean_git_history
   script:
     # Check all the commits in the branch.
-    - /usr/local/cargo/bin/clean_git_history --from-reference "origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
+    - /usr/local/cargo/bin/clean_git_history --from-reference "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"
   rules:
     - if: $CI_MERGE_REQUEST_ID
 
@@ -43,7 +43,7 @@ conventional-commits-linting:
     - cargo install conventional_commits_linter
   script:
     # Lint all the commits in the branch.
-    - /usr/local/cargo/bin/conventional_commits_linter --from-reference "origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" --allow-angular-type-only
+    - /usr/local/cargo/bin/conventional_commits_linter --from-reference "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}" --allow-angular-type-only
   rules:
     - if: $CI_MERGE_REQUEST_ID
 
@@ -54,9 +54,10 @@ bin-conventional-commits-next-version-checking:
   before_script:
     - cargo install conventional_commits_next_version
   script:
-    - cd ${BIN_DIRECTORY}
-    # Get current version and latest tag.
+    - cd "${BIN_DIRECTORY}"
+    # Get current version.
     - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" Cargo.toml | cut -d '"' -f 2)
+    - cd ..
     # Get latest tag.
     - LATEST_TAG=$(git tag --sort=-committerdate | grep "${BIN_TAG_REGEX}" | head -1)
     - LATEST_VERSION=$(echo "${LATEST_TAG}" | cut -d '-' -f 2)
@@ -72,9 +73,10 @@ lib-conventional-commits-next-version-checking:
   before_script:
     - cargo install conventional_commits_next_version
   script:
-    - cd ${LIB_DIRECTORY}
-    # Get current version and latest tag.
+    - cd "${LIB_DIRECTORY}"
+    # Get current version.
     - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" Cargo.toml | cut -d '"' -f 2)
+    - cd ..
     # Get latest tag.
     - LATEST_TAG=$(git tag --sort=-committerdate | grep "${LIB_TAG_REGEX}" | head -1)
     - LATEST_VERSION=$(echo "${LATEST_TAG}" | cut -d '-' -f 2)
@@ -154,7 +156,7 @@ end-to-end-testing:
     - apt update
     - apt install python3-minimal python3-pip git -y
     - cargo build
-    - cd ${END_TO_END_TESTS_DIRECTORY}
+    - cd "${END_TO_END_TESTS_DIRECTORY}"
     - pip3 install -r requirements.txt
   script:
     - behave
@@ -167,15 +169,17 @@ lib-crates-io-publishing:
   stage: lib-crates-io-publishing
   image: rust
   script:
-    - cd ${LIB_DIRECTORY}
+    - cd "${LIB_DIRECTORY}"
+    # Get current version.
     - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" Cargo.toml | cut -d '"' -f 2)
-    - NEW_TAG=${LIB_TAG_PREFIX}${CURRENT_VERSION}
+    - cd ..
     # If the tag already exist then exit.
+    - NEW_TAG=${LIB_TAG_PREFIX}${CURRENT_VERSION}
     - git tag -l | grep "^${NEW_TAG}$" && exit 0
     # Get latest tag.
     - LATEST_TAG=$(git tag --sort=-committerdate | grep "${LIB_TAG_REGEX}" | head -1)
     # Publish the crate.
-    - cargo publish --token "$GITLAB_CRATES_IO_TOKEN"
+    - cargo publish --token "${GITLAB_CRATES_IO_TOKEN}"
     # Install release description generator.
     - wget "https://github.com/orhun/git-cliff/releases/download/v0.4.0/git-cliff-0.4.0-x86_64-unknown-linux-musl.tar.gz"
     - tar xzvf git-cliff-0.4.0-x86_64-unknown-linux-musl.tar.gz
@@ -198,14 +202,16 @@ bin-crates-io-publishing:
   image: rust
   script:
     - cd ${BIN_DIRECTORY}
+    # Get current version.
     - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" Cargo.toml | cut -d '"' -f 2)
-    - NEW_TAG=${BIN_TAG_PREFIX}${CURRENT_VERSION}
+    - cd ..
     # If the tag already exist then exit.
+    - NEW_TAG=${BIN_TAG_PREFIX}${CURRENT_VERSION}
     - git tag -l | grep "^${NEW_TAG}$" && exit 0
     # Get latest tag.
     - LATEST_TAG=$(git tag --sort=-committerdate | grep "${BIN_TAG_REGEX}" | head -1)
     # Publish the crate.
-    - cargo publish --token "$GITLAB_CRATES_IO_TOKEN"
+    - cargo publish --token "${GITLAB_CRATES_IO_TOKEN}"
     # Install release description generator.
     - wget "https://github.com/orhun/git-cliff/releases/download/v0.4.0/git-cliff-0.4.0-x86_64-unknown-linux-musl.tar.gz"
     - tar xzvf git-cliff-0.4.0-x86_64-unknown-linux-musl.tar.gz
