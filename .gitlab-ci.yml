@@ -22,6 +22,7 @@ variables:
   LIB_DIRECTORY: "clean_git_history_lib"
   END_TO_END_TESTS_DIRECTORY: "${BIN_DIRECTORY}/end-to-end-tests"
   BIN_NAME: "clean_git_history"
+  RELEASE_BIN_NAME: "release-cli-linux-amd64"
 
 
 clean-git-history-checking:
@@ -186,9 +187,10 @@ lib-crates-io-publishing:
     # Generate the release description.
     - RELEASE_DESCRIPTION=$(./git-cliff-0.4.0/git-cliff ${LATEST_TAG}.. --tag "${NEW_TAG}" --strip all --commit-path "${LIB_DIRECTORY}/")
     # Install GitlabCI cli releasing tool.
-    - wget "https://release-cli-downloads.s3.amazonaws.com/latest/release-cli-linux-amd64"
+    - wget "https://release-cli-downloads.s3.amazonaws.com/latest/${RELEASE_BIN_NAME}"
+    - chmod 755 "${RELEASE_BIN_NAME}"
     # Create the new release.
-    - ./release-cli-linux-amd64 create
+    - ./${RELEASE_BIN_NAME} create
       --name "${CURRENT_VERSION}"
       --description "${RELEASE_DESCRIPTION}"
       --tag-name "${NEW_TAG}"
@@ -218,9 +220,10 @@ bin-crates-io-publishing:
     # Generate the release description.
     - RELEASE_DESCRIPTION=$(./git-cliff-0.4.0/git-cliff ${LATEST_TAG}.. --tag "${NEW_TAG}" --strip all --commit-path "${BIN_DIRECTORY}/")
     # Install GitlabCI cli releasing tool.
-    - wget "https://release-cli-downloads.s3.amazonaws.com/latest/release-cli-linux-amd64"
+    - wget "https://release-cli-downloads.s3.amazonaws.com/latest/${RELEASE_BIN_NAME}"
+    - chmod 755 "${RELEASE_BIN_NAME}"
     # Create the new release.
-    - ./release-cli-linux-amd64 create
+    - ./${RELEASE_BIN_NAME} create
       --name "${CURRENT_VERSION}"
       --description "${RELEASE_DESCRIPTION}"
       --tag-name "${NEW_TAG}"
