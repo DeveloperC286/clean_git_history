@@ -183,10 +183,10 @@ lib-crates-io-publishing:
     # Changing back into base repository to generate changelog.
     - cd ..
     # Install release description generator.
-    - wget "https://github.com/orhun/git-cliff/releases/download/v0.4.0/git-cliff-0.4.0-x86_64-unknown-linux-musl.tar.gz"
-    - tar xzvf git-cliff-0.4.0-x86_64-unknown-linux-musl.tar.gz
+    - wget "https://github.com/orhun/git-cliff/releases/download/v0.4.2/git-cliff-0.4.2-x86_64-unknown-linux-musl.tar.gz"
+    - tar xzvf git-cliff-0.4.2-x86_64-unknown-linux-musl.tar.gz
     # Generate the release description.
-    - RELEASE_DESCRIPTION=$(./git-cliff-0.4.0/git-cliff ${LATEST_TAG}.. --tag "${NEW_TAG}" --strip all --commit-path "${LIB_DIRECTORY}/")
+    - RELEASE_DESCRIPTION=$(./git-cliff-0.4.2/git-cliff ${LATEST_TAG}.. --tag "${NEW_TAG}" --strip all --commit-path "${LIB_DIRECTORY}/")
     # Install GitlabCI cli releasing tool.
     - wget "https://release-cli-downloads.s3.amazonaws.com/latest/${RELEASE_BIN_NAME}"
     - chmod 755 "${RELEASE_BIN_NAME}"
@@ -217,10 +217,10 @@ bin-crates-io-publishing:
     # Changing back into base repository to generate changelog.
     - cd ..
     # Install release description generator.
-    - wget "https://github.com/orhun/git-cliff/releases/download/v0.4.0/git-cliff-0.4.0-x86_64-unknown-linux-musl.tar.gz"
-    - tar xzvf git-cliff-0.4.0-x86_64-unknown-linux-musl.tar.gz
+    - wget "https://github.com/orhun/git-cliff/releases/download/v0.4.2/git-cliff-0.4.2-x86_64-unknown-linux-musl.tar.gz"
+    - tar xzvf git-cliff-0.4.2-x86_64-unknown-linux-musl.tar.gz
     # Generate the release description.
-    - RELEASE_DESCRIPTION=$(./git-cliff-0.4.0/git-cliff ${LATEST_TAG}.. --tag "${NEW_TAG}" --strip all --commit-path "${BIN_DIRECTORY}/")
+    - RELEASE_DESCRIPTION=$(./git-cliff-0.4.2/git-cliff ${LATEST_TAG}.. --tag "${NEW_TAG}" --strip all --commit-path "${BIN_DIRECTORY}/")
     # Install GitlabCI cli releasing tool.
     - wget "https://release-cli-downloads.s3.amazonaws.com/latest/${RELEASE_BIN_NAME}"
     - chmod 755 "${RELEASE_BIN_NAME}"
