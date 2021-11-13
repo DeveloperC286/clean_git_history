@@ -55,10 +55,8 @@ bin-conventional-commits-next-version-checking:
   before_script:
     - cargo install conventional_commits_next_version
   script:
-    - cd "${BIN_DIRECTORY}"
     # Get current version.
-    - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" Cargo.toml | cut -d '"' -f 2)
-    - cd ..
+    - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" "${BIN_DIRECTORY}/Cargo.toml" | cut -d '"' -f 2)
     # Get latest tag.
     - LATEST_TAG=$(git tag --sort=-committerdate | grep "${BIN_TAG_REGEX}" | head -1)
     - LATEST_VERSION=$(echo "${LATEST_TAG}" | cut -d '-' -f 2)
@@ -74,10 +72,8 @@ lib-conventional-commits-next-version-checking:
   before_script:
     - cargo install conventional_commits_next_version
   script:
-    - cd "${LIB_DIRECTORY}"
     # Get current version.
-    - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" Cargo.toml | cut -d '"' -f 2)
-    - cd ..
+    - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" "${LIB_DIRECTORY}/Cargo.toml" | cut -d '"' -f 2)
     # Get latest tag.
     - LATEST_TAG=$(git tag --sort=-committerdate | grep "${LIB_TAG_REGEX}" | head -1)
     - LATEST_VERSION=$(echo "${LATEST_TAG}" | cut -d '-' -f 2)
@@ -170,18 +166,15 @@ lib-crates-io-publishing:
   stage: lib-crates-io-publishing
   image: rust
   script:
-    - cd "${LIB_DIRECTORY}"
     # Get current version.
-    - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" Cargo.toml | cut -d '"' -f 2)
+    - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" "${LIB_DIRECTORY}/Cargo.toml" | cut -d '"' -f 2)
     # If the tag already exist then exit.
     - NEW_TAG=${LIB_TAG_PREFIX}${CURRENT_VERSION}
     - git tag -l | grep "^${NEW_TAG}$" && exit 0
     # Get latest tag.
     - LATEST_TAG=$(git tag --sort=-committerdate | grep "${LIB_TAG_REGEX}" | head -1)
     # Publish the crate.
-    - cargo publish --token "${GITLAB_CRATES_IO_TOKEN}"
-    # Changing back into base repository to generate changelog.
-    - cd ..
+    - cargo publish --manifest-path "${LIB_DIRECTORY}/Cargo.toml" --token "${GITLAB_CRATES_IO_TOKEN}"
     # Install release description generator.
     - wget "https://github.com/orhun/git-cliff/releases/download/v0.4.2/git-cliff-0.4.2-x86_64-unknown-linux-musl.tar.gz"
     - tar xzvf git-cliff-0.4.2-x86_64-unknown-linux-musl.tar.gz
@@ -204,18 +197,15 @@ bin-crates-io-publishing:
   stage: bin-crates-io-publishing
   image: rust
   script:
-    - cd ${BIN_DIRECTORY}
     # Get current version.
-    - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" Cargo.toml | cut -d '"' -f 2)
+    - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" "${BIN_DIRECTORY}/Cargo.toml" | cut -d '"' -f 2)
     # If the tag already exist then exit.
     - NEW_TAG=${BIN_TAG_PREFIX}${CURRENT_VERSION}
     - git tag -l | grep "^${NEW_TAG}$" && exit 0
     # Get latest tag.
     - LATEST_TAG=$(git tag --sort=-committerdate | grep "${BIN_TAG_REGEX}" | head -1)
     # Publish the crate.
-    - cargo publish --token "${GITLAB_CRATES_IO_TOKEN}"
-    # Changing back into base repository to generate changelog.
-    - cd ..
+    - cargo publish --manifest-path "${BIN_DIRECTORY}/Cargo.toml" --token "${GITLAB_CRATES_IO_TOKEN}"
     # Install release description generator.
     - wget "https://github.com/orhun/git-cliff/releases/download/v0.4.2/git-cliff-0.4.2-x86_64-unknown-linux-musl.tar.gz"
     - tar xzvf git-cliff-0.4.2-x86_64-unknown-linux-musl.tar.gz
@@ -230,7 +220,7 @@ bin-crates-io-publishing:
       --description "${RELEASE_DESCRIPTION}"
       --tag-name "${NEW_TAG}"
       --ref "${CI_COMMIT_SHA}"
-      --assets-link '{"name":"x86_64-linux-musl-binary.zip","url":"https://gitlab.com/DeveloperC/conventional_commits_next_version/-/jobs/artifacts/'${CURRENT_VERSION}'/download?job=release-binary-compiling-x86_64-linux-musl"}'
+      --assets-link '{"name":"x86_64-linux-musl-binary.zip","url":"https://gitlab.com/DeveloperC/'${BIN_NAME}'/-/jobs/artifacts/'${CURRENT_VERSION}'/download?job=release-binary-compiling-x86_64-linux-musl"}'
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
 
