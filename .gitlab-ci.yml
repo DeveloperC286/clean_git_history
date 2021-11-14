@@ -232,6 +232,8 @@ release-binary-compiling-x86_64-linux-musl:
     - apk add --no-cache musl-dev git
   script:
     - cargo build --release --target x86_64-unknown-linux-musl
+    # Delete the directory so we can use the name for the binary.
+    - rm -rf "${BIN_NAME}"
     - mv "target/x86_64-unknown-linux-musl/release/${BIN_NAME}" "${BIN_NAME}"
     - strip "${BIN_NAME}"
   artifacts:
