@@ -6,7 +6,7 @@ pub(super) struct Commit {
 }
 
 impl Commit {
-    pub(super) fn new(repository: &Repository, oid: Oid) -> Result<Self, git2::Error> {
+    pub(super) fn from_git(repository: &Repository, oid: Oid) -> Result<Self, git2::Error> {
         let commit = repository.find_commit(oid)?;
         let number_of_parents = commit.parents().len();
         trace!(

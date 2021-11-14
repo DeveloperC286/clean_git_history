@@ -120,7 +120,7 @@ fn get_commits_till_head_from_oid(
     for commit in revwalker {
         let oid = commit?;
 
-        match Commit::new(repository, oid) {
+        match Commit::from_git(repository, oid) {
             Ok(commit) => commits.push_front(commit),
             Err(error) => {
                 error!("Can not find a commit with the hash '{}'.", oid);
