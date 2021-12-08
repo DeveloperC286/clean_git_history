@@ -4,8 +4,9 @@
 #[macro_use]
 extern crate log;
 
-use git2::{Oid, Repository, Revwalk};
 use std::collections::VecDeque;
+
+use git2::{Oid, Repository, Revwalk};
 
 use crate::commit::Commit;
 

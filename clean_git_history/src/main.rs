@@ -2,9 +2,10 @@
 extern crate log;
 extern crate pretty_env_logger;
 
+use std::process::exit;
+
 use clean_git_history_lib::Commits;
 use git2::Repository;
-use std::process::exit;
 use structopt::StructOpt;
 
 mod cli;
