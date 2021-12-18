@@ -12,8 +12,8 @@ categories = ["development-tools"]
 
 
 [dependencies]
-# Logging
+# For logging.
 log = "0.4.14"
 
-# Reading commits
-git2 = { version = "0.13.23", default-features = false, features=[] }
+# For reading Git commits.
+git2 = { version = "0.13.25", default-features = false, features=[] }
