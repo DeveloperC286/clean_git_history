@@ -23,6 +23,7 @@ variables:
   END_TO_END_TESTS_DIRECTORY: "${BIN_DIRECTORY}/end-to-end-tests"
   BIN_NAME: "clean_git_history"
   RELEASE_BIN_NAME: "release-cli-linux-amd64"
+  GIT_CLIFF_VERSION: "0.5.0"
 
 
 clean-git-history-checking:
@@ -176,10 +177,10 @@ lib-crates-io-publishing:
     # Publish the crate.
     - cargo publish --manifest-path "${LIB_DIRECTORY}/Cargo.toml" --token "${GITLAB_CRATES_IO_TOKEN}"
     # Install release description generator.
-    - wget "https://github.com/orhun/git-cliff/releases/download/v0.4.2/git-cliff-0.4.2-x86_64-unknown-linux-musl.tar.gz"
-    - tar xzvf git-cliff-0.4.2-x86_64-unknown-linux-musl.tar.gz
+    - wget "https://github.com/orhun/git-cliff/releases/download/v${GIT_CLIFF_VERSION}/git-cliff-${GIT_CLIFF_VERSION}-x86_64-unknown-linux-musl.tar.gz"
+    - tar xzvf "git-cliff-${GIT_CLIFF_VERSION}-x86_64-unknown-linux-musl.tar.gz"
     # Generate the release description.
-    - RELEASE_DESCRIPTION=$(./git-cliff-0.4.2/git-cliff ${LATEST_TAG}.. --tag "${NEW_TAG}" --strip all --commit-path "${LIB_DIRECTORY}/")
+    - RELEASE_DESCRIPTION=$(./git-cliff-${GIT_CLIFF_VERSION}/git-cliff "${LATEST_TAG}.." --tag "${NEW_TAG}" --strip all --include-path "${LIB_DIRECTORY}/*")
     # Install GitlabCI cli releasing tool.
     - wget "https://release-cli-downloads.s3.amazonaws.com/latest/${RELEASE_BIN_NAME}"
     - chmod 755 "${RELEASE_BIN_NAME}"
@@ -207,10 +208,10 @@ bin-crates-io-publishing:
     # Publish the crate.
     - cargo publish --manifest-path "${BIN_DIRECTORY}/Cargo.toml" --token "${GITLAB_CRATES_IO_TOKEN}"
     # Install release description generator.
-    - wget "https://github.com/orhun/git-cliff/releases/download/v0.4.2/git-cliff-0.4.2-x86_64-unknown-linux-musl.tar.gz"
-    - tar xzvf git-cliff-0.4.2-x86_64-unknown-linux-musl.tar.gz
+    - wget "https://github.com/orhun/git-cliff/releases/download/v${GIT_CLIFF_VERSION}/git-cliff-${GIT_CLIFF_VERSION}-x86_64-unknown-linux-musl.tar.gz"
+    - tar xzvf "git-cliff-${GIT_CLIFF_VERSION}-x86_64-unknown-linux-musl.tar.gz"
     # Generate the release description.
-    - RELEASE_DESCRIPTION=$(./git-cliff-0.4.2/git-cliff ${LATEST_TAG}.. --tag "${NEW_TAG}" --strip all --commit-path "${BIN_DIRECTORY}/")
+    - RELEASE_DESCRIPTION=$(./git-cliff-${GIT_CLIFF_VERSION}/git-cliff "${LATEST_TAG}.." --tag "${NEW_TAG}" --strip all --include-path "${BIN_DIRECTORY}/*")
     # Install GitlabCI cli releasing tool.
     - wget "https://release-cli-downloads.s3.amazonaws.com/latest/${RELEASE_BIN_NAME}"
     - chmod 755 "${RELEASE_BIN_NAME}"
