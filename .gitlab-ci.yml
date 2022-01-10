@@ -57,12 +57,12 @@ bin-conventional-commits-next-version-checking:
     - cargo install conventional_commits_next_version
   script:
     # Get current version.
-    - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" "${BIN_DIRECTORY}/Cargo.toml" | cut -d '"' -f 2)
+    - current_version=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" "${BIN_DIRECTORY}/Cargo.toml" | cut -d '"' -f 2)
     # Get latest tag.
-    - LATEST_TAG=$(git tag --sort=-committerdate | grep "${BIN_TAG_REGEX}" | head -1)
-    - LATEST_VERSION=$(echo "${LATEST_TAG}" | cut -d '-' -f 2)
+    - latest_tag=$(git tag --sort=-committerdate | grep "${BIN_TAG_REGEX}" | head -1)
+    - latest_version=$(echo "${latest_tag}" | cut -d '-' -f 2)
     # Check current vs expected.
-    - /usr/local/cargo/bin/conventional_commits_next_version --batch-commits --from-reference "${LATEST_TAG}" --from-version "${LATEST_VERSION}" --current-version "${CURRENT_VERSION}" --monorepo "${BIN_DIRECTORY}/"
+    - /usr/local/cargo/bin/conventional_commits_next_version --batch-commits --from-reference "${latest_tag}" --from-version "${latest_version}" --current-version "${current_version}" --monorepo "${BIN_DIRECTORY}/"
   rules:
     - if: $CI_MERGE_REQUEST_ID
 
@@ -74,12 +74,12 @@ lib-conventional-commits-next-version-checking:
     - cargo install conventional_commits_next_version
   script:
     # Get current version.
-    - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" "${LIB_DIRECTORY}/Cargo.toml" | cut -d '"' -f 2)
+    - current_version=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" "${LIB_DIRECTORY}/Cargo.toml" | cut -d '"' -f 2)
     # Get latest tag.
-    - LATEST_TAG=$(git tag --sort=-committerdate | grep "${LIB_TAG_REGEX}" | head -1)
-    - LATEST_VERSION=$(echo "${LATEST_TAG}" | cut -d '-' -f 2)
+    - latest_tag=$(git tag --sort=-committerdate | grep "${LIB_TAG_REGEX}" | head -1)
+    - latest_version=$(echo "${latest_tag}" | cut -d '-' -f 2)
     # Check current vs expected.
-    - /usr/local/cargo/bin/conventional_commits_next_version --batch-commits --from-reference "${LATEST_TAG}" --from-version "${LATEST_VERSION}" --current-version "${CURRENT_VERSION}" --monorepo "${LIB_DIRECTORY}/"
+    - /usr/local/cargo/bin/conventional_commits_next_version --batch-commits --from-reference "${latest_tag}" --from-version "${latest_version}" --current-version "${current_version}" --monorepo "${LIB_DIRECTORY}/"
   rules:
     - if: $CI_MERGE_REQUEST_ID
 
