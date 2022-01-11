@@ -1,5 +1,9 @@
 # Clean Git History
-[![crates.io](https://img.shields.io/crates/v/clean_git_history)](https://crates.io/crates/clean_git_history) [![pipeline status](https://gitlab.com/DeveloperC/clean_git_history/badges/main/pipeline.svg)](https://gitlab.com/DeveloperC/clean_git_history/-/commits/main) [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![License: AGPL v3](https://img.shields.io/badge/License-AGPLv3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+[![crates.io](https://img.shields.io/crates/v/clean_git_history)](https://crates.io/crates/clean_git_history)
+[![pipeline status](https://gitlab.com/DeveloperC/clean_git_history/badges/main/pipeline.svg)](https://gitlab.com/DeveloperC/clean_git_history/-/commits/main)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPLv3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+
 
 A Git history linter to ensure it stays clean for those who prefer rebasing and fast-forwarding compared to merge and squash commits.
 
@@ -63,7 +67,7 @@ clean-git-history-checking:
     - cargo install clean_git_history --version ^0
   script:
     # Check all the commits in the branch.
-    - /usr/local/cargo/bin/clean_git_history --from-reference "origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
+    - /usr/local/cargo/bin/clean_git_history --from-reference "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"
   rules:
     - if: $CI_MERGE_REQUEST_ID
 ```
@@ -81,7 +85,7 @@ clean-git-history-checking:
     - wget -q -O tmp.zip "https://gitlab.com/DeveloperC/clean_git_history/-/jobs/artifacts/0.1.1/download?job=release-binary-compiling-x86_64-linux-musl" && unzip tmp.zip && rm tmp.zip
   script:
     # Check all the commits in the branch.
-    - ./clean_git_history --from-reference "origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
+    - ./clean_git_history --from-reference "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"
   rules:
     - if: $CI_MERGE_REQUEST_ID
 ```
@@ -97,7 +101,7 @@ set -o errexit
 set -o pipefail
 
 root_commit_hash=$(git rev-list --max-parents=0 HEAD)
-"/home/${USER}/.cargo/bin/clean_git_history"  --from-commit-hash "$root_commit_hash"
+"${HOME}/.cargo/bin/clean_git_history"  --from-commit-hash "$root_commit_hash"
 ```
 
 
@@ -122,7 +126,7 @@ The compiled binary is present in `target/release/clean_git_history`.
 
 
 ## Compiling via Cargo
-Cargo is the Rust package manager, the `install` sub-command pulls from [crates.io](https://crates.io/crates/clean_git_history) and then compiles the binary locally, placing the compiled binary at `$HOME/.cargo/bin/clean_git_history`.
+Cargo is the Rust package manager, the `install` sub-command pulls from [crates.io](https://crates.io/crates/clean_git_history) and then compiles the binary locally, placing the compiled binary at `${HOME}/.cargo/bin/clean_git_history`.
 
 ```
 cargo install clean_git_history
