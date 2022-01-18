@@ -168,27 +168,27 @@ lib-crates-io-publishing:
   image: rust
   script:
     # Get current version.
-    - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" "${LIB_DIRECTORY}/Cargo.toml" | cut -d '"' -f 2)
+    - current_version=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" "${LIB_DIRECTORY}/Cargo.toml" | cut -d '"' -f 2)
     # If the tag already exist then exit.
-    - NEW_TAG=${LIB_TAG_PREFIX}${CURRENT_VERSION}
-    - git tag -l | grep "^${NEW_TAG}$" && exit 0
+    - new_tag="${LIB_TAG_PREFIX}${current_version}"
+    - git tag -l | grep -q "^${new_tag}$" && exit 0
     # Get latest tag.
-    - LATEST_TAG=$(git tag --sort=-committerdate | grep "${LIB_TAG_REGEX}" | head -1)
+    - latest_tag=$(git tag --sort=-committerdate | grep "${LIB_TAG_REGEX}" | head -1)
     # Publish the crate.
     - cargo publish --manifest-path "${LIB_DIRECTORY}/Cargo.toml" --token "${GITLAB_CRATES_IO_TOKEN}"
     # Install release description generator.
     - wget "https://github.com/orhun/git-cliff/releases/download/v${GIT_CLIFF_VERSION}/git-cliff-${GIT_CLIFF_VERSION}-x86_64-unknown-linux-musl.tar.gz"
     - tar xzvf "git-cliff-${GIT_CLIFF_VERSION}-x86_64-unknown-linux-musl.tar.gz"
     # Generate the release description.
-    - RELEASE_DESCRIPTION=$(./git-cliff-${GIT_CLIFF_VERSION}/git-cliff "${LATEST_TAG}.." --tag "${NEW_TAG}" --strip all --include-path "${LIB_DIRECTORY}/*")
+    - release_description=$(./git-cliff-${GIT_CLIFF_VERSION}/git-cliff "${latest_tag}.." --tag "${new_tag}" --strip all --include-path "${LIB_DIRECTORY}/*")
     # Install GitlabCI cli releasing tool.
     - wget "https://release-cli-downloads.s3.amazonaws.com/latest/${RELEASE_BIN_NAME}"
     - chmod 755 "${RELEASE_BIN_NAME}"
     # Create the new release.
     - ./${RELEASE_BIN_NAME} create
-      --name "${CURRENT_VERSION}"
-      --description "${RELEASE_DESCRIPTION}"
-      --tag-name "${NEW_TAG}"
+      --name "${new_tag}"
+      --description "${release_description}"
+      --tag-name "${new_tag}"
       --ref "${CI_COMMIT_SHA}"
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
@@ -199,29 +199,29 @@ bin-crates-io-publishing:
   image: rust
   script:
     # Get current version.
-    - CURRENT_VERSION=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" "${BIN_DIRECTORY}/Cargo.toml" | cut -d '"' -f 2)
+    - current_version=$(grep "^version = \"${SEMANTIC_VERSIONING_REGEX}\"$" "${BIN_DIRECTORY}/Cargo.toml" | cut -d '"' -f 2)
     # If the tag already exist then exit.
-    - NEW_TAG=${BIN_TAG_PREFIX}${CURRENT_VERSION}
-    - git tag -l | grep "^${NEW_TAG}$" && exit 0
+    - new_tag="${BIN_TAG_PREFIX}${current_version}"
+    - git tag -l | grep -q "^${new_tag}$" && exit 0
     # Get latest tag.
-    - LATEST_TAG=$(git tag --sort=-committerdate | grep "${BIN_TAG_REGEX}" | head -1)
+    - latest_tag=$(git tag --sort=-committerdate | grep "${BIN_TAG_REGEX}" | head -1)
     # Publish the crate.
     - cargo publish --manifest-path "${BIN_DIRECTORY}/Cargo.toml" --token "${GITLAB_CRATES_IO_TOKEN}"
     # Install release description generator.
     - wget "https://github.com/orhun/git-cliff/releases/download/v${GIT_CLIFF_VERSION}/git-cliff-${GIT_CLIFF_VERSION}-x86_64-unknown-linux-musl.tar.gz"
     - tar xzvf "git-cliff-${GIT_CLIFF_VERSION}-x86_64-unknown-linux-musl.tar.gz"
     # Generate the release description.
-    - RELEASE_DESCRIPTION=$(./git-cliff-${GIT_CLIFF_VERSION}/git-cliff "${LATEST_TAG}.." --tag "${NEW_TAG}" --strip all --include-path "${BIN_DIRECTORY}/*")
+    - release_description=$(./git-cliff-${GIT_CLIFF_VERSION}/git-cliff "${latest_tag}.." --tag "${new_tag}" --strip all --include-path "${BIN_DIRECTORY}/*")
     # Install GitlabCI cli releasing tool.
     - wget "https://release-cli-downloads.s3.amazonaws.com/latest/${RELEASE_BIN_NAME}"
     - chmod 755 "${RELEASE_BIN_NAME}"
     # Create the new release.
     - ./${RELEASE_BIN_NAME} create
-      --name "${CURRENT_VERSION}"
-      --description "${RELEASE_DESCRIPTION}"
-      --tag-name "${NEW_TAG}"
+      --name "${new_tag}"
+      --description "${release_description}"
+      --tag-name "${new_tag}"
       --ref "${CI_COMMIT_SHA}"
-      --assets-link '{"name":"x86_64-linux-musl-binary.zip","url":"https://gitlab.com/DeveloperC/'${BIN_NAME}'/-/jobs/artifacts/'${CURRENT_VERSION}'/download?job=release-binary-compiling-x86_64-linux-musl"}'
+      --assets-link '{"name":"x86_64-linux-musl-binary.zip","url":"https://gitlab.com/DeveloperC/'${BIN_NAME}'/-/jobs/artifacts/'${current_version}'/download?job=release-binary-compiling-x86_64-linux-musl"}'
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
 
