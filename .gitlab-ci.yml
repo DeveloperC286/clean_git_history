@@ -22,7 +22,7 @@ variables:
   LIB_DIRECTORY: "clean_git_history_lib"
   END_TO_END_TESTS_DIRECTORY: "${BIN_DIRECTORY}/end-to-end-tests"
   BIN_NAME: "clean_git_history"
-  RELEASE_BIN_NAME: "release-cli-linux-amd64"
+  RELEASE_CLI: "release-cli-linux-amd64"
   GIT_CLIFF_VERSION: "0.5.0"
 
 
@@ -182,10 +182,10 @@ lib-crates-io-publishing:
     # Generate the release description.
     - release_description=$(./git-cliff-${GIT_CLIFF_VERSION}/git-cliff "${latest_tag}.." --tag "${new_tag}" --strip all --include-path "${LIB_DIRECTORY}/*")
     # Install GitlabCI cli releasing tool.
-    - wget "https://release-cli-downloads.s3.amazonaws.com/latest/${RELEASE_BIN_NAME}"
-    - chmod 755 "${RELEASE_BIN_NAME}"
+    - wget "https://release-cli-downloads.s3.amazonaws.com/latest/${RELEASE_CLI}"
+    - chmod 755 "${RELEASE_CLI}"
     # Create the new release.
-    - ./${RELEASE_BIN_NAME} create
+    - ./${RELEASE_CLI} create
       --name "${new_tag}"
       --description "${release_description}"
       --tag-name "${new_tag}"
@@ -213,10 +213,10 @@ bin-crates-io-publishing:
     # Generate the release description.
     - release_description=$(./git-cliff-${GIT_CLIFF_VERSION}/git-cliff "${latest_tag}.." --tag "${new_tag}" --strip all --include-path "${BIN_DIRECTORY}/*")
     # Install GitlabCI cli releasing tool.
-    - wget "https://release-cli-downloads.s3.amazonaws.com/latest/${RELEASE_BIN_NAME}"
-    - chmod 755 "${RELEASE_BIN_NAME}"
+    - wget "https://release-cli-downloads.s3.amazonaws.com/latest/${RELEASE_CLI}"
+    - chmod 755 "${RELEASE_CLI}"
     # Create the new release.
-    - ./${RELEASE_BIN_NAME} create
+    - ./${RELEASE_CLI} create
       --name "${new_tag}"
       --description "${release_description}"
       --tag-name "${new_tag}"
