@@ -1,6 +1,6 @@
 use std::collections::VecDeque;
 
-use crate::commit::Commit;
+use crate::commits::commit::Commit;
 use crate::Commits;
 
 #[test]
