@@ -44,3 +44,8 @@ def clone_remote_repository_and_checkout_commit(
     assert exit_code == 0
 
     os.chdir(context.behave_directory)
+
+
+@given('the GIT_DIR environment variable is set to the cloned repository.')
+def set_git_dir(context):
+    os.environ["GIT_DIR"] = str(context.remote_repository_cache + "/.git")
