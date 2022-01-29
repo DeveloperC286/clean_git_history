@@ -1,5 +1,5 @@
 import os
-import tempfile
+import hashlib
 from behave import given
 
 from utilities import execute_command
@@ -12,7 +12,6 @@ def reset_arguments(context):
 
 def reset_context(context):
     context.behave_directory = os.getcwd()
-    context.temporary_directory = tempfile.TemporaryDirectory()
 
     context.pre_command = ""
     context.clean_git_history_path = context.behave_directory + \
@@ -28,10 +27,19 @@ def clone_remote_repository_and_checkout_commit(
         context, remote_repository, commit_hash):
     reset_context(context)
 
-    os.chdir(context.temporary_directory.name)
-    (exit_code, _, _) = execute_command(
-        "git clone " + remote_repository + " .")
+    remote_repository_md5 = hashlib.md5(remote_repository.encode())
+    context.remote_repository_cache = "/tmp/" + remote_repository_md5.hexdigest()
+
+    if not os.path.exists(context.remote_repository_cache):
+        (exit_code, _, _) = execute_command("git clone " +
+                                            remote_repository + " " + context.remote_repository_cache)
+        assert exit_code == 0
+
+    os.chdir(context.remote_repository_cache)
+
+    (exit_code, _, _) = execute_command("git reset --hard origin/HEAD")
     assert exit_code == 0
+
     (exit_code, _, _) = execute_command("git checkout " + commit_hash)
     assert exit_code == 0
 
