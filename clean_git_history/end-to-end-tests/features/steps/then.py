@@ -30,12 +30,10 @@ def then_could_not_find_commit_hash(context, commit_hash):
     # Given
     could_not_find_commit_hash_error = " ERROR clean_git_history_lib::commits > Can not find a commit with the hash '" + commit_hash + "'.\n"
 
-    # When
-    execute_clean_git_history(context)
+    # When/Then
+    git_history_is_not_clean(context)
 
     # Then
-    assert context.stdout == ""
-    assert int(context.exit_code) != 0
     assert context.stderr == could_not_find_commit_hash_error
 
 
@@ -45,11 +43,10 @@ def then_could_not_find_reference(context, reference):
     could_not_find_reference_error = " ERROR clean_git_history_lib::commits > Could not find a reference with the name \"" + \
                                      reference + "\".\n"
 
-    # When
-    execute_clean_git_history(context)
+    # When/Then
+    git_history_is_not_clean(context)
+
     # Then
-    assert context.stdout == ""
-    assert int(context.exit_code) != 0
     assert context.stderr == could_not_find_reference_error
 
 
@@ -60,12 +57,10 @@ def then_could_not_find_shortened_commit_hash(context, shortened_commit_hash):
     could_not_find_shortened_commit_hash = " ERROR clean_git_history_lib::commits > No actual commit hashes start with the provided short commit hash \"" + \
         shortened_commit_hash + "\".\n"
 
-    # When
-    execute_clean_git_history(context)
+    # When/Then
+    git_history_is_not_clean(context)
 
     # Then
-    assert context.stdout == ""
-    assert int(context.exit_code) != 0
     assert context.stderr == could_not_find_shortened_commit_hash
 
 
@@ -80,10 +75,8 @@ def then_could_not_find_shortened_commit_hash(context, shortened_commit_hash):
         shortened_commit_hash +
         '".\n$')
 
-    # When
-    execute_clean_git_history(context)
+    # When/Then
+    git_history_is_not_clean(context)
 
     # Then
-    assert context.stdout == ""
-    assert int(context.exit_code) != 0
     assert ambiguous_shortened_commit_hash.match(context.stderr) is not None
