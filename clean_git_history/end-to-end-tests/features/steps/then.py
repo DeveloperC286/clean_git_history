@@ -26,7 +26,7 @@ def git_history_is_not_clean(context):
 
 
 @then('their is a could not find commit hash "{commit_hash}" error.')
-def then_could_not_find_commit_hash(context, commit_hash):
+def then_could_not_find_commit_hash_error(context, commit_hash):
     # Given
     could_not_find_commit_hash_error = " ERROR clean_git_history_lib::commits > Can not find a commit with the hash '" + commit_hash + "'.\n"
 
@@ -38,7 +38,7 @@ def then_could_not_find_commit_hash(context, commit_hash):
 
 
 @then('their is a could not find reference "{reference}" error.')
-def then_could_not_find_reference(context, reference):
+def then_could_not_find_reference_error(context, reference):
     # Given
     could_not_find_reference_error = " ERROR clean_git_history_lib::commits > Could not find a reference with the name \"" + \
                                      reference + "\".\n"
@@ -52,7 +52,8 @@ def then_could_not_find_reference(context, reference):
 
 @then(
     'their is a could not find shortened commit hash "{shortened_commit_hash}" error.')
-def then_could_not_find_shortened_commit_hash(context, shortened_commit_hash):
+def then_could_not_find_shortened_commit_hash_error(
+        context, shortened_commit_hash):
     # Given
     could_not_find_shortened_commit_hash_error = " ERROR clean_git_history_lib::commits > No actual commit hashes start with the provided short commit hash \"" + \
         shortened_commit_hash + "\".\n"
@@ -66,7 +67,7 @@ def then_could_not_find_shortened_commit_hash(context, shortened_commit_hash):
 
 @then(
     'their is a ambiguous shortened commit hash "{shortened_commit_hash}" error.')
-def then_ambiguous_shortened_commit_hash(context, shortened_commit_hash):
+def then_ambiguous_shortened_commit_hash_error(context, shortened_commit_hash):
     # Given
     ambiguous_shortened_commit_hash_error = re.compile(
         '^ ERROR clean_git_history_lib::commits > Ambiguous short commit hash, the commit hashes [[](' +
