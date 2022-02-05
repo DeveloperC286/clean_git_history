@@ -100,7 +100,25 @@ def then_conflicting_from_arguments_error(context):
     git_history_is_not_clean(context)
 
     # Then
-    print(context.stderr)
     assert context.stderr in [
         conflicting_from_commit_hash_error,
         conflicting_from_reference_error]
+
+
+@then('their is a missing from argument error.')
+def then_missing_from_argument_error(context):
+    # Given
+    missing_from_argument_error = "error: The following required arguments were not provided:\n" + \
+                                  "    <--from-commit-hash <from-commit-hash>|--from-reference <from-reference>>\n" + \
+                                  "\n" + \
+                                  "USAGE:\n" + \
+                                  "    clean_git_history [FLAGS] [OPTIONS] <--from-commit-hash <from-commit-hash>|--from-reference <from-reference>>\n" + \
+                                  "\n" + \
+                                  "For more information try --help\n"
+
+    # When/Then
+    git_history_is_not_clean(context)
+
+    print(context.stderr)
+    # Then
+    assert context.stderr == missing_from_argument_error
