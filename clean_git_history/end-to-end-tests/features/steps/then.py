@@ -82,3 +82,25 @@ def then_ambiguous_shortened_commit_hash_error(context, shortened_commit_hash):
     # Then
     assert ambiguous_shortened_commit_hash_error.match(
         context.stderr) is not None
+
+
+@then('their is a conflicting from arguments error.')
+def then_conflicting_from_arguments_error(context):
+    # Given
+    conflicting_arguments_end = "\n" + \
+        "USAGE:\n" + \
+        "    clean_git_history <--from-commit-hash <from-commit-hash>|--from-reference <from-reference>>\n" + \
+        "\n" + \
+        "For more information try --help\n"
+
+    conflicting_from_commit_hash_error = "error: The argument '--from-commit-hash <from-commit-hash>' cannot be used with one or more of the other specified arguments\n" + conflicting_arguments_end
+    conflicting_from_reference_error = "error: The argument '--from-reference <from-reference>' cannot be used with one or more of the other specified arguments\n" + conflicting_arguments_end
+
+    # When/Then
+    git_history_is_not_clean(context)
+
+    # Then
+    print(context.stderr)
+    assert context.stderr in [
+        conflicting_from_commit_hash_error,
+        conflicting_from_reference_error]
