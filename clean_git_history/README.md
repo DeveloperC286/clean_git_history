@@ -22,6 +22,7 @@ A Git history linter to ensure it stays clean for those who prefer rebasing and 
  * [Compiling via Local Repository](#compiling-via-local-repository)
  * [Compiling via Cargo](#compiling-via-cargo)
  * [Unit Testing](#unit-testing)
+ * [End-to-End Testing](#end-to-end-testing)
  * [Issues/Feature Requests](#issuesfeature-requests)
 
 
@@ -158,6 +159,22 @@ The unit test suite has several parameterised tests, Cargo is used to set up and
 
 ```
 cargo test
+```
+
+
+## End-to-End Testing
+To ensure correctness as there are a variety of out of process dependencies the project has an End-to-End behaviour driven test suite using the behave framework (https://github.com/behave/behave).
+To run the test suite you need to first build a binary, install Python3, install behave and then execute behave to run the behaviour driven test suite.
+
+__Note - You can't use --release as the test suite uses `target/debug/clean_git_history`.__
+
+```
+cargo build
+cd clean_git_history/end-to-end-tests/
+virtualenv -p python3 .venv
+source .venv/bin/activate
+pip3 install -r requirements.txt
+behave
 ```
 
 
