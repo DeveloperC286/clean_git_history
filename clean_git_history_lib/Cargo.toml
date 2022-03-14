@@ -8,7 +8,7 @@ license = "AGPL-3.0"
 repository = "https://gitlab.com/DeveloperC/clean_git_history"
 readme = "README.md"
 keywords = ["clean", "history", "lint", "linting", "git"]
-categories = ["development-tools"]
+categories = ["development-tools", "parsing", "parser-implementations", "text-processing", "config"]
 
 
 [dependencies]
