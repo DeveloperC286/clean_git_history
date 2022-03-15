@@ -23,7 +23,7 @@ Feature: A Git commit hash can be provided as an argument to indicate where to s
       | https://github.com/HashLips/generative-art-opensource | 2d74294cc7d187262e9069c1f1189424642954e5 | 853a55fab4e139749e7b37eadad0d0e77b2c8605 |
 
 
-  Scenario Outline: When you provide a commit hash which does not exist a relevant error message is returned.
+  Scenario Outline: When you provide an invalid commit hash a relevant error message is returned.
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
     When the argument --from-commit-hash is provided as "<from_commit_hash>".
     Then their is a could not find commit hash "<from_commit_hash>" error.

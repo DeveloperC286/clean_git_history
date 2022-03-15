@@ -37,7 +37,7 @@ Feature: A Git reference can be provided as an argument to indicate where to sta
       | https://github.com/facebookexperimental/Recoil | 09cfcb94d11a3f334bd47f0e24125eee87e4febe | refs/tags/0.4.1     | tags/0.4.1               |
 
 
-  Scenario Outline: When you provide a reference which does not exist a relevant error message is returned.
+  Scenario Outline: When you provide an invalid reference a relevant error message is returned.
     Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
     When the argument --from-reference is provided as "<from_reference>".
     Then their is a could not find reference "<from_reference>" error.
