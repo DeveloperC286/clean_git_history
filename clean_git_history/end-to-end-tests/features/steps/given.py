@@ -14,8 +14,7 @@ def reset_context(context):
     context.behave_directory = os.getcwd()
 
     context.pre_command = ""
-    context.clean_git_history_path = context.behave_directory + \
-        "/../../target/debug/clean_git_history"
+    context.clean_git_history_path = f"{context.behave_directory}/../../target/debug/clean_git_history"
     reset_arguments(context)
 
     if "GIT_DIR" in os.environ:
@@ -28,11 +27,11 @@ def clone_remote_repository_and_checkout_commit(
     reset_context(context)
 
     remote_repository_md5 = hashlib.md5(remote_repository.encode())
-    context.remote_repository_cache = "/tmp/" + remote_repository_md5.hexdigest()
+    context.remote_repository_cache = f"/tmp/{remote_repository_md5.hexdigest()}"
 
     if not os.path.exists(context.remote_repository_cache):
-        (exit_code, _, _) = execute_command("git clone " +
-                                            remote_repository + " " + context.remote_repository_cache)
+        (exit_code, _, _) = execute_command(
+            f"git clone {remote_repository} {context.remote_repository_cache}")
         assert exit_code == 0
 
     os.chdir(context.remote_repository_cache)
@@ -43,7 +42,7 @@ def clone_remote_repository_and_checkout_commit(
     (exit_code, _, _) = execute_command("git clean -fdx")
     assert exit_code == 0
 
-    (exit_code, _, _) = execute_command("git checkout " + commit_hash)
+    (exit_code, _, _) = execute_command(f"git checkout {commit_hash}")
     assert exit_code == 0
 
     os.chdir(context.behave_directory)
