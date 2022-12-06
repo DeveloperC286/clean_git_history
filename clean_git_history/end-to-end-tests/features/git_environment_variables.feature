@@ -10,8 +10,8 @@ Feature: Git environment variables are respected and used instead of using the c
 
 
     Examples:
-      | repository                                   | checkout_commit                          | from_commit_hash                         |
-      | https://github.com/TheAlgorithms/C-Plus-Plus | f7d656cb17c8b355fa6a51e45a070cd6995ed110 | 47c84137eec683790faa494ac0068d7c9f88f8ff |
+      | repository                                  | checkout_commit                          | from_commit_hash                         |
+      | https://github.com/haunt98/changeloguru.git | a768f1329b07db76566e0aa3009182a42d2bfe01 | b9fec5dab92558351e69aaa8bc91bc0c76a5ffeb |
 
 
   Scenario Outline:
