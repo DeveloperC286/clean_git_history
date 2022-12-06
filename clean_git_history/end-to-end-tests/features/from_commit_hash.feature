@@ -19,8 +19,8 @@ Feature: A Git commit hash can be provided as an argument to indicate where to s
 
 
     Examples:
-      | repository                                            | checkout_commit                          | from_commit_hash                         |
-      | https://github.com/HashLips/generative-art-opensource | 2d74294cc7d187262e9069c1f1189424642954e5 | 853a55fab4e139749e7b37eadad0d0e77b2c8605 |
+      | repository                             | checkout_commit                          | from_commit_hash                         |
+      | https://github.com/asomers/mockall.git | 231bd5ff58ed4f9e99bba74f0239995942f8d29d | e02d8f08f8ab114c79a0e8cf5bd6de860f0f7c2e |
 
 
   Scenario Outline: When you provide an invalid commit hash a relevant error message is returned.
