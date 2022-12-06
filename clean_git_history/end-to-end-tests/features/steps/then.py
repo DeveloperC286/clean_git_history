@@ -2,6 +2,7 @@ import re
 from behave import then
 
 from utilities import execute_clean_git_history
+from assertions import assert_successful
 
 
 @then('the Git history is clean.')
@@ -12,7 +13,7 @@ def git_history_is_clean(context):
     # Then
     assert context.stdout == ""
     assert context.stderr == ""
-    assert int(context.exit_code) == 0
+    assert_successful(int(context.exit_code))
 
 
 @then('the Git history is not clean.')
