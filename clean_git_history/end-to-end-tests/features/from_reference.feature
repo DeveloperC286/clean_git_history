@@ -36,8 +36,8 @@ Feature: A Git reference can be provided as an argument to indicate where to sta
 
 
     Examples:
-      | repository                                     | checkout_commit                          | from_full_reference | from_partial_reference | from_short_reference |
-      | https://github.com/facebookexperimental/Recoil | 09cfcb94d11a3f334bd47f0e24125eee87e4febe | refs/tags/0.4.1     | tags/0.4.1             | 0.4.1                |
+      | repository                            | checkout_commit                          | from_full_reference | from_partial_reference | from_short_reference |
+      | https://github.com/la10736/rstest.git | 49409736065b43c01b3dcfdf2dc068c349c488a0 | refs/tags/0.16.0    | tags/0.16.0            | 0.16.0               |
 
 
   Scenario Outline: When you provide an invalid reference a relevant error message is returned.
