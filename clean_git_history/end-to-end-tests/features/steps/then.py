@@ -113,6 +113,5 @@ def then_missing_from_argument_error(context):
     # When/Then
     git_history_is_not_clean(context)
 
-    print(context.stderr)
     # Then
     assert context.stderr == missing_from_argument_error
