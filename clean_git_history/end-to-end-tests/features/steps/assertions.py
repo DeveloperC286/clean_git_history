@@ -12,3 +12,8 @@ def assert_empty(output):
 
 def assert_error(output, error):
     assert output == error, f"Expected the output to equal the error.\nOutput = {output.encode()}.\nError  = {error.encode()}."
+
+
+def assert_regex(output, regex):
+    assert regex.match(
+        output) is not None, f"Expected the output to match the regex.\nOutput = {output.encode()}.\nRegex  = {regex.pattern.encode()}."
