@@ -17,3 +17,7 @@ def assert_error(output, error):
 def assert_regex(output, regex):
     assert regex.match(
         output) is not None, f"Expected the output to match the regex.\nOutput = {output.encode()}.\nRegex  = {regex.pattern.encode()}.\n"
+
+
+def assert_in_errors(output, errors):
+    assert output in errors, f"Expected the output to match an error.\nOutput = {output.encode()}.\nErrors  = {errors}.\n"

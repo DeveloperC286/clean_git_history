@@ -94,9 +94,9 @@ def then_conflicting_from_arguments_error(context):
     git_history_is_not_clean(context)
 
     # Then
-    assert context.stderr in [
+    assert_in_errors(context.stderr, [
         conflicting_from_commit_hash_error,
-        conflicting_from_reference_error]
+        conflicting_from_reference_error])
 
 
 @then('their is a missing from argument error.')
