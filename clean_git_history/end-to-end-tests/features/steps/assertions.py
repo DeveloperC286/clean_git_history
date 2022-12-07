@@ -9,3 +9,6 @@ def assert_unsuccessful(exit_code):
 def assert_empty(output):
     assert output == "", f"Expected the output to be empty.\nOutput = {output.encode()}."
 
+
+def assert_error(output, error):
+    assert output == error, f"Expected the output to equal the error.\nOutput = {output.encode()}.\nError  = {error.encode()}."

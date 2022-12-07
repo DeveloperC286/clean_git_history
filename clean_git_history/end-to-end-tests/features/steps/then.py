@@ -2,7 +2,7 @@ import re
 from behave import then
 
 from utilities import execute_clean_git_history
-from assertions import assert_successful, assert_unsuccessful, assert_empty
+from assertions import *
 
 
 @then('the Git history is clean.')
@@ -35,7 +35,7 @@ def then_could_not_find_commit_hash_error(context, commit_hash):
     git_history_is_not_clean(context)
 
     # Then
-    assert context.stderr == could_not_find_commit_hash_error
+    assert_error(context.stderr, could_not_find_commit_hash_error)
 
 
 @then('their is a could not find reference "{reference}" error.')
@@ -47,7 +47,7 @@ def then_could_not_find_reference_error(context, reference):
     git_history_is_not_clean(context)
 
     # Then
-    assert context.stderr == could_not_find_reference_error
+    assert_error(context.stderr, could_not_find_reference_error)
 
 
 @then(
@@ -61,7 +61,7 @@ def then_could_not_find_shortened_commit_hash_error(
     git_history_is_not_clean(context)
 
     # Then
-    assert context.stderr == could_not_find_shortened_commit_hash_error
+    assert_error(context.stderr, could_not_find_shortened_commit_hash_error)
 
 
 @then(
@@ -115,4 +115,4 @@ def then_missing_from_argument_error(context):
     git_history_is_not_clean(context)
 
     # Then
-    assert context.stderr == missing_from_argument_error
+    assert_error(context.stderr, missing_from_argument_error)
