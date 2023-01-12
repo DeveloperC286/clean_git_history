@@ -61,7 +61,7 @@ See [Compiling via Cargo](#compiling-via-cargo) for more details about installin
 
 __Note - This example downloads the latest `0.*` version.__
 
-```
+```yaml
 clean-git-history-checking:
   stage: clean-git-history-checking
   image: rust
@@ -79,7 +79,7 @@ clean-git-history-checking:
 See [Downloading Binary](#downloading-binary) for more details about Binary downloads.
 
 __Note - This example downloads version `0.1.2`.__
-```
+```yaml
 clean-git-history-checking:
   stage: clean-git-history-checking
   image: rust
@@ -96,7 +96,7 @@ clean-git-history-checking:
 ### Git Hooks Rust Project Example
 An example `pre-push` Git hook to check if the history of a project is clean before it is pushed to the remote server.
 
-```
+```sh
 #!/usr/bin/env bash
 
 set -o errexit
@@ -118,7 +118,7 @@ If you do not trust the provided binaries another option is to compile your own 
 Checkout the code repository locally, change into the repository's directory and then build via Cargo.
 Using the `--release` flag produces an optimised binary but takes longer to compile.
 
-```
+```sh
 git clone git@gitlab.com:DeveloperC/clean_git_history.git
 cd clean_git_history/
 cargo build --release
@@ -130,7 +130,7 @@ The compiled binary is present in `target/release/clean_git_history`.
 ## Compiling via Cargo
 Cargo is the Rust package manager, the `install` sub-command pulls from [crates.io](https://crates.io/crates/clean_git_history) and then compiles the binary locally, placing the compiled binary at `${HOME}/.cargo/bin/clean_git_history`.
 
-```
+```sh
 cargo install clean_git_history
 ```
 
@@ -140,7 +140,7 @@ For certain environments such as CICD etc you may want to pin the version.
 
 e.g.
 
-```
+```sh
 cargo install clean_git_history --version 0.1.2
 ```
 
@@ -148,7 +148,7 @@ Rather than pinning to a specific version you can specify the major or minor ver
 
 e.g.
 
-```
+```sh
 cargo install clean_git_history --version ^0
 ```
 
@@ -158,7 +158,7 @@ Will download the latest `0.*` release whether that is `0.1.2` or `0.7.0`.
 ## Unit Testing
 The unit test suite has several parameterised tests, Cargo is used to set up and run all the unit tests.
 
-```
+```sh
 cargo test
 ```
 
@@ -175,7 +175,7 @@ To run the test suite you need to
 
 __Note - You can't use --release as the test suite uses `target/debug/clean_git_history`.__
 
-```
+```sh
 cargo build
 cd clean_git_history/end-to-end-tests/
 virtualenv -p python3 .venv
