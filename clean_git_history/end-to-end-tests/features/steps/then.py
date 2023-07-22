@@ -75,7 +75,7 @@ def then_ambiguous_shortened_commit_hash_error(context, shortened_commit_hash):
     git_history_is_not_clean(context)
 
     # Then
-    assert_regex(context.stderr, ambiguous_shortened_commit_hash_error)
+    assert_error_matches_regex(context, ambiguous_shortened_commit_hash_error)
 
 
 @then('their is a conflicting from arguments error.')
