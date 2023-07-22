@@ -6,7 +6,7 @@ from assertions import *
 
 
 @then('the Git history is clean.')
-def git_history_is_clean(context):
+def assert_git_history_is_clean(context):
     # When
     execute_clean_git_history(context)
 
@@ -17,7 +17,7 @@ def git_history_is_clean(context):
 
 
 @then('the Git history is not clean.')
-def git_history_is_not_clean(context):
+def assert_git_history_is_not_clean(context):
     # When
     execute_clean_git_history(context)
 
@@ -27,24 +27,24 @@ def git_history_is_not_clean(context):
 
 
 @then('their is a could not find commit hash "{commit_hash}" error.')
-def then_could_not_find_commit_hash_error(context, commit_hash):
+def assert_could_not_find_commit_hash_error(context, commit_hash):
     # Given
     could_not_find_commit_hash_error = f" ERROR clean_git_history_lib::commits > Can not find a commit with the hash '{commit_hash}'.\n"
 
     # When/Then
-    git_history_is_not_clean(context)
+    assert_git_history_is_not_clean(context)
 
     # Then
     assert_error_equals(context, could_not_find_commit_hash_error)
 
 
 @then('their is a could not find reference "{reference}" error.')
-def then_could_not_find_reference_error(context, reference):
+def assert_could_not_find_reference_error(context, reference):
     # Given
     could_not_find_reference_error = f" ERROR clean_git_history_lib::commits > Could not find a reference with the name \"{reference}\".\n"
 
     # When/Then
-    git_history_is_not_clean(context)
+    assert_git_history_is_not_clean(context)
 
     # Then
     assert_error_equals(context, could_not_find_reference_error)
@@ -52,13 +52,13 @@ def then_could_not_find_reference_error(context, reference):
 
 @then(
     'their is a could not find shortened commit hash "{shortened_commit_hash}" error.')
-def then_could_not_find_shortened_commit_hash_error(
+def assert_could_not_find_shortened_commit_hash_error(
         context, shortened_commit_hash):
     # Given
     could_not_find_shortened_commit_hash_error = f" ERROR clean_git_history_lib::commits > No actual commit hashes start with the provided short commit hash \"{shortened_commit_hash}\".\n"
 
     # When/Then
-    git_history_is_not_clean(context)
+    assert_git_history_is_not_clean(context)
 
     # Then
     assert_error_equals(context, could_not_find_shortened_commit_hash_error)
@@ -66,20 +66,21 @@ def then_could_not_find_shortened_commit_hash_error(
 
 @then(
     'their is a ambiguous shortened commit hash "{shortened_commit_hash}" error.')
-def then_ambiguous_shortened_commit_hash_error(context, shortened_commit_hash):
+def assert_ambiguous_shortened_commit_hash_error(
+        context, shortened_commit_hash):
     # Given
     ambiguous_shortened_commit_hash_error = re.compile(
         f"^ ERROR clean_git_history_lib::commits > Ambiguous short commit hash, the commit hashes [[]({shortened_commit_hash}[a-f0-9]*(, )?)*[]] all start with the provided short commit hash \"{shortened_commit_hash}\".\n$")
 
     # When/Then
-    git_history_is_not_clean(context)
+    assert_git_history_is_not_clean(context)
 
     # Then
     assert_error_matches_regex(context, ambiguous_shortened_commit_hash_error)
 
 
 @then('their is a conflicting from arguments error.')
-def then_conflicting_from_arguments_error(context):
+def assert_conflicting_from_arguments_error(context):
     # Given
     conflicting_arguments_end = "\n" + \
         "USAGE:\n" + \
@@ -91,7 +92,7 @@ def then_conflicting_from_arguments_error(context):
     conflicting_from_reference_error = f"error: The argument '--from-reference <from-reference>' cannot be used with one or more of the other specified arguments\n{conflicting_arguments_end}"
 
     # When/Then
-    git_history_is_not_clean(context)
+    assert_git_history_is_not_clean(context)
 
     # Then
     assert_error_is_one_of(context, [
@@ -100,7 +101,7 @@ def then_conflicting_from_arguments_error(context):
 
 
 @then('their is a missing from argument error.')
-def then_missing_from_argument_error(context):
+def assert_missing_from_argument_error(context):
     # Given
     missing_from_argument_error = "error: The following required arguments were not provided:\n" + \
                                   "    <--from-commit-hash <from-commit-hash>|--from-reference <from-reference>>\n" + \
@@ -111,7 +112,7 @@ def then_missing_from_argument_error(context):
                                   "For more information try --help\n"
 
     # When/Then
-    git_history_is_not_clean(context)
+    assert_git_history_is_not_clean(context)
 
     # Then
     assert_error_equals(context, missing_from_argument_error)
