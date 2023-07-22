@@ -13,7 +13,7 @@ def assert_git_history_is_clean(context):
     # Then
     assert_no_output(context)
     assert_no_errors(context)
-    assert_successful(context.exit_code)
+    assert_successful(context)
 
 
 @then('the Git history is not clean.')
@@ -23,7 +23,7 @@ def assert_git_history_is_not_clean(context):
 
     # Then
     assert_no_output(context)
-    assert_unsuccessful(context.exit_code)
+    assert_unsuccessful(context)
 
 
 @then('their is a could not find commit hash "{commit_hash}" error.')
