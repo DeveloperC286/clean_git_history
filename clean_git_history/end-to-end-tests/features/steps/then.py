@@ -94,7 +94,7 @@ def then_conflicting_from_arguments_error(context):
     git_history_is_not_clean(context)
 
     # Then
-    assert_in_errors(context.stderr, [
+    assert_error_is_one_of(context, [
         conflicting_from_commit_hash_error,
         conflicting_from_reference_error])
 
