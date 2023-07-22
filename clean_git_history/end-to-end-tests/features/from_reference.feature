@@ -9,7 +9,7 @@ Feature: A Git reference can be provided as an argument to indicate where to sta
 
     Examples:
       | repository                                           | checkout_commit                          | from_reference |
-      | https://gitlab.com/eyeo/websites/web.adblockplus.org | 7ba54b39b930e2d55f98a1b08d3ba0cdf6348ed9 | after-sp-1612  |
+      | https://github.com/mbarkhau/bumpver.git | a3f034ac866ea919343c80d7157ae0eef2133c39 | 2023.1124 |
 
 
   Scenario Outline:
