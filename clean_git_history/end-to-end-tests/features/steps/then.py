@@ -11,8 +11,8 @@ def git_history_is_clean(context):
     execute_clean_git_history(context)
 
     # Then
-    assert_empty(context.stdout)
-    assert_empty(context.stderr)
+    assert_no_output(context)
+    assert_no_errors(context)
     assert_successful(context.exit_code)
 
 
@@ -22,7 +22,7 @@ def git_history_is_not_clean(context):
     execute_clean_git_history(context)
 
     # Then
-    assert_empty(context.stdout)
+    assert_no_output(context)
     assert_unsuccessful(context.exit_code)
 
 
