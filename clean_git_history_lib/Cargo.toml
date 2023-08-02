@@ -13,7 +13,7 @@ categories = ["development-tools", "parsing", "parser-implementations", "text-pr
 
 [dependencies]
 # For logging.
-log = "0.4.14"
+log = "0.4.19"
 
 # For reading Git commits.
-git2 = { version = "0.13.25", default-features = false, features=[] }
+git2 = { version = "0.17.2", default-features = false, features=[] }
