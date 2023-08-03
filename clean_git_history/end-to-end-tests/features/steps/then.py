@@ -83,13 +83,11 @@ def assert_ambiguous_shortened_commit_hash_error(
 def assert_conflicting_from_arguments_error(context):
     # Given
     conflicting_arguments_end = "\n" + \
-        "USAGE:\n" + \
-        "    clean_git_history <--from-commit-hash <from-commit-hash>|--from-reference <from-reference>>\n" + \
+        "Usage: clean_git_history <--from-commit-hash <FROM_COMMIT_HASH>|--from-reference <FROM_REFERENCE>>\n" + \
         "\n" + \
-        "For more information try --help\n"
-
-    conflicting_from_commit_hash_error = f"error: The argument '--from-commit-hash <from-commit-hash>' cannot be used with one or more of the other specified arguments\n{conflicting_arguments_end}"
-    conflicting_from_reference_error = f"error: The argument '--from-reference <from-reference>' cannot be used with one or more of the other specified arguments\n{conflicting_arguments_end}"
+        "For more information, try '--help'.\n"
+    conflicting_from_commit_hash_error = f"error: the argument '--from-commit-hash <FROM_COMMIT_HASH>' cannot be used with '--from-reference <FROM_REFERENCE>'\n{conflicting_arguments_end}"
+    conflicting_from_reference_error = f"error: the argument '--from-reference <FROM_REFERENCE>' cannot be used with '--from-commit-hash <FROM_COMMIT_HASH>'\n{conflicting_arguments_end}"
 
     # When/Then
     assert_git_history_is_not_clean(context)
@@ -103,13 +101,12 @@ def assert_conflicting_from_arguments_error(context):
 @then('their is a missing from argument error.')
 def assert_missing_from_argument_error(context):
     # Given
-    missing_from_argument_error = "error: The following required arguments were not provided:\n" + \
-                                  "    <--from-commit-hash <from-commit-hash>|--from-reference <from-reference>>\n" + \
+    missing_from_argument_error = "error: the following required arguments were not provided:\n" + \
+                                  "  <--from-commit-hash <FROM_COMMIT_HASH>|--from-reference <FROM_REFERENCE>>\n" + \
                                   "\n" + \
-                                  "USAGE:\n" + \
-                                  "    clean_git_history [FLAGS] [OPTIONS] <--from-commit-hash <from-commit-hash>|--from-reference <from-reference>>\n" + \
+                                  "Usage: clean_git_history <--from-commit-hash <FROM_COMMIT_HASH>|--from-reference <FROM_REFERENCE>>\n" \
                                   "\n" + \
-                                  "For more information try --help\n"
+                                  "For more information, try '--help'.\n"
 
     # When/Then
     assert_git_history_is_not_clean(context)

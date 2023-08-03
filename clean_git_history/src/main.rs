@@ -4,9 +4,9 @@ extern crate pretty_env_logger;
 
 use std::process::exit;
 
+use clap::Parser;
 use clean_git_history_lib::Commits;
 use git2::Repository;
-use structopt::StructOpt;
 
 mod cli;
 
@@ -15,7 +15,7 @@ const ERROR_EXIT_CODE: i32 = 1;
 fn main() {
     pretty_env_logger::init();
     trace!("Version {}.", env!("CARGO_PKG_VERSION"));
-    let arguments = cli::Arguments::from_args();
+    let arguments = cli::Arguments::parse();
     debug!("The command line arguments provided are {:?}.", arguments);
 
     match Repository::open_from_env() {

@@ -1,27 +1,28 @@
-use structopt::{clap::ArgGroup, StructOpt};
+use clap::{ArgGroup, Parser};
 
-#[derive(Debug, StructOpt)]
-#[structopt(
-    name = "clean_git_history",
-    about = "A Git history linter to ensure it stays clean for those who prefer rebasing and fast-forwarding compared to merge and squash commits.",
-    group = ArgGroup::with_name("from").required(true)
-)]
+#[derive(Parser, Debug)]
+#[command(author, version, about, long_about = None)]
+#[command(group(
+            ArgGroup::new("from")
+                .required(true)
+                .args(["from_commit_hash", "from_reference"]),
+        ))]
 pub(crate) struct Arguments {
-    #[structopt(
+    #[arg(
         long,
         group = "from",
         help = "The Git commit hash from where to start taking the range of commits from till HEAD. The range is inclusive of HEAD and exclusive of the provided Git commit hash."
     )]
     pub(crate) from_commit_hash: Option<String>,
 
-    #[structopt(
+    #[arg(
         long,
         group = "from",
         help = "The Git reference from where to start taking the range of commits from till HEAD. The range is inclusive of HEAD and exclusive of the provided reference."
     )]
     pub(crate) from_reference: Option<String>,
 
-    #[structopt(
+    #[arg(
         long,
         help = "If the flag is enabled then any Git merge commits are ignored, otherwise a merge commit's presence will cause linting to fail."
     )]
