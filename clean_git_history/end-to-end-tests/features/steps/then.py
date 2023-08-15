@@ -8,22 +8,23 @@ from assertions import *
 @then('the Git history is clean.')
 def assert_git_history_is_clean(context):
     # When
-    execute_clean_git_history(context)
+    result = execute_clean_git_history(context)
 
     # Then
-    assert_no_output(context)
-    assert_no_errors(context)
-    assert_command_successful(context)
+    assert_no_output(result)
+    assert_no_errors(result)
+    assert_command_successful(result)
 
 
 @then('the Git history is not clean.')
 def assert_git_history_is_not_clean(context):
     # When
-    execute_clean_git_history(context)
+    result = execute_clean_git_history(context)
 
     # Then
-    assert_no_output(context)
-    assert_command_unsuccessful(context)
+    assert_no_output(result)
+    assert_command_unsuccessful(result)
+    return result
 
 
 @then('their is a could not find commit hash "{commit_hash}" error.')
@@ -32,10 +33,10 @@ def assert_could_not_find_commit_hash_error(context, commit_hash):
     could_not_find_commit_hash_error = f" ERROR clean_git_history_lib::commits > Can not find a commit with the hash '{commit_hash}'.\n"
 
     # When/Then
-    assert_git_history_is_not_clean(context)
+    result = assert_git_history_is_not_clean(context)
 
     # Then
-    assert_error_equals(context, could_not_find_commit_hash_error)
+    assert_error_equals(result, could_not_find_commit_hash_error)
 
 
 @then('their is a could not find reference "{reference}" error.')
@@ -44,10 +45,10 @@ def assert_could_not_find_reference_error(context, reference):
     could_not_find_reference_error = f" ERROR clean_git_history_lib::commits > Could not find a reference with the name \"{reference}\".\n"
 
     # When/Then
-    assert_git_history_is_not_clean(context)
+    result = assert_git_history_is_not_clean(context)
 
     # Then
-    assert_error_equals(context, could_not_find_reference_error)
+    assert_error_equals(result, could_not_find_reference_error)
 
 
 @then(
@@ -58,10 +59,10 @@ def assert_could_not_find_shortened_commit_hash_error(
     could_not_find_shortened_commit_hash_error = f" ERROR clean_git_history_lib::commits > No actual commit hashes start with the provided short commit hash \"{shortened_commit_hash}\".\n"
 
     # When/Then
-    assert_git_history_is_not_clean(context)
+    result = assert_git_history_is_not_clean(context)
 
     # Then
-    assert_error_equals(context, could_not_find_shortened_commit_hash_error)
+    assert_error_equals(result, could_not_find_shortened_commit_hash_error)
 
 
 @then(
@@ -73,10 +74,10 @@ def assert_ambiguous_shortened_commit_hash_error(
         f"^ ERROR clean_git_history_lib::commits > Ambiguous short commit hash, the commit hashes [[]({shortened_commit_hash}[a-f0-9]*(, )?)*[]] all start with the provided short commit hash \"{shortened_commit_hash}\".\n$")
 
     # When/Then
-    assert_git_history_is_not_clean(context)
+    result = assert_git_history_is_not_clean(context)
 
     # Then
-    assert_error_matches_regex(context, ambiguous_shortened_commit_hash_error)
+    assert_error_matches_regex(result, ambiguous_shortened_commit_hash_error)
 
 
 @then('their is a conflicting from arguments error.')
@@ -90,10 +91,10 @@ def assert_conflicting_from_arguments_error(context):
     conflicting_from_reference_error = f"error: the argument '--from-reference <FROM_REFERENCE>' cannot be used with '--from-commit-hash <FROM_COMMIT_HASH>'\n{conflicting_arguments_end}"
 
     # When/Then
-    assert_git_history_is_not_clean(context)
+    result = assert_git_history_is_not_clean(context)
 
     # Then
-    assert_error_is_one_of(context, [
+    assert_error_is_one_of(result, [
         conflicting_from_commit_hash_error,
         conflicting_from_reference_error])
 
@@ -109,7 +110,7 @@ def assert_missing_from_argument_error(context):
                                   "For more information, try '--help'.\n"
 
     # When/Then
-    assert_git_history_is_not_clean(context)
+    result = assert_git_history_is_not_clean(context)
 
     # Then
-    assert_error_equals(context, missing_from_argument_error)
+    assert_error_equals(result, missing_from_argument_error)
