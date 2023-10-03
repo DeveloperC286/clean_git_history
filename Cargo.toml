@@ -1,5 +1,5 @@
 [workspace]
-
+resolver = "2"
 members = [
     "clean_git_history",
     "clean_git_history_lib",
