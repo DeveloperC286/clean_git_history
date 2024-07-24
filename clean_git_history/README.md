@@ -186,4 +186,4 @@ behave
 
 
 ## Issues/Feature Requests
-To report an issue or request a new feature use [https://gitlab.com/DeveloperC/clean_git_history/-/issues](https://gitlab.com/DeveloperC/clean_git_history/-/issues).
+To report an issue or request a new feature use [https://github.com/DeveloperC286/clean_git_history/issues](https://github.com/DeveloperC286/clean_git_history/issues).
