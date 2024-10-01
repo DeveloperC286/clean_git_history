@@ -109,7 +109,7 @@ root_commit_hash=$(git rev-list --max-parents=0 HEAD)
 
 ## Downloading Binary
 Statically linked compiled binaries are available for download.
-Visit the releases page at [https://gitlab.com/DeveloperC/clean_git_history/-/releases](https://gitlab.com/DeveloperC/clean_git_history/-/releases) to see all the releases, the release notes contains links to binary downloads for various architectures.
+Visit the releases page at [https://github.com/DeveloperC286/clean_git_history/releases](https://github.com/DeveloperC286/clean_git_history/releases) to see all the releases, the release notes contains links to binary downloads for various architectures.
 
 If you do not trust the provided binaries another option is to compile your own and then make it available for remote download, so your CICD etc can then download it.
 
@@ -119,7 +119,7 @@ Checkout the code repository locally, change into the repository's directory and
 Using the `--release` flag produces an optimised binary but takes longer to compile.
 
 ```sh
-git clone git@gitlab.com:DeveloperC/clean_git_history.git
+git clone git@github.com:DeveloperC286/clean_git_history.git
 cd clean_git_history/
 cargo build --release
 ```
