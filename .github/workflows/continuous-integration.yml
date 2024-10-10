@@ -1,6 +1,10 @@
 name: Continuous Integration (CI)
 
-on: pull_request
+on:
+  push:
+    branches:
+      - main
+  pull_request:
 
 env:
   # Forcing Earthly to use colours, to make reading output easier.
