@@ -1,3 +1,7 @@
+> 🚧 Archived 🚧
+> Please use the binary version instead, it should contain all functionality you were going to implement with the library.
+> * https://github.com/DeveloperC286/clean_git_history
+
 # Clean Git History Library
 [![Documentation](https://docs.rs/clean_git_history_lib/badge.svg)](https://docs.rs/clean_git_history_lib)
 [![crates.io](https://img.shields.io/crates/v/clean_git_history_lib)](https://crates.io/crates/clean_git_history_lib)
