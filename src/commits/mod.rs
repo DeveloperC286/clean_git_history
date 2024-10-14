@@ -12,29 +12,6 @@ pub struct Commits {
 }
 
 impl Commits {
-    /// Create a new range of commits from a reference exclusively from the commit specified by the reference till inclusively of `HEAD`.
-    ///
-    /// Supports providing either the full or short name of the reference.
-    ///
-    /// E.g. short name.
-    ///
-    /// ```
-    /// use git2::Repository;
-    /// use clean_git_history_lib::Commits;
-    ///
-    /// let repository = Repository::open_from_env().unwrap();
-    /// let commits = Commits::from_reference(&repository, "v1.0.0");
-    /// ```
-    ///
-    /// E.g. full name.
-    ///
-    /// ```
-    /// use git2::Repository;
-    /// use clean_git_history_lib::Commits;
-    ///
-    /// let repository = Repository::open_from_env().unwrap();
-    /// let commits = Commits::from_reference(&repository, "refs/tags/v1.0.0");
-    /// ```
     pub fn from_reference<T: AsRef<str>>(
         repository: &Repository,
         reference: T,
@@ -43,29 +20,6 @@ impl Commits {
         get_commits_till_head_from_oid(repository, reference_oid)
     }
 
-    /// Create a new range of commits from a commit hash exclusively from the commit specified till inclusively of `HEAD`.
-    ///
-    /// Supports providing either the full commit hash or a shortened commit hash.
-    ///
-    /// E.g. shortened commit hash.
-    ///
-    /// ```
-    /// use git2::Repository;
-    /// use clean_git_history_lib::Commits;
-    ///
-    /// let repository = Repository::open_from_env().unwrap();
-    /// let commits = Commits::from_commit_hash(&repository, "d58f1598");
-    /// ```
-    ///
-    /// E.g. full commit hash.
-    ///
-    /// ```
-    /// use git2::Repository;
-    /// use clean_git_history_lib::Commits;
-    ///
-    /// let repository = Repository::open_from_env().unwrap();
-    /// let commits = Commits::from_commit_hash(&repository, "d58f159849a1551dbe7f67019208c2e0de08da80");
-    /// ```
     pub fn from_commit_hash<T: AsRef<str>>(
         repository: &Repository,
         commit_hash: T,

@@ -1,15 +1,22 @@
-[workspace]
-resolver = "2"
-members = [
-    "clean_git_history",
-    "clean_git_history_lib",
-]
+[package]
+name = "clean_git_history"
+description = "A Git history linter to ensure it stays clean for those who prefer rebasing and fast-forwarding compared to merge and squash commits."
+authors = ["C <DeveloperC@protonmail.com>"]
+version = "0.1.2"
+edition = "2021"
+license = "AGPL-3.0"
+repository = "https://github.com/DeveloperC286/clean_git_history"
+readme = "README.md"
+keywords = ["clean", "history", "lint", "linting", "git"]
+categories = ["command-line-utilities", "development-tools", "parser-implementations", "text-processing", "config"]
 
 
-[patch.crates-io]
-clean_git_history_lib = { path = "clean_git_history_lib" }
+[dependencies]
+# For CLI parsing.
+clap = { version = "4.4.6", features = ["derive"] }
 
+# For logging.
+log = "0.4.20"
+pretty_env_logger = "0.5.0"
 
-[profile.release]
-lto = 'fat'
-codegen-units = 1
+git2 = { version = "0.19.0", default-features = false, features=[] }
