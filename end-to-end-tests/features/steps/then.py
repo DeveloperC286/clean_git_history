@@ -30,25 +30,25 @@ def assert_git_history_is_not_clean(context):
 @then('their is a could not find commit hash "{commit_hash}" error.')
 def assert_could_not_find_commit_hash_error(context, commit_hash):
     # Given
-    could_not_find_commit_hash_error = f" ERROR clean_git_history::commits > Can not find a commit with the hash '{commit_hash}'.\n"  # fmt: off
+    could_not_find_commit_hash_error = f"Can not find a commit with the hash '{commit_hash}'.\n"  # fmt: off
 
     # When/Then
     result = assert_git_history_is_not_clean(context)
 
     # Then
-    assert_error_equals(result, could_not_find_commit_hash_error)
+    assert_error_contains(result, could_not_find_commit_hash_error)
 
 
 @then('their is a could not find reference "{reference}" error.')
 def assert_could_not_find_reference_error(context, reference):
     # Given
-    could_not_find_reference_error = f" ERROR clean_git_history::commits > Could not find a reference with the name \"{reference}\".\n"  # fmt: off
+    could_not_find_reference_error = f"Could not find a reference with the name \"{reference}\".\n"  # fmt: off
 
     # When/Then
     result = assert_git_history_is_not_clean(context)
 
     # Then
-    assert_error_equals(result, could_not_find_reference_error)
+    assert_error_contains(result, could_not_find_reference_error)
 
 
 @then(
@@ -56,13 +56,13 @@ def assert_could_not_find_reference_error(context, reference):
 def assert_could_not_find_shortened_commit_hash_error(
         context, shortened_commit_hash):
     # Given
-    could_not_find_shortened_commit_hash_error = f" ERROR clean_git_history::commits > No actual commit hashes start with the provided short commit hash \"{shortened_commit_hash}\".\n"  # fmt: off
+    could_not_find_shortened_commit_hash_error = f"No actual commit hashes start with the provided short commit hash \"{shortened_commit_hash}\".\n"  # fmt: off
 
     # When/Then
     result = assert_git_history_is_not_clean(context)
 
     # Then
-    assert_error_equals(result, could_not_find_shortened_commit_hash_error)
+    assert_error_contains(result, could_not_find_shortened_commit_hash_error)
 
 
 @then(
@@ -70,7 +70,7 @@ def assert_could_not_find_shortened_commit_hash_error(
 def assert_ambiguous_shortened_commit_hash_error(
         context, shortened_commit_hash):
     # Given
-    ambiguous_shortened_commit_hash_error = re.compile(f"^ ERROR clean_git_history::commits > Ambiguous short commit hash, the commit hashes [[]({shortened_commit_hash}[a-f0-9]*(, )?)*[]] all start with the provided short commit hash \"{shortened_commit_hash}\".\n$") # fmt: off
+    ambiguous_shortened_commit_hash_error = re.compile(f"^ ERROR clean_git_history > Unable to parse commits from the Git repository.\n\nCaused by:\n    Ambiguous short commit hash, the commit hashes [[]({shortened_commit_hash}[a-f0-9]+(, )?)+[]] all start with the provided short commit hash \"{shortened_commit_hash}\".\n$") # fmt: off
 
     # When/Then
     result = assert_git_history_is_not_clean(context)
