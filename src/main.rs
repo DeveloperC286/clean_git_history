@@ -41,5 +41,13 @@ fn run(arguments: Arguments) -> Result<()> {
         bail!("Contains merge commits.");
     }
 
+    if arguments.max_commits > 0 && commits.len() > arguments.max_commits {
+        bail!(format!(
+            "Exceeded the maxium number of commits {:?} with {:?} commits.",
+            arguments.max_commits,
+            commits.len()
+        ));
+    }
+
     Ok(())
 }
