@@ -14,3 +14,8 @@ def set_from_commit_hash(context, from_reference):
 @when('the --ignore-merge-commits flag is set.')
 def set_ignore_merge_commits(context):
     context.arguments += " --ignore-merge-commits "
+
+
+@when('the argument --max-commits is provided as "{max_commits}".')
+def set_max_commits(context, max_commits):
+    context.arguments += f" --max-commits {max_commits} "

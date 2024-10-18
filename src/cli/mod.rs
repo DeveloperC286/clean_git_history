@@ -27,4 +27,11 @@ pub(crate) struct Arguments {
         help = "If the flag is enabled then any Git merge commits are ignored, otherwise a merge commit's presence will cause linting to fail."
     )]
     pub(crate) ignore_merge_commits: bool,
+
+    #[arg(
+        long,
+        help = "The maximum number of commits allowed, if exceeded will cause linting to fail. If set to 0 this check is disabled.",
+        default_value = "0"
+    )]
+    pub(crate) max_commits: usize,
 }

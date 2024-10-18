@@ -34,6 +34,10 @@ impl Commits {
             .map(|commit| commit.is_merge_commit())
             .any(|is_merge_commit| is_merge_commit)
     }
+
+    pub fn len(&self) -> usize {
+        self.commits.len()
+    }
 }
 
 fn get_commits_till_head_from_oid(
