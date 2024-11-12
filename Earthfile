@@ -78,6 +78,7 @@ golang-base:
 
 shell-formatting-base:
     FROM +golang-base
+    # renovate: datasource=github-releases packageName=mvdan/sh
     RUN go install mvdan.cc/sh/v3/cmd/shfmt@v3.7.0
     DO +COPY_CI_DATA
 
@@ -89,6 +90,7 @@ check-shell-formatting:
 
 yaml-formatting-base:
     FROM +golang-base
+    # renovate: datasource=github-releases packageName=google/yamlfmt
     RUN go install github.com/google/yamlfmt/cmd/yamlfmt@v0.10.0
     COPY ".yamlfmt" "./"
     DO +COPY_CI_DATA
@@ -159,6 +161,7 @@ check-shell-linting:
 
 check-github-actions-workflows-linting:
     FROM +golang-base
+    # renovate: datasource=github-releases packageName=rhysd/actionlint
     RUN go install github.com/rhysd/actionlint/cmd/actionlint@v1.6.26
     DO +COPY_CI_DATA
     RUN ./ci/check-github-actions-workflows-linting.sh

@@ -15,7 +15,8 @@
       "customType": "regex",
       "fileMatch": ["^Earthfile$"],
       "matchStrings": [
-        "# renovate: datasource=(?<datasource>[a-z-]+?)(?: depName=(?<depName>.+?))? packageName=(?<packageName>.+?)(?: versioning=(?<versioning>[a-z-]+?))?\\s.+? --version (?<currentValue>.+?) --locked\\s"
+        "# renovate: datasource=(?<datasource>[a-z-]+?)(?: depName=(?<depName>.+?))? packageName=(?<packageName>.+?)(?: versioning=(?<versioning>[a-z-]+?))?\\s.+? --version (?<currentValue>.+?) --locked\\s",
+        "# renovate: datasource=(?<datasource>[a-z-]+?)(?: depName=(?<depName>.+?))? packageName=(?<packageName>.+?)(?: versioning=(?<versioning>[a-z-]+?))?\\s.+@(?<currentValue>.+?)\\s"
       ],
       "extractVersionTemplate": "^v?(?<version>.*)$"
     }
