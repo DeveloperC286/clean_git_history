@@ -12,15 +12,26 @@ COPY_METADATA:
     COPY --dir ".git/" "./"
 
 
+alpine-base:
+    FROM alpine:3.18.9
+    # renovate: datasource=repology packageName=alpine_3_18/bash
+    ENV BASH_VERSION=5.2.15-r5
+    RUN apk add --no-cache bash=$BASH_VERSION
+
+
 rust-base:
-    FROM rust:1.74.0-alpine3.18
-    RUN apk add --no-cache musl-dev bash
+    FROM +alpine-base
+    # renovate: datasource=repology packageName=alpine_3_18/rust
+    ENV RUST_VERSION=1.71.1-r0
+    RUN apk add --no-cache rust=$RUST_VERSION
     WORKDIR "/clean_git_history"
 
 
 check-clean-git-history:
     FROM +rust-base
-    RUN cargo install clean_git_history --version 0.1.2 --locked
+    # renovate: datasource=github-releases packageName=DeveloperC286/clean_git_history
+    ENV CLEAN_GIT_HISTORY_VERSION=0.1.2 
+    RUN cargo install clean_git_history --version $CLEAN_GIT_HISTORY_VERSION --locked
     DO +COPY_METADATA
     ARG from_reference="origin/HEAD"
     RUN ./ci/check-clean-git-history.sh --from-reference "${from_reference}"
@@ -28,7 +39,9 @@ check-clean-git-history:
 
 check-conventional-commits-linting:
     FROM +rust-base
-    RUN cargo install conventional_commits_linter --version 0.12.3 --locked
+    # renovate: datasource=github-releases packageName=DeveloperC286/conventional_commits_linter
+    ENV CONVENTIONAL_COMMITS_LINTER_VERSION=0.12.3
+    RUN cargo install conventional_commits_linter --version $CONVENTIONAL_COMMITS_LINTER_VERSION --locked
     DO +COPY_METADATA
     ARG from_reference="origin/HEAD"
     RUN ./ci/check-conventional-commits-linting.sh --from-reference "${from_reference}"
@@ -43,6 +56,7 @@ COPY_SOURCECODE:
 
 rust-formatting-base:
     FROM +rust-base
+    # TODO
     RUN rustup component add rustfmt
     DO +COPY_SOURCECODE
 
@@ -53,8 +67,12 @@ check-rust-formatting:
 
 
 python-base:
-    FROM python:3.9.19-alpine
-    RUN apk add --no-cache git bash
+    FROM +alpine-base
+    # renovate: datasource=repology packageName=alpine_3_18/python3
+    ENV PYTHON3_VERSION=3.11.10-r1 
+    # renovate: datasource=repology packageName=alpine_3_18/git
+    ENV GIT_VERSION=2.40.3-r0
+    RUN apk add --no-cache python3=$PYTHON3_VERSION git=$GIT_VERSION
     WORKDIR "/consistent_whitespace"
     DO +COPY_SOURCECODE
 
@@ -76,7 +94,9 @@ golang-base:
 
 shell-formatting-base:
     FROM +golang-base
-    RUN go install mvdan.cc/sh/v3/cmd/shfmt@v3.7.0
+    # renovate: datasource=github-releases packageName=mvdan/sh
+    ENV SHFMT_VERSION=3.7.0
+    RUN go install mvdan.cc/sh/v3/cmd/shfmt@v$SHFMT_VERSION
     DO +COPY_CI_DATA
 
 
@@ -87,7 +107,9 @@ check-shell-formatting:
 
 yaml-formatting-base:
     FROM +golang-base
-    RUN go install github.com/google/yamlfmt/cmd/yamlfmt@v0.10.0
+    # renovate: datasource=github-releases packageName=google/yamlfmt
+    ENV YAMLFMT_VERSION=0.10.0
+    RUN go install github.com/google/yamlfmt/cmd/yamlfmt@v$YAMLFMT_VERSION
     COPY ".yamlfmt" "./"
     DO +COPY_CI_DATA
 
@@ -137,6 +159,7 @@ fix-formatting:
 
 check-rust-linting:
     FROM +rust-base
+    # TODO
     RUN rustup component add clippy
     DO +COPY_SOURCECODE
     RUN ./ci/check-rust-linting.sh
@@ -150,6 +173,7 @@ ubuntu-base:
 
 check-shell-linting:
     FROM +ubuntu-base
+    # TODO 
     RUN apt-get install shellcheck -y
     DO +COPY_CI_DATA
     RUN ./ci/check-shell-linting.sh
@@ -157,7 +181,9 @@ check-shell-linting:
 
 check-github-actions-workflows-linting:
     FROM +golang-base
-    RUN go install github.com/rhysd/actionlint/cmd/actionlint@v1.6.26
+    # renovate: datasource=github-releases packageName=rhysd/actionlint
+    ACTIONLINT_VERSION=1.6.26
+    RUN go install github.com/rhysd/actionlint/cmd/actionlint@v$ACTIONLINT_VERSION
     DO +COPY_CI_DATA
     RUN ./ci/check-github-actions-workflows-linting.sh
 
@@ -190,11 +216,10 @@ end-to-end-test:
 
 
 release-artifacts:
-    FROM +rust-base
-    DO +COPY_CI_DATA
-    # Needed by the GitHub CLI.
-    RUN apk add --no-cache git
-    RUN ./ci/install-github-cli.sh
+    FROM +alpine-base
+    # renovate: datasource=repology packageName=alpine_3_18/github-cli
+    ENV GITHUB_CLI_VERSION=2.29.0-r4
+    RUN apk add --no-cache github-cli=$GITHUB_CLI_VERSION
     DO +COPY_METADATA
     DO +COPY_SOURCECODE
     ARG release
