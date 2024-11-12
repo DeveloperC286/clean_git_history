@@ -3,11 +3,16 @@
   "extends": [
     "config:recommended"
   ],
-    "docker": {
-    "fileMatch": [
-      "(^|/)Earthfile$",
-      "(^|/|\\.)Dockerfile$",
-      "(^|/)Dockerfile[^/]*$"
-    ]
-  }
+  "packageRules": [
+    {
+      "matchCategories": [
+        "docker"
+      ],
+      "fileMatch": [
+        "(^|/)Earthfile$",
+        "(^|/|\\.)Dockerfile$",
+        "(^|/)Dockerfile[^/]*$"
+      ]
+    }
+  ]
 }
