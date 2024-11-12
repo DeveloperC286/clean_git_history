@@ -196,10 +196,7 @@ end-to-end-test:
 
 release-artifacts:
     FROM +rust-base
-    DO +COPY_CI_DATA
-    # Needed by the GitHub CLI.
-    RUN apk add --no-cache git
-    RUN ./ci/install-github-cli.sh
+    RUN apk add --no-cache github-cli=2.29.0-r4
     DO +COPY_METADATA
     DO +COPY_SOURCECODE
     ARG release
