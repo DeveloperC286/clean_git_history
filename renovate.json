@@ -9,5 +9,15 @@
       "(^|/|\\.)Dockerfile$",
       "(^|/)Dockerfile[^/]*$"
     ]
-  }
+  },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["^Earthfile$"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>[a-z-]+?)(?: depName=(?<depName>.+?))? packageName=(?<packageName>.+?)(?: versioning=(?<versioning>[a-z-]+?))?\\s.+? --version (?<currentValue>.+?) --locked\\s"
+      ],
+      "extractVersionTemplate": "^v?(?<version>.*)$"
+    }
+  ]
 }

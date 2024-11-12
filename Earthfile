@@ -20,6 +20,7 @@ rust-base:
 
 check-clean-git-history:
     FROM +rust-base
+    # renovate: datasource=github-releases packageName=DeveloperC286/clean_git_history
     RUN cargo install clean_git_history --version 0.1.2 --locked
     DO +COPY_METADATA
     ARG from_reference="origin/HEAD"
@@ -28,6 +29,7 @@ check-clean-git-history:
 
 check-conventional-commits-linting:
     FROM +rust-base
+    # renovate: datasource=github-releases packageName=DeveloperC286/conventional_commits_linter
     RUN cargo install conventional_commits_linter --version 0.12.3 --locked
     DO +COPY_METADATA
     ARG from_reference="origin/HEAD"
