@@ -23,7 +23,7 @@ alpine-base:
 rust-base:
     FROM +alpine-base
     # renovate: datasource=repology depName=alpine_3_20/rust versioning=loose
-    ENV RUST_VERSION="1.71.1-r0"
+    ENV RUST_VERSION="1.78.0-r0"
     RUN apk add --no-cache cargo=$RUST_VERSION
 
 
