@@ -14,14 +14,14 @@ COPY_METADATA:
 
 alpine-base:
     FROM alpine:3.18.9
-    # renovate: datasource=repology packageName=alpine_3_18/bash
+    # renovate: datasource=repology packageName=alpine_3_20/bash
     ENV BASH_VERSION=5.2.15-r5
     RUN apk add --no-cache bash=$BASH_VERSION
 
 
 rust-base:
     FROM +alpine-base
-    # renovate: datasource=repology packageName=alpine_3_18/rust
+    # renovate: datasource=repology packageName=alpine_3_20/rust
     ENV RUST_VERSION=1.71.1-r0
     RUN apk add --no-cache rust=$RUST_VERSION
     WORKDIR "/clean_git_history"
@@ -68,9 +68,9 @@ check-rust-formatting:
 
 python-base:
     FROM +alpine-base
-    # renovate: datasource=repology packageName=alpine_3_18/python3
+    # renovate: datasource=repology packageName=alpine_3_20/python3
     ENV PYTHON3_VERSION=3.11.10-r1 
-    # renovate: datasource=repology packageName=alpine_3_18/git
+    # renovate: datasource=repology packageName=alpine_3_20/git
     ENV GIT_VERSION=2.40.3-r0
     RUN apk add --no-cache python3=$PYTHON3_VERSION git=$GIT_VERSION
     WORKDIR "/consistent_whitespace"
@@ -217,7 +217,7 @@ end-to-end-test:
 
 release-artifacts:
     FROM +alpine-base
-    # renovate: datasource=repology packageName=alpine_3_18/github-cli
+    # renovate: datasource=repology packageName=alpine_3_20/github-cli
     ENV GITHUB_CLI_VERSION=2.29.0-r4
     RUN apk add --no-cache github-cli=$GITHUB_CLI_VERSION
     DO +COPY_METADATA
