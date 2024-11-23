@@ -31,7 +31,7 @@ rust-base:
 check-clean-git-history:
     FROM +rust-base
     # renovate: datasource=github-releases packageName=DeveloperC286/clean_git_history
-    ENV CLEAN_GIT_HISTORY_VERSION=0.1.2 
+    ENV CLEAN_GIT_HISTORY_VERSION=0.2.0 
     RUN cargo install clean_git_history --version $CLEAN_GIT_HISTORY_VERSION --locked
     DO +COPY_METADATA
     ARG from_reference="origin/HEAD"
