@@ -15,7 +15,7 @@ COPY_METADATA:
 alpine-base:
     FROM alpine:3.20.3@sha256:1e42bbe2508154c9126d48c2b8a75420c3544343bf86fd041fb7527e017a4b4a
     # renovate: datasource=repology depName=alpine_3_20/bash versioning=loose
-    ENV BASH_VERSION="5.2.15-r5"
+    ENV BASH_VERSION="5.2.26-r0"
     RUN apk add --no-cache bash=$BASH_VERSION
     WORKDIR "/consistent_whitespace"
 
