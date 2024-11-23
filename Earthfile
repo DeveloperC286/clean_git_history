@@ -13,7 +13,7 @@ COPY_METADATA:
 
 
 rust-base:
-    FROM rust:1.74.0-alpine3.18
+    FROM rust:1.78.0-alpine3.18
     RUN apk add --no-cache musl-dev=1.2.4-r2 bash=5.2.15-r5
     WORKDIR "/clean_git_history"
 
