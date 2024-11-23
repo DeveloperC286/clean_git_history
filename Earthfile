@@ -167,7 +167,7 @@ check-rust-linting:
 check-shell-linting:
     FROM +alpine-base
     # renovate: datasource=repology depName=alpine_3_20/shellcheck versioning=loose
-    ENV SHELLCHECK_VERSION="0.9.0-r1"
+    ENV SHELLCHECK_VERSION="0.10.0-r1"
     RUN apk add --no-cache shellcheck=$SHELLCHECK_VERSION
     DO +COPY_CI_DATA
     RUN ./ci/check-shell-linting.sh
