@@ -13,8 +13,8 @@ COPY_METADATA:
 
 
 alpine-base:
-    FROM alpine:3.18.9
-    # renovate: datasource=repology packageName=alpine_3_18/bash
+    FROM alpine:3.20.3@sha256:1e42bbe2508154c9126d48c2b8a75420c3544343bf86fd041fb7527e017a4b4a
+    # renovate: datasource=repology packageName=alpine_3_20/bash
     ENV BASH_VERSION=5.2.15-r5
     RUN apk add --no-cache bash=$BASH_VERSION
     WORKDIR "/consistent_whitespace"
@@ -22,7 +22,7 @@ alpine-base:
 
 rust-base:
     FROM +alpine-base
-    # renovate: datasource=repology packageName=alpine_3_18/rust
+    # renovate: datasource=repology packageName=alpine_3_20/rust
     ENV RUST_VERSION=1.71.1-r0
     RUN apk add --no-cache cargo=$RUST_VERSION
 
@@ -67,11 +67,11 @@ check-rust-formatting:
 
 python-base:
     FROM +alpine-base
-    # renovate: datasource=repology packageName=alpine_3_18/python3
+    # renovate: datasource=repology packageName=alpine_3_20/python3
     ENV PYTHON_VERSION=3.11.10-r1 
-    # renovate: datasource=repology packageName=alpine_3_18/git
+    # renovate: datasource=repology packageName=alpine_3_20/git
     ENV GIT_VERSION=2.40.3-r0
-    # renovate: datasource=repology packageName=alpine_3_18/py3-pip
+    # renovate: datasource=repology packageName=alpine_3_20/py3-pip
     ENV PIP_VERSION=23.1.2-r0
     RUN apk add --no-cache py3-pip=$PIP_VERSION python3=$PYTHON_VERSION git=$GIT_VERSION
     DO +COPY_SOURCECODE
@@ -166,7 +166,7 @@ check-rust-linting:
 
 check-shell-linting:
     FROM +alpine-base
-    # renovate: datasource=repology packageName=alpine_3_18/shellcheck
+    # renovate: datasource=repology packageName=alpine_3_20/shellcheck
     ENV SHELLCHECK_VERSION=0.9.0-r1
     RUN apk add --no-cache shellcheck=$SHELLCHECK_VERSION
     DO +COPY_CI_DATA
@@ -211,7 +211,7 @@ end-to-end-test:
 
 release-artifacts:
     FROM +alpine-base
-    # renovate: datasource=repology packageName=alpine_3_18/github-cli
+    # renovate: datasource=repology packageName=alpine_3_20/github-cli
     ENV GITHUB_CLI_VERSION=2.29.0-r4
     RUN apk add --no-cache github-cli=$GITHUB_CLI_VERSION
     DO +COPY_METADATA
