@@ -55,7 +55,7 @@ check-rust-formatting:
 
 
 python-base:
-    FROM python:3.9.19-alpine
+    FROM python:3.13.0-alpine
     RUN apk add --no-cache git=2.45.2-r0 bash=5.2.26-r0
     WORKDIR "/consistent_whitespace"
     DO +COPY_SOURCECODE
