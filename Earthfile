@@ -14,23 +14,23 @@ COPY_METADATA:
 
 alpine-base:
     FROM alpine:3.20.3@sha256:1e42bbe2508154c9126d48c2b8a75420c3544343bf86fd041fb7527e017a4b4a
-    # renovate: datasource=repology packageName=alpine_3_20/bash versioning=loose
-    ENV BASH_VERSION=5.2.15-r5
+    # renovate: datasource=repology depName=alpine_3_20/bash versioning=loose
+    ENV BASH_VERSION="5.2.15-r5"
     RUN apk add --no-cache bash=$BASH_VERSION
     WORKDIR "/consistent_whitespace"
 
 
 rust-base:
     FROM +alpine-base
-    # renovate: datasource=repology packageName=alpine_3_20/rust versioning=loose
-    ENV RUST_VERSION=1.71.1-r0
+    # renovate: datasource=repology depName=alpine_3_20/rust versioning=loose
+    ENV RUST_VERSION="1.71.1-r0"
     RUN apk add --no-cache cargo=$RUST_VERSION
 
 
 check-clean-git-history:
     FROM +rust-base
-    # renovate: datasource=github-releases packageName=DeveloperC286/clean_git_history
-    ENV CLEAN_GIT_HISTORY_VERSION=v0.2.0
+    # renovate: datasource=github-releases depName=DeveloperC286/clean_git_history
+    ENV CLEAN_GIT_HISTORY_VERSION="v0.2.0"
     RUN wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/${CLEAN_GIT_HISTORY_VERSION}/x86_64-unknown-linux-musl.gz" | gzip -d > /usr/bin/clean_git_history && chmod 755 /usr/bin/clean_git_history
     DO +COPY_METADATA
     ARG from_reference="origin/HEAD"
@@ -39,8 +39,8 @@ check-clean-git-history:
 
 check-conventional-commits-linting:
     FROM +rust-base
-    # renovate: datasource=github-releases packageName=DeveloperC286/conventional_commits_linter
-    ENV CONVENTIONAL_COMMITS_LINTER_VERSION=v0.13.0
+    # renovate: datasource=github-releases depName=DeveloperC286/conventional_commits_linter
+    ENV CONVENTIONAL_COMMITS_LINTER_VERSION="v0.13.0"
     RUN wget -O - "https://github.com/DeveloperC286/conventional_commits_linter/releases/download/${CONVENTIONAL_COMMITS_LINTER_VERSION}/x86_64-unknown-linux-musl.gz" | gzip -d > /usr/bin/conventional_commits_linter && chmod 755 /usr/bin/conventional_commits_linter
     DO +COPY_METADATA
     ARG from_reference="origin/HEAD"
@@ -67,12 +67,12 @@ check-rust-formatting:
 
 python-base:
     FROM +alpine-base
-    # renovate: datasource=repology packageName=alpine_3_20/python3 versioning=loose
-    ENV PYTHON_VERSION=3.11.10-r1 
-    # renovate: datasource=repology packageName=alpine_3_20/git versioning=loose
-    ENV GIT_VERSION=2.40.3-r0
-    # renovate: datasource=repology packageName=alpine_3_20/py3-pip versioning=loose
-    ENV PIP_VERSION=23.1.2-r0
+    # renovate: datasource=repology depName=alpine_3_20/python3 versioning=loose
+    ENV PYTHON_VERSION="3.11.10-r1"
+    # renovate: datasource=repology depName=alpine_3_20/git versioning=loose
+    ENV GIT_VERSION="2.40.3-r0"
+    # renovate: datasource=repology depName=alpine_3_20/py3-pip versioning=loose
+    ENV PIP_VERSION="23.1.2-r0"
     RUN apk add --no-cache py3-pip=$PIP_VERSION python3=$PYTHON_VERSION git=$GIT_VERSION
     DO +COPY_SOURCECODE
 
@@ -94,8 +94,8 @@ golang-base:
 
 shell-formatting-base:
     FROM +golang-base
-    # renovate: datasource=github-releases packageName=mvdan/sh
-    ENV SHFMT_VERSION=v3.7.0
+    # renovate: datasource=github-releases depName=mvdan/sh
+    ENV SHFMT_VERSION="v3.7.0"
     RUN go install mvdan.cc/sh/v3/cmd/shfmt@$SHFMT_VERSION
     DO +COPY_CI_DATA
 
@@ -107,8 +107,8 @@ check-shell-formatting:
 
 yaml-formatting-base:
     FROM +golang-base
-    # renovate: datasource=github-releases packageName=google/yamlfmt
-    ENV YAMLFMT_VERSION=v0.10.0
+    # renovate: datasource=github-releases depName=google/yamlfmt
+    ENV YAMLFMT_VERSION="v0.10.0"
     RUN go install github.com/google/yamlfmt/cmd/yamlfmt@$YAMLFMT_VERSION
     COPY ".yamlfmt" "./"
     DO +COPY_CI_DATA
@@ -166,8 +166,8 @@ check-rust-linting:
 
 check-shell-linting:
     FROM +alpine-base
-    # renovate: datasource=repology packageName=alpine_3_20/shellcheck versioning=loose
-    ENV SHELLCHECK_VERSION=0.9.0-r1
+    # renovate: datasource=repology depName=alpine_3_20/shellcheck versioning=loose
+    ENV SHELLCHECK_VERSION="0.9.0-r1"
     RUN apk add --no-cache shellcheck=$SHELLCHECK_VERSION
     DO +COPY_CI_DATA
     RUN ./ci/check-shell-linting.sh
@@ -175,8 +175,8 @@ check-shell-linting:
 
 check-github-actions-workflows-linting:
     FROM +golang-base
-    # renovate: datasource=github-releases packageName=rhysd/actionlint
-    ENV ACTIONLINT_VERSION=v1.6.26
+    # renovate: datasource=github-releases depName=rhysd/actionlint
+    ENV ACTIONLINT_VERSION="v1.6.26"
     RUN go install github.com/rhysd/actionlint/cmd/actionlint@$ACTIONLINT_VERSION
     DO +COPY_CI_DATA
     RUN ./ci/check-github-actions-workflows-linting.sh
@@ -211,8 +211,8 @@ end-to-end-test:
 
 release-artifacts:
     FROM +alpine-base
-    # renovate: datasource=repology packageName=alpine_3_20/github-cli versioning=loose
-    ENV GITHUB_CLI_VERSION=2.29.0-r4
+    # renovate: datasource=repology depName=alpine_3_20/github-cli versioning=loose
+    ENV GITHUB_CLI_VERSION="2.29.0-r4"
     RUN apk add --no-cache github-cli=$GITHUB_CLI_VERSION
     DO +COPY_METADATA
     DO +COPY_SOURCECODE
