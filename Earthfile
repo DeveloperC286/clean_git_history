@@ -14,7 +14,7 @@ COPY_METADATA:
 
 alpine-base:
     FROM alpine:3.20.3@sha256:1e42bbe2508154c9126d48c2b8a75420c3544343bf86fd041fb7527e017a4b4a
-    # renovate: datasource=repology packageName=alpine_3_20/bash
+    # renovate: datasource=repology packageName=alpine_3_20/bash versioning=loose
     ENV BASH_VERSION=5.2.15-r5
     RUN apk add --no-cache bash=$BASH_VERSION
     WORKDIR "/consistent_whitespace"
@@ -22,7 +22,7 @@ alpine-base:
 
 rust-base:
     FROM +alpine-base
-    # renovate: datasource=repology packageName=alpine_3_20/rust
+    # renovate: datasource=repology packageName=alpine_3_20/rust versioning=loose
     ENV RUST_VERSION=1.71.1-r0
     RUN apk add --no-cache cargo=$RUST_VERSION
 
@@ -31,7 +31,7 @@ check-clean-git-history:
     FROM +rust-base
     # renovate: datasource=github-releases packageName=DeveloperC286/clean_git_history
     ENV CLEAN_GIT_HISTORY_VERSION=v0.2.0
-    RUN wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/v0.2.0/x86_64-unknown-linux-musl.gz" | gzip -d > /usr/bin/clean_git_history && chmod 755 /usr/bin/clean_git_history
+    RUN wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/${CLEAN_GIT_HISTORY_VERSION}/x86_64-unknown-linux-musl.gz" | gzip -d > /usr/bin/clean_git_history && chmod 755 /usr/bin/clean_git_history
     DO +COPY_METADATA
     ARG from_reference="origin/HEAD"
     RUN ./ci/check-clean-git-history.sh --from-reference "${from_reference}"
@@ -40,8 +40,8 @@ check-clean-git-history:
 check-conventional-commits-linting:
     FROM +rust-base
     # renovate: datasource=github-releases packageName=DeveloperC286/conventional_commits_linter
-    ENV CONVENTIONAL_COMMITS_LINTER_VERSION=0.12.3
-    RUN wget -O - "https://github.com/DeveloperC286/conventional_commits_linter/releases/download/v0.13.0/x86_64-unknown-linux-musl.gz" | gzip -d > /usr/bin/conventional_commits_linter && chmod 755 /usr/bin/conventional_commits_linter
+    ENV CONVENTIONAL_COMMITS_LINTER_VERSION=v0.13.0
+    RUN wget -O - "https://github.com/DeveloperC286/conventional_commits_linter/releases/download/${CONVENTIONAL_COMMITS_LINTER_VERSION}/x86_64-unknown-linux-musl.gz" | gzip -d > /usr/bin/conventional_commits_linter && chmod 755 /usr/bin/conventional_commits_linter
     DO +COPY_METADATA
     ARG from_reference="origin/HEAD"
     RUN ./ci/check-conventional-commits-linting.sh --from-reference "${from_reference}"
@@ -67,11 +67,11 @@ check-rust-formatting:
 
 python-base:
     FROM +alpine-base
-    # renovate: datasource=repology packageName=alpine_3_20/python3
+    # renovate: datasource=repology packageName=alpine_3_20/python3 versioning=loose
     ENV PYTHON_VERSION=3.11.10-r1 
-    # renovate: datasource=repology packageName=alpine_3_20/git
+    # renovate: datasource=repology packageName=alpine_3_20/git versioning=loose
     ENV GIT_VERSION=2.40.3-r0
-    # renovate: datasource=repology packageName=alpine_3_20/py3-pip
+    # renovate: datasource=repology packageName=alpine_3_20/py3-pip versioning=loose
     ENV PIP_VERSION=23.1.2-r0
     RUN apk add --no-cache py3-pip=$PIP_VERSION python3=$PYTHON_VERSION git=$GIT_VERSION
     DO +COPY_SOURCECODE
@@ -166,7 +166,7 @@ check-rust-linting:
 
 check-shell-linting:
     FROM +alpine-base
-    # renovate: datasource=repology packageName=alpine_3_20/shellcheck
+    # renovate: datasource=repology packageName=alpine_3_20/shellcheck versioning=loose
     ENV SHELLCHECK_VERSION=0.9.0-r1
     RUN apk add --no-cache shellcheck=$SHELLCHECK_VERSION
     DO +COPY_CI_DATA
@@ -211,7 +211,7 @@ end-to-end-test:
 
 release-artifacts:
     FROM +alpine-base
-    # renovate: datasource=repology packageName=alpine_3_20/github-cli
+    # renovate: datasource=repology packageName=alpine_3_20/github-cli versioning=loose
     ENV GITHUB_CLI_VERSION=2.29.0-r4
     RUN apk add --no-cache github-cli=$GITHUB_CLI_VERSION
     DO +COPY_METADATA
