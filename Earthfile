@@ -72,7 +72,7 @@ python-base:
     # renovate: datasource=repology depName=alpine_3_20/git versioning=loose
     ENV GIT_VERSION="2.40.3-r0"
     # renovate: datasource=repology depName=alpine_3_20/py3-pip versioning=loose
-    ENV PIP_VERSION="23.1.2-r0"
+    ENV PIP_VERSION="24.0-r2"
     RUN apk add --no-cache py3-pip=$PIP_VERSION python3=$PYTHON_VERSION git=$GIT_VERSION
     DO +COPY_SOURCECODE
 
