@@ -212,7 +212,7 @@ end-to-end-test:
 release-artifacts:
     FROM +alpine-base
     # renovate: datasource=repology depName=alpine_3_20/github-cli versioning=loose
-    ENV GITHUB_CLI_VERSION="2.29.0-r4"
+    ENV GITHUB_CLI_VERSION="2.47.0-r4"
     RUN apk add --no-cache github-cli=$GITHUB_CLI_VERSION
     DO +COPY_METADATA
     DO +COPY_SOURCECODE
