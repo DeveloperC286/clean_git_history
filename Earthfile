@@ -166,7 +166,7 @@ check-rust-linting:
 
 
 ubuntu-base:
-    FROM ubuntu:22.04
+    FROM ubuntu:24.04@sha256:278628f08d4979fb9af9ead44277dbc9c92c2465922310916ad0c46ec9999295
     # https://askubuntu.com/questions/462690/what-does-apt-get-fix-missing-do-and-when-is-it-useful
     RUN apt-get update --fix-missing
 
