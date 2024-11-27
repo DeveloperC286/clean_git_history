@@ -18,14 +18,12 @@
         "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.+_VERSION=\"(?<currentValue>.*?)\"\\s"
       ]
     },
-    {
+{
       "customType": "regex",
-      "fileMatch": ["^.github/workflows/continuous-integration.yml$"],
+      "fileMatch": ["^[.]github/workflows/testfile$"],
       "matchStrings": [
-        "version: v(?<currentValue>.*?)"
-      ],
-      "datasourceTemplate": "docker",
-      "depNameTemplate": "earthly/earthly"
+        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*version: (?<currentValue>.*?)\\s"
+      ]
     },
     {
       "customType": "regex",
