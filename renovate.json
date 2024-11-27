@@ -20,6 +20,15 @@
     },
     {
       "customType": "regex",
+      "fileMatch": ["^.github/workflows/continuous-integration.yml$"],
+      "matchStrings": [
+        "version: v(?<currentValue>.*?)"
+      ],
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "earthly/earthly"
+    },
+    {
+      "customType": "regex",
       "fileMatch": ["^Earthfile$"],
       "matchStrings": [
         "# renovate: datasource=repology packageName=alpine_(?<currentValue>\\d+[._]\\d+)"
@@ -32,3 +41,4 @@
     }
   ]
 }
+
