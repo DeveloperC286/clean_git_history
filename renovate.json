@@ -20,6 +20,13 @@
         "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.+_VERSION=\"(?<currentValue>.*?)\"\\s"
       ]
     },
+{
+      "customType": "regex",
+      "fileMatch": ["^[.]github/workflows/testfile$"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*version: (?<currentValue>.*?)\\s"
+      ]
+    },
     {
       "customType": "regex",
       "fileMatch": [
@@ -47,3 +54,4 @@
     }
   ]
 }
+
