@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.2.1 (2024-12-01)
+
+## What's Changed
+* ci: crates.io publishing needs README.md by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/49
+* fix(deps): update rust crate anyhow to v1.0.93 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/51
+* ci: Renovate updating Earthfile Docker images by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/52
+* chore(config): migrate renovate config by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/53
+* ci: Renovate Earthfile updating correction by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/54
+* ci: Alpine migration for pinning/updating all dependencies by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/77
+* ci: adding Renovate GitHub Workflow Earthly updating by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/79
+
+
+**Full Changelog**: https://github.com/DeveloperC286/clean_git_history/compare/v0.2.0...v0.2.1
+
 ## 0.2.0 (2024-10-18)
 
 ## What's Changed
