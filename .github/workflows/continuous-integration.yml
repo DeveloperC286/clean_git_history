@@ -14,10 +14,10 @@ jobs:
       matrix:
         language: [rust, python, shell]
     steps:
-      - name: Download Earthly v0.8.12.
+      - name: Download Earthly.
         uses: earthly/actions-setup@v1
         with:
-          version: v0.8.12
+          version: v0.8.15
       - name: Checkout code.
         uses: actions/checkout@v4
       - name: Check formatting.
@@ -29,10 +29,10 @@ jobs:
       matrix:
         language: [rust, shell]
     steps:
-      - name: Download Earthly v0.8.12.
+      - name: Download Earthly.
         uses: earthly/actions-setup@v1
         with:
-          version: v0.8.12
+          version: v0.8.15
       - name: Checkout code.
         uses: actions/checkout@v4
       - name: Check linting.
@@ -41,10 +41,10 @@ jobs:
     name: Compile
     runs-on: ubuntu-latest
     steps:
-      - name: Download Earthly v0.8.12.
+      - name: Download Earthly.
         uses: earthly/actions-setup@v1
         with:
-          version: v0.8.12
+          version: v0.8.15
       - name: Checkout code.
         uses: actions/checkout@v4
       - name: Compile.
@@ -53,10 +53,10 @@ jobs:
     name: Unit Test
     runs-on: ubuntu-latest
     steps:
-      - name: Download Earthly v0.8.12.
+      - name: Download Earthly.
         uses: earthly/actions-setup@v1
         with:
-          version: v0.8.12
+          version: v0.8.15
       - name: Checkout code.
         uses: actions/checkout@v4
       - name: Unit test.
@@ -65,10 +65,10 @@ jobs:
     name: End to End Test
     runs-on: ubuntu-latest
     steps:
-      - name: Download Earthly v0.8.12.
+      - name: Download Earthly.
         uses: earthly/actions-setup@v1
         with:
-          version: v0.8.12
+          version: v0.8.15
       - name: Checkout code.
         uses: actions/checkout@v4
       - name: End to End test.
