@@ -20,7 +20,7 @@ rust-base:
     ENV MUSL_VERSION="1.2.5-r0"
     RUN apk add --no-cache bash=$BASH_VERSION musl-dev=$MUSL_VERSION
     RUN rustup component add rustfmt clippy
-    WORKDIR "/consistent_whitespace"
+    WORKDIR "/clean_git_history"
 
 
 check-clean-git-history:
@@ -84,7 +84,7 @@ check-python-formatting:
 
 golang-base:
     FROM golang:1.22.1
-    WORKDIR "/consistent_whitespace"
+    WORKDIR "/clean_git_history"
 
 
 shell-formatting-base:
