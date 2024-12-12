@@ -8,8 +8,8 @@ Feature: A Git reference can be provided as an argument to indicate where to sta
 
 
     Examples:
-      | repository                                           | checkout_commit                          | from_reference |
-      | https://github.com/mbarkhau/bumpver.git | a3f034ac866ea919343c80d7157ae0eef2133c39 | 2023.1124 |
+      | repository                              | checkout_commit                          | from_reference |
+      | https://github.com/mbarkhau/bumpver.git | a3f034ac866ea919343c80d7157ae0eef2133c39 | 2023.1124      |
 
 
   Scenario Outline:
