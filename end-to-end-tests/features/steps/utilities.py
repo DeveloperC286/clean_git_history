@@ -29,7 +29,8 @@ def execute_clean_git_history(context):
     result = execute_command(
         context.pre_command +
         context.clean_git_history_path +
-        context.arguments)
+        context.arguments +
+        context.from_ref)
 
     if "GIT_DIR" not in os.environ:
         os.chdir(context.behave_directory)
