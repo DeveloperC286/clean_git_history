@@ -1,5 +1,53 @@
 # Changelog
 
+## 1.0.0 (2025-01-30)
+
+## What's Changed
+* ci: crates.io publishing needs README.md by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/49
+* fix(deps): update rust crate anyhow to v1.0.93 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/51
+* ci: Renovate updating Earthfile Docker images by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/52
+* chore(config): migrate renovate config by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/53
+* ci: Renovate Earthfile updating correction by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/54
+* ci: Alpine migration for pinning/updating all dependencies by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/77
+* ci: adding Renovate GitHub Workflow Earthly updating by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/79
+* chore(deps): update dependency alpine_3_20/python3 to v3.12.8-r1 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/83
+* chore(deps): update earthly/earthly docker tag to v0.8.15 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/78
+* ci: replacing missed Earthly download with action by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/85
+* build: converting to Rust's Alpine image by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/95
+* build: correcting WORKDIR name by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/97
+* chore(deps): update dependency developerc286/conventional_commits_linter to v0.14.3 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/89
+* build: improved continuous delivery target naming by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/98
+* refactor: formatting end to end test features by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/99
+* fix(deps): update rust crate clap to v4.5.23 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/87
+* fix(deps): update rust crate anyhow to v1.0.94 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/86
+* feat!: from changed to singular positional argument by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/100
+* chore(deps): update dependency google/yamlfmt to v0.14.0 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/90
+* chore(deps): update dependency rhysd/actionlint to v1.7.4 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/92
+* chore(deps): update golang docker tag to v1.23.4 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/94
+* build: adding cargo --locked and removing --workspace by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/101
+* ci: removing Alpine Renovate version updating by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/102
+* ci: converting to publishing .tar.gz by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/103
+* ci: pinning actions/checkout at v4.2.2 by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/111
+* ci: pinning earthly/actions-setup at v1.0.13 by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/112
+* ci: pinning googleapis/release-please-action at v4.1.3 by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/113
+* ci: using Earthly GitHub releases by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/114
+* chore(deps): pin dependencies by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/69
+* chore(deps): update dependency alpine_3_20/git to v2.45.3-r0 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/115
+* ci: Renovate automerge PRs by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/116
+* chore(deps): update golang:1.23.4 docker digest to 9820aca by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/105
+* chore(deps): update dependency rhysd/actionlint to v1.7.7 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/106
+* chore(deps): update golang docker tag to v1.23.5 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/117
+* fix(deps): update rust crate anyhow to v1.0.95 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/104
+* fix(deps): update rust crate clap to v4.5.27 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/108
+* fix(deps): update rust crate log to v0.4.25 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/118
+* chore(deps): update dependency google/yamlfmt to v0.15.0 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/110
+* fix(deps): update rust crate git2 to 0.20.0 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/107
+* chore(deps): update dependency mvdan/sh to v3.10.0 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/91
+* chore(deps): update dependency six to v1.17.0 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/93
+
+
+**Full Changelog**: https://github.com/DeveloperC286/clean_git_history/compare/v0.2.0...v1.0.0
+
 ## 0.2.0 (2024-10-18)
 
 ## What's Changed
