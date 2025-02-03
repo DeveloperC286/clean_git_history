@@ -23,10 +23,7 @@ impl Commits {
     /// A lint that can be performed on the range of commits, which returns true if any of the
     /// commits are merge commits, i.e. has multiple parents.
     pub fn contains_merge_commits(&self) -> bool {
-        self.commits
-            .iter()
-            .map(|commit| commit.is_merge_commit())
-            .any(|is_merge_commit| is_merge_commit)
+        self.commits.iter().any(|commit| commit.is_merge_commit())
     }
 
     pub fn len(&self) -> usize {
