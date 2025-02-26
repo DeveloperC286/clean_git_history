@@ -57,5 +57,5 @@ parse_commandline "$@"
 set -o errexit
 set -o xtrace
 
-clean_git_history --from-reference "${_arg_from_reference}"
+clean_git_history "${_arg_from_reference}"
 # ] <-- needed because of Argbash
