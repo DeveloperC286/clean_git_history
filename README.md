@@ -68,7 +68,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
       - name: Install Clean Git history.
-        run: version="0.2.0" && wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/v${version}/x86_64-unknown-linux-musl.gz" | gzip -d > /usr/bin/clean_git_history && chmod 755 /usr/bin/clean_git_history
+        run: version="1.0.0" && wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/v${version}/x86_64-unknown-linux-musl.gz" | gzip -d > /usr/bin/clean_git_history && chmod 755 /usr/bin/clean_git_history
       - name: Check clean Git history.
         run: clean-git-history "origin/${{ github.base_ref }}"
 ```
@@ -81,7 +81,7 @@ clean-git-history-checking:
   stage: clean-git-history-checking
   image: rust
   before_script:
-    - version="0.2.0" && wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/v${version}/x86_64-unknown-linux-musl.gz" | gzip -d > /usr/bin/clean_git_history && chmod 755 /usr/bin/clean_git_history
+    - version="1.0.0" && wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/v${version}/x86_64-unknown-linux-musl.gz" | gzip -d > /usr/bin/clean_git_history && chmod 755 /usr/bin/clean_git_history
   script:
     - clean_git_history "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"
   rules:
@@ -110,7 +110,7 @@ Visit the releases page at [https://github.com/DeveloperC286/clean_git_history/r
 
 <!-- x-release-please-start-version -->
 ```sh
-version="0.2.0" && wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/v${version}/x86_64-unknown-linux-musl.gz" | gzip -d > /usr/bin/clean_git_history && chmod 755 /usr/bin/clean_git_history
+version="1.0.0" && wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/v${version}/x86_64-unknown-linux-musl.gz" | gzip -d > /usr/bin/clean_git_history && chmod 755 /usr/bin/clean_git_history
 ```
 <!-- x-release-please-end -->
 
@@ -129,7 +129,7 @@ e.g.
 
 <!-- x-release-please-start-version -->
 ```sh
-cargo install clean_git_history --version "0.1.2"
+cargo install clean_git_history --version "1.0.0"
 ```
 <!-- x-release-please-end -->
 
