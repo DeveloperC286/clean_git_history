@@ -28,7 +28,7 @@ A Git history linter to ensure it stays clean for those who prefer a linear hist
 Clean Git History checks the commits from the current `HEAD`(inclusively) till a provided Git reference(exclusively).
 This reference can be a branch, commit or tag, just provide it as the final argument.
 
-** e.g. **
+__e.g.__
 
 ```sh
 clean_git_history "origin/main"
