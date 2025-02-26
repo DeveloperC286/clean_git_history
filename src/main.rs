@@ -30,7 +30,7 @@ fn run(arguments: Arguments) -> Result<()> {
     let repository = Repository::open_from_env().context("Unable to open the Git repository.")?;
     let commits = Commits::from_git(&repository, arguments.from)?;
 
-    if !arguments.ignore_merge_commits && commits.contains_merge_commits() {
+    if commits.contains_merge_commits() {
         bail!("Contains merge commits.");
     }
 

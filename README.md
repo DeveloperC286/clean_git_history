@@ -9,7 +9,6 @@ A Git history linter to ensure it stays clean for those who prefer rebasing and 
 
 ## Content
 - [Usage](#usage)
-   * [Additional Arguments](#additional-arguments)
    * [Git Environment Variables](#git-environment-variables)
    * [Logging](#logging)
 - [Examples](#examples)
@@ -31,14 +30,6 @@ To specify the range of commits you can use either the `--from-commit-hash <comm
 The range of commits starts exclusively from the commit specified till inclusively of `HEAD`.
 
 The only required arguments are either `--from-commit-hash <commit-hash>` or `--from-reference <reference>`.
-
-
-### Additional Arguments
-Additional command line flags can be passed to alter what and how the history is linted.
-
-| Flag                      | |
-|---------------------------|-|
-| --ignore-merge-commits | If the flag is enabled then any Git merge commits are ignored, otherwise a merge commit's presence will cause linting to fail. |
 
 
 ### Git Environment Variables
