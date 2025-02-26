@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/License-AGPLv3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
 
-A Git history linter to ensure it stays clean for those who prefer rebasing and fast-forwarding compared to merge and squash commits.
+A Git history linter to ensure it stays clean for those who prefer a linear history without merge commits.
 
 
 ## Content
@@ -25,11 +25,16 @@ A Git history linter to ensure it stays clean for those who prefer rebasing and 
 
 
 ## Usage
-Clean History operates upon a range of Git commits in the repositories' history.
-To specify the range of commits you can use either the `--from-commit-hash <commit-hash>` or `--from-reference <reference>` arguments.
-The range of commits starts exclusively from the commit specified till inclusively of `HEAD`.
+Clean Git History checks the commits from the current `HEAD`(inclusively) till a provided Git reference(exclusively).
+This reference can be a branch, commit or tag, just provide it as the final argument.
 
-The only required arguments are either `--from-commit-hash <commit-hash>` or `--from-reference <reference>`.
+** e.g. **
+
+```sh
+clean_git_history "origin/main"
+clean_git_history "v0.2.0"
+clean_git_history "bac789b4cc5fce9a26d6805c5da4bf17241523f1"
+```
 
 
 ### Git Environment Variables
@@ -65,7 +70,7 @@ jobs:
       - name: Install Clean Git history.
         run: version="0.2.0" && wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/v${version}/x86_64-unknown-linux-musl.gz" | gzip -d > /usr/bin/clean_git_history && chmod 755 /usr/bin/clean_git_history
       - name: Check clean Git history.
-        run: clean-git-history --from-reference "origin/${{ github.base_ref }}"
+        run: clean-git-history "origin/${{ github.base_ref }}"
 ```
 <!-- x-release-please-end -->
 
@@ -78,7 +83,7 @@ clean-git-history-checking:
   before_script:
     - version="0.2.0" && wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/v${version}/x86_64-unknown-linux-musl.gz" | gzip -d > /usr/bin/clean_git_history && chmod 755 /usr/bin/clean_git_history
   script:
-    - clean_git_history --from-reference "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"
+    - clean_git_history "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"
   rules:
     - if: $CI_MERGE_REQUEST_ID
 ```
@@ -94,7 +99,7 @@ set -o errexit
 set -o pipefail
 
 branch=$(git branch --show-current)
-"${HOME}/.cargo/bin/clean_git_history"  --from-reference "origin/${branch}"
+"${HOME}/.cargo/bin/clean_git_history" "origin/${branch}"
 ```
 
 
