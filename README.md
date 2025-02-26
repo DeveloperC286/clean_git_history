@@ -68,7 +68,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
       - name: Install Clean Git history.
-        run: version="1.0.0" && wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/v${version}/x86_64-unknown-linux-musl.gz" | gzip -d > /usr/bin/clean_git_history && chmod 755 /usr/bin/clean_git_history
+        run: version="v1.0.0" && wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/${version}/x86_64-unknown-linux-musl.tar.gz" | tar xz --directory "/usr/bin/"
       - name: Check clean Git history.
         run: clean-git-history "origin/${{ github.base_ref }}"
 ```
@@ -81,7 +81,7 @@ clean-git-history-checking:
   stage: clean-git-history-checking
   image: rust
   before_script:
-    - version="1.0.0" && wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/v${version}/x86_64-unknown-linux-musl.gz" | gzip -d > /usr/bin/clean_git_history && chmod 755 /usr/bin/clean_git_history
+    - version="v1.0.0" && wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/${version}/x86_64-unknown-linux-musl.tar.gz" | tar xz --directory "/usr/bin/"
   script:
     - clean_git_history "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"
   rules:
@@ -108,9 +108,9 @@ branch=$(git branch --show-current)
 Statically linked compiled binaries are available for download.
 Visit the releases page at [https://github.com/DeveloperC286/clean_git_history/releases](https://github.com/DeveloperC286/clean_git_history/releases) to see all the releases, the release notes contains links to binary downloads for various architectures.
 
-<!-- x-release-please-start-version -->
+  <!-- x-release-please-start-version -->
 ```sh
-version="1.0.0" && wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/v${version}/x86_64-unknown-linux-musl.gz" | gzip -d > /usr/bin/clean_git_history && chmod 755 /usr/bin/clean_git_history
+version="v1.0.0" && wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/${version}/x86_64-unknown-linux-musl.tar.gz" | tar xz --directory "/usr/bin/"
 ```
 <!-- x-release-please-end -->
 
