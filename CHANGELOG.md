@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.0.1 (2025-03-06)
+
+## What's Changed
+* chore(deps): update dependency developerc286/clean_git_history to v1 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/149
+* docs: correcting binary download command by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/151
+* ci: release please updates README.md versions by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/152
+* refactor: simplifying check clean git history script by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/153
+* chore(deps): update golang:1.24.0 docker digest to 3f74443 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/154
+* chore(deps): update googleapis/release-please-action action to v4.1.4 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/155
+* fix(deps): update rust crate anyhow to v1.0.97 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/156
+* chore(deps): update rust:1.85.0-alpine3.20 docker digest to f0cef6c by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/157
+* chore(deps): update golang docker tag to v1.24.1 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/158
+* chore(deps): update googleapis/release-please-action action to v4.1.5 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/159
+* chore(deps): update rust:1.85.0-alpine3.20 docker digest to c2f212d by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/160
+* chore(deps): update dependency mvdan/sh to v3.11.0 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/161
+
+
+**Full Changelog**: https://github.com/DeveloperC286/clean_git_history/compare/v1.0.0...v1.0.1
+
 ## 1.0.0 (2025-02-26)
 
 ## What's Changed
