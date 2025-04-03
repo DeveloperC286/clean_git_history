@@ -13,10 +13,10 @@ COPY_METADATA:
 
 
 rust-base:
-    FROM rust:1.85.1-alpine3.20@sha256:4ec3fedc5eff0bc1ca3ce0e2abbd7190585627eb2b3eedc25e0bf0712b209cd7
-    # renovate: datasource=repology depName=alpine_3_20/bash versioning=loose
+    FROM rust:1.83.0-alpine3.19
+    # renovate: datasource=repology depName=alpine_3_19/bash versioning=loose
     ENV BASH_VERSION="5.2.26-r0"
-    # renovate: datasource=repology depName=alpine_3_20/musl-dev versioning=loose
+    # renovate: datasource=repology depName=alpine_3_19/musl-dev versioning=loose
     ENV MUSL_VERSION="1.2.5-r1"
     RUN apk add --no-cache bash=$BASH_VERSION musl-dev=$MUSL_VERSION
     RUN rustup component add rustfmt clippy
@@ -62,11 +62,11 @@ check-rust-formatting:
 
 python-base:
     FROM +rust-base
-    # renovate: datasource=repology depName=alpine_3_20/python3 versioning=loose
+    # renovate: datasource=repology depName=alpine_3_19/python3 versioning=loose
     ENV PYTHON_VERSION="3.12.9-r0"
-    # renovate: datasource=repology depName=alpine_3_20/git versioning=loose
+    # renovate: datasource=repology depName=alpine_3_19/git versioning=loose
     ENV GIT_VERSION="2.45.3-r0"
-    # renovate: datasource=repology depName=alpine_3_20/py3-pip versioning=loose
+    # renovate: datasource=repology depName=alpine_3_19/py3-pip versioning=loose
     ENV PIP_VERSION="24.0-r2"
     RUN apk add --no-cache py3-pip=$PIP_VERSION python3=$PYTHON_VERSION git=$GIT_VERSION
     DO +COPY_SOURCECODE
@@ -159,7 +159,7 @@ check-rust-linting:
 
 check-shell-linting:
     FROM +rust-base
-    # renovate: datasource=repology depName=alpine_3_20/shellcheck versioning=loose
+    # renovate: datasource=repology depName=alpine_3_19/shellcheck versioning=loose
     ENV SHELLCHECK_VERSION="0.10.0-r1"
     RUN apk add --no-cache shellcheck=$SHELLCHECK_VERSION
     DO +COPY_CI_DATA
@@ -208,7 +208,7 @@ end-to-end-test:
 
 publish-binary:
     FROM +rust-base
-    # renovate: datasource=repology depName=alpine_3_20/github-cli versioning=loose
+    # renovate: datasource=repology depName=alpine_3_19/github-cli versioning=loose
     ENV GITHUB_CLI_VERSION="2.47.0-r4"
     RUN apk add --no-cache github-cli=$GITHUB_CLI_VERSION
     DO +COPY_METADATA
