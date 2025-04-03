@@ -38,11 +38,11 @@
         "^Earthfile$"
       ],
       "matchStrings": [
-        "FROM rust:(?<currentValue>[\\S]+)"
+        "FROM rust:(?<currentValue>[\\S]+)@(?<currentDigest>sha256:[a-f0-9]+)"
       ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "rust",
-      "versioningTemplate": "regex:^(?<compatibility>[\\S]*\\d+\\.\\d+\\.\\d+(?:[\\S]*)?-alpine)(?<major>\\d+)\\.(?<minor>\\d+)@"
+      "versioningTemplate": "regex:^(?<compatibility>[\\S]*\\d+\\.\\d+\\.\\d+(?:[\\S]*)?-alpine)(?<major>\\d+)\\.(?<minor>\\d+)$"
     }
   ]
 }
