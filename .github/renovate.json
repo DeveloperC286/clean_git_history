@@ -38,24 +38,13 @@
         "^Earthfile$"
       ],
       "matchStrings": [
-        "FROM rust:(?<currentValue>[\\S]+)@(?<currentDigest>sha256:[a-f0-9]+)"
+        "FROM rust:(?<currentValue>[\\S]+)@(?<currentDigest>sha256:[a-f0-9]+)",
+        "# renovate: datasource=repology depName=alpine_(?<currentValue>\\d+[._]\\d+)"
       ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "rust",
+      "currentValueTemplate": "{{{ replace '_' '.' currentValue }}}",
       "versioningTemplate": "regex:^(?<compatibility>[\\S]*\\d+\\.\\d+\\.\\d+(?:[\\S]*)?-alpine)(?<major>\\d+)\\.(?<minor>\\d+)$"
-    },
-    {
-      "customType": "regex",
-      "fileMatch": [
-        "^Earthfile$"
-      ],
-      "matchStrings": [
-        "# renovate: datasource=repology depName=alpine_\\d+[.]\\d+"
-      ],
-      "datasourceTemplate": "docker",
-      "depNameTemplate": "rust",
-      "versioningTemplate": "regex:^(?<compatibility>[\\S]*\\d+\\.\\d+\\.\\d+(?:[\\S]*)?-alpine)(?<major>\\d+)\\.(?<minor>\\d+)$",
-      "autoReplaceStringTemplate": "# renovate: datasource=repology depName=alpine_{{{newMajor}}}_{{{newMinor}}}"
     }
   ]
 }
