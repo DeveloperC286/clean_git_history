@@ -38,19 +38,6 @@
         "^Earthfile$"
       ],
       "matchStrings": [
-        "FROM rust:\\d+[.]\\d+[.]\\d+-alpine(?<currentValue>\\d+[._]\\d+)"
-      ],
-      "datasourceTemplate": "docker",
-      "depNameTemplate": "alpine",
-      "versioningTemplate": "regex:^(?<major>\\d+)[._](?<minor>\\d+)$",
-      "autoReplaceStringTemplate": "# renovate: datasource=repology depName=alpine_{{{newMajor}}}_{{{newMinor}}}"
-    },
-    {
-      "customType": "regex",
-      "fileMatch": [
-        "^Earthfile$"
-      ],
-      "matchStrings": [
         "FROM rust:(?<currentValue>[\\S]+)"
       ],
       "datasourceTemplate": "docker",
