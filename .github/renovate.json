@@ -42,6 +42,18 @@
       ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "rust",
+      "versioningTemplate": "regex:^(?<compatibility>[\\S]*\\d+\\.\\d+\\.\\d+(?:[\\S]*)?-alpine)(?<major>\\d+)\\.(?<minor>\\d+)$"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": [
+        "^Earthfile$"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=repology depName=alpine_(?<currentValue>\\d+[._]\\d+)"
+      ],
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "rust",
       "versioningTemplate": "regex:^(?<compatibility>[\\S]*\\d+\\.\\d+\\.\\d+(?:[\\S]*)?-alpine)(?<major>\\d+)\\.(?<minor>\\d+)$",
       "autoReplaceStringTemplate": "# renovate: datasource=repology depName=alpine_{{{newMajor}}}"
     }
