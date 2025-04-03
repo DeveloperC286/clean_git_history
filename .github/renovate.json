@@ -50,7 +50,7 @@
         "^Earthfile$"
       ],
       "matchStrings": [
-        "FROM rust:(?<currentValue>[\\S]+)@(?<currentDigest>sha256:[a-f0-9]+)"
+        "# renovate: datasource=repology depName=alpine_(?<currentValue>\\d+[._]\\d+)"
       ],
       "currentValueTemplate": "{{{ replace '_' '.' currentValue }}}",
       "datasourceTemplate": "docker",
