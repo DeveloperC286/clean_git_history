@@ -50,7 +50,7 @@
         "^Earthfile$"
       ],
       "matchStrings": [
-        "# renovate: datasource=repology depName=alpine_\\d+[.]\\d+"
+        "# renovate: datasource=repology depName=alpine_\\d+_\\d+"
       ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "rust",
