@@ -54,7 +54,8 @@
       ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "rust",
-      "autoReplaceStringTemplate": "# renovate: datasource=repology depName=alpine_{{{newValue}}}"
+      "versioningTemplate": "regex:^(?<compatibility>[\\S]*\\d+\\.\\d+\\.\\d+(?:[\\S]*)?-alpine)(?<major>\\d+)\\.(?<minor>\\d+)$",
+      "autoReplaceStringTemplate": "# renovate: datasource=repology depName=alpine_{{{newMajor}}}"
     }
   ]
 }
