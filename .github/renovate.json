@@ -50,12 +50,12 @@
         "^Earthfile$"
       ],
       "matchStrings": [
-        "# renovate: datasource=repology depName=alpine_(?<currentValue>\\d+[._]\\d+)"
+        "# renovate: datasource=repology depName=alpine_\\d+[.]\\d+"
       ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "rust",
       "versioningTemplate": "regex:^(?<compatibility>[\\S]*\\d+\\.\\d+\\.\\d+(?:[\\S]*)?-alpine)(?<major>\\d+)\\.(?<minor>\\d+)$",
-      "autoReplaceStringTemplate": "# renovate: datasource=repology depName=alpine_{{{newMajor}}}"
+      "autoReplaceStringTemplate": "# renovate: datasource=repology depName=alpine_{{{newMajor}}}_{{{newMinor}}}"
     }
   ]
 }
