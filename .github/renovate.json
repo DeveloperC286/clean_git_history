@@ -42,6 +42,7 @@
       ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "rust",
+      "versioningTemplate": "regex:^(?<compatibility>[\\S]*\\d+\\.\\d+\\.\\d+(?:[\\S]*)?-alpine)(?<major>\\d+)\\.(?<minor>\\d+)$"
     },
     {
       "customType": "regex",
