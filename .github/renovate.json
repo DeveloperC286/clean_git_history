@@ -42,7 +42,20 @@
       ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "rust",
-      "versioningTemplate": "regex:^(?<compatibility>[\\S]*\\d+\\.\\d+\\.\\d+(?:[\\S]*)?-alpine)(?<major>\\d+)\\.(?<minor>\\d+)$"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": [
+        "^Earthfile$"
+      ],
+      "matchStrings": [
+        "FROM rust:(?<currentValue>[\\S]+)@(?<currentDigest>sha256:[a-f0-9]+)"
+      ],
+      "currentValueTemplate": "{{{ replace '_' '.' currentValue }}}",
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "rust",
+      "versioningTemplate": "regex:^(?<compatibility>[\\S]*\\d+\\.\\d+\\.\\d+(?:[\\S]*)?-alpine)(?<major>\\d+)\\.(?<minor>\\d+)$",
+      "autoReplaceStringTemplate": "# renovate: datasource=repology depName=alpine_{{{newMajor}}}_{{{newMinor}}}"
     }
   ]
 }
