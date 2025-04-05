@@ -13,13 +13,14 @@ COPY_METADATA:
 
 
 rust-base:
-    FROM rust:1.85.1-alpine3.20@sha256:4ec3fedc5eff0bc1ca3ce0e2abbd7190585627eb2b3eedc25e0bf0712b209cd7
+    FROM alpine:3.20.6@sha256:de4fe7064d8f98419ea6b49190df1abbf43450c1702eeb864fe9ced453c1cc5f
     # renovate: datasource=repology depName=alpine_3_20/bash versioning=loose
     ENV BASH_VERSION="5.2.26-r0"
     # renovate: datasource=repology depName=alpine_3_20/musl-dev versioning=loose
     ENV MUSL_VERSION="1.2.5-r1"
-    RUN apk add --no-cache bash=$BASH_VERSION musl-dev=$MUSL_VERSION
-    RUN rustup component add rustfmt clippy
+    # renovate: datasource=repology depName=alpine_3_20/rust versioning=loose
+    ENV RUST_VERSION="1.78.0-r0"
+    RUN apk add --no-cache bash=$BASH_VERSION musl-dev=$MUSL_VERSION rust=$RUST_VERSION rust-clippy=$RUST_VERSION rustfmt=$RUST_VERSION
     WORKDIR "/clean_git_history"
 
 
