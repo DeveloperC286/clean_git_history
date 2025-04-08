@@ -48,7 +48,6 @@
         "^Earthfile$"
       ],
       "matchStringsStrategy": "recursive",
-
       "matchStrings": [
         "FROM\\s+rust:.*-alpine(?<alpineMajor>\\d+)[.](?<alpineMinor>\\d+)(@sha256:[a-f0-9]+)?",
         "apk\\s+add\\s+--no-cache\\s+\\\\",
