@@ -51,10 +51,11 @@
       "matchStrings": [
         "FROM\\s+rust:.*-alpine(?<alpineMajor>\\d+)[.](?<alpineMinor>\\d+)(@sha256:[a-f0-9]+)?",
         "apk\\s+add\\s+--no-cache\\s+\\\\",
-        "(?<depName>[^\\s=]+)=(?<currentValue>[^\\s=]+)"
+        "(?<depName>[^\\s~=]+)~?=(?<currentValue>[^\\s=]+)"
       ],
       "datasourceTemplate": "repology",
       "depNameTemplate": "alpine_{{alpineMajor}}_{{alpineMinor}}/{{depName}}",
+      "autoReplaceStringTemplate": "{{{depName}}}{{#unless isPin}}~{{/unless}}={{{newValue}}}",
       "versioningTemplate": "loose"
     }
   ]
