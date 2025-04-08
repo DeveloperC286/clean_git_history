@@ -14,8 +14,7 @@ COPY_METADATA:
 
 rust-base:
     FROM rust:1.86.0-alpine3.20@sha256:2ee35275aeaa2e438f34a0563f7931988f5c5254e2eeec562f95a60ca2a2e7c3
-    RUN apk add --no-cache \
-        bash=5.2.20-r0 \
+    RUN apk add --no-cache bash=5.2.20-r0 \
         musl-dev=1.2.5-r1
     RUN rustup component add rustfmt clippy
     WORKDIR "/clean_git_history"
