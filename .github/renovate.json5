@@ -18,9 +18,9 @@
       ],
       "matchStringsStrategy": "recursive",
       "matchStrings": [
-        "FROM\\s+rust:.*-alpine(?<alpineMajor>\\d+)[.](?<alpineMinor>\\d+)(@sha256:[a-f0-9]+)?",
-        "apk\\s+add\\s+--no-cache\\s+\\\\",
-        "(?<depName>[^\\s~=]+)~?=(?<currentValue>[^\\s=]+)"
+        "FROM\\s*.*?alpine[.:]?(?<alpineMajor>\\d+)\\.(?<alpineMinor>\\d+)(?:\\n|.)*",
+        "apk\\s+add\\s+(?:\\n|.)*?[^\\\\]\\n",
+        "(?<depName>[^\\s=~]+)~?=(?<currentValue>[^\\s=]+)"
       ],
       "datasourceTemplate": "repology",
       "depNameTemplate": "alpine_{{alpineMajor}}_{{alpineMinor}}/{{depName}}",
