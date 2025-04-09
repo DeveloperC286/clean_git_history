@@ -20,10 +20,10 @@
       "matchStrings": [
         "FROM\\s*.*?alpine[.:]?(?<alpineMajor>\\d+)\\.(?<alpineMinor>\\d+)(?:\\n|.)*",
         "apk\\s+add\\s+(?:\\n|.)*?[^\\\\]\\n",
-        "(?<package>[^\\s=~]+)~?=(?<currentValue>[^\\s=]+)"
+        "(?<depName>[^\\s=~]+)~?=(?<currentValue>[^\\s=]+)"
       ],
       "datasourceTemplate": "repology",
-      "depNameTemplate": "alpine_{{alpineMajor}}_{{alpineMinor}}/{{package}}",
+      "depNameTemplate": "alpine_{{alpineMajor}}_{{alpineMinor}}/{{depName}}",
       "autoReplaceStringTemplate": "{{{package}}}{{#unless isPin}}~{{/unless}}={{{newValue}}}",
       "versioningTemplate": "loose"
     }
