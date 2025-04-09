@@ -68,7 +68,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
       - name: Install Clean Git history.
-        run: version="v1.0.0" && wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/${version}/x86_64-unknown-linux-musl.tar.gz" | tar xz --directory "/usr/bin/"
+        run: version="v1.0.1" && wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/${version}/x86_64-unknown-linux-musl.tar.gz" | tar xz --directory "/usr/bin/"
       - name: Check clean Git history.
         run: clean-git-history "origin/${{ github.base_ref }}"
 ```
@@ -81,7 +81,7 @@ clean-git-history-checking:
   stage: clean-git-history-checking
   image: rust
   before_script:
-    - version="v1.0.0" && wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/${version}/x86_64-unknown-linux-musl.tar.gz" | tar xz --directory "/usr/bin/"
+    - version="v1.0.1" && wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/${version}/x86_64-unknown-linux-musl.tar.gz" | tar xz --directory "/usr/bin/"
   script:
     - clean_git_history "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"
   rules:
@@ -110,7 +110,7 @@ Visit the releases page at [https://github.com/DeveloperC286/clean_git_history/r
 
   <!-- x-release-please-start-version -->
 ```sh
-version="v1.0.0" && wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/${version}/x86_64-unknown-linux-musl.tar.gz" | tar xz --directory "/usr/bin/"
+version="v1.0.1" && wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/${version}/x86_64-unknown-linux-musl.tar.gz" | tar xz --directory "/usr/bin/"
 ```
 <!-- x-release-please-end -->
 
@@ -129,7 +129,7 @@ e.g.
 
 <!-- x-release-please-start-version -->
 ```sh
-cargo install clean_git_history --version "1.0.0"
+cargo install clean_git_history --version "1.0.1"
 ```
 <!-- x-release-please-end -->
 
