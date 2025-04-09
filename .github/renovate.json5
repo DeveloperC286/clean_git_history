@@ -24,7 +24,6 @@
       ],
       "datasourceTemplate": "repology",
       "depNameTemplate": "alpine_{{alpineMajor}}_{{alpineMinor}}/{{name}}",
-      "autoReplaceStringTemplate": "{{{name}}}{{#unless isPin}}~{{/unless}}={{{newValue}}}",
       "versioningTemplate": "loose"
     }
   ]
