@@ -23,6 +23,7 @@
         "(?<depName>[^\\s=~]+)~?=(?<currentValue>[^\\s=]+)"
       ],
       "datasourceTemplate": "repology",
+      "depNameTemplate": "alpine_{{alpineMajor}}_{{alpineMinor}}/{{depName}}",
       "autoReplaceStringTemplate": "{{{package}}}{{#unless isPin}}~{{/unless}}={{{newValue}}}",
       "versioningTemplate": "loose"
     }
