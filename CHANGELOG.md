@@ -1,5 +1,52 @@
 # Changelog
 
+## 1.0.1 (2025-04-20)
+
+## What's Changed
+* chore(deps): update dependency developerc286/clean_git_history to v1 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/149
+* docs: correcting binary download command by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/151
+* ci: release please updates README.md versions by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/152
+* refactor: simplifying check clean git history script by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/153
+* chore(deps): update golang:1.24.0 docker digest to 3f74443 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/154
+* chore(deps): update googleapis/release-please-action action to v4.1.4 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/155
+* fix(deps): update rust crate anyhow to v1.0.97 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/156
+* chore(deps): update rust:1.85.0-alpine3.20 docker digest to f0cef6c by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/157
+* chore(deps): update golang docker tag to v1.24.1 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/158
+* chore(deps): update googleapis/release-please-action action to v4.1.5 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/159
+* chore(deps): update rust:1.85.0-alpine3.20 docker digest to c2f212d by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/160
+* chore(deps): update dependency mvdan/sh to v3.11.0 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/161
+* chore(deps): update googleapis/release-please-action action to v4.2.0 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/162
+* fix(deps): update rust crate clap to v4.5.32 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/163
+* chore(deps): update golang:1.24.1 docker digest to 8678013 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/164
+* chore(deps): update golang:1.24.1 docker digest to fa145a3 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/165
+* fix(deps): update rust crate git2 to v0.20.1 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/166
+* chore(deps): update golang:1.24.1 docker digest to ceb568d by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/167
+* chore(deps): update golang:1.24.1 docker digest to 52ff1b3 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/168
+* chore(deps): update rust docker tag to v1.85.1 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/169
+* fix(deps): update rust crate clap to v4.5.34 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/170
+* fix(deps): update rust crate log to v0.4.27 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/171
+* chore(deps): update golang docker tag to v1.24.2 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/172
+* fix(deps): update rust crate clap to v4.5.35 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/173
+* chore(deps): update rust docker tag to v1.86.0 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/178
+* chore(deps): update golang:1.24.2 docker digest to b665273 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/179
+* chore(deps): update golang:1.24.2 docker digest to 37b19a8 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/180
+* chore(deps): update golang:1.24.2 docker digest to b51b7be by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/181
+* chore(deps): update golang:1.24.2 docker digest to fb224f9 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/182
+* chore(deps): update dependency alpine_3_20/python3 to v3.12.10-r0 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/190
+* chore(deps): update golang:1.24.2 docker digest to 1ecc479 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/184
+* chore(deps): update ubuntu:24.04 docker digest to 1e622c5 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/185
+* fix(deps): update rust crate anyhow to v1.0.98 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/188
+* fix(deps): update rust crate clap to v4.5.36 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/187
+* ci: Renovate update Rust's Alpine version regex by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/189
+* ci: update inlined Alpine package versions by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/192
+* chore(deps): update golang:1.24.2 docker digest to d9db321 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/193
+* fix(deps): update rust crate clap to v4.5.37 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/194
+* chore(deps): update rust docker tag to v1.86.0-alpine3.21 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/191
+* chore(deps): update dependency alpine_3_21/github-cli to v2.63.0-r4 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/195
+
+
+**Full Changelog**: https://github.com/DeveloperC286/clean_git_history/compare/v1.0.0...v1.0.1
+
 ## 1.0.0 (2025-02-26)
 
 ## What's Changed
