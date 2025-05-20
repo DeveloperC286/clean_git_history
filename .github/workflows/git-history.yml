@@ -17,4 +17,4 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
       - name: Check clean Git history.
-        run: make check-clean-git-history "origin/${{ github.base_ref }}"
+        run: make check-clean-git-history FROM="origin/${{ github.base_ref }}"
