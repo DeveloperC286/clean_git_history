@@ -73,15 +73,3 @@ def assert_ambiguous_shortened_commit_hash_error(context, shortened_commit_hash)
 
     # Then
     assert_error_matches_regex(result, ambiguous_shortened_commit_hash_error)
-
-
-@then('their is a missing from argument error.')
-def assert_missing_from_argument_error(context):
-    # Given
-    missing_from_argument_error = "error: the following required arguments were not provided:\n  <FROM>\n\nUsage: clean_git_history <FROM>\n\nFor more information, try '--help'.\n"
-
-    # When/Then
-    result = assert_git_history_is_not_clean(context)
-
-    # Then
-    assert_error_equals(result, missing_from_argument_error)
