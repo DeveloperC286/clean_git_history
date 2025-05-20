@@ -22,7 +22,8 @@ pub(crate) struct Arguments {
     pub(crate) max_commits: Option<usize>,
 
     #[arg(
-        help = "The Git reference from where to start taking the range of commits from till HEAD to lint. The range is inclusive of HEAD and exclusive of the provided reference."
+        help = "The Git reference from where to start taking the range of commits from till HEAD to lint. The range is inclusive of HEAD and exclusive of the provided reference.",
+        default_value = "origin/HEAD"
     )]
     pub(crate) from: String,
 }
