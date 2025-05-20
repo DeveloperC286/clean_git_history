@@ -1,5 +1,29 @@
 # Changelog
 
+## 1.0.2 (2025-05-20)
+
+## What's Changed
+* chore(deps): update dependency developerc286/clean_git_history to v1.0.1 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/196
+* chore(deps): update golang:1.24.2 docker digest to 8131d99 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/198
+* chore(deps): update golang:1.24.2 docker digest to f52b85c by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/199
+* chore(deps): update golang:1.24.2 docker digest to 3a060d6 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/200
+* chore(deps): update golang:1.24.2 docker digest to 30baaea by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/201
+* chore(deps): update ubuntu:24.04 docker digest to 6015f66 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/202
+* fix(deps): update rust crate git2 to v0.20.2 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/203
+* chore(deps): update rust:1.86.0-alpine3.21 docker digest to 8c042ca by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/204
+* chore(deps): update rust:1.86.0-alpine3.21 docker digest to 661d708 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/205
+* chore(deps): update golang docker tag to v1.24.3 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/206
+* fix(deps): update rust crate clap to v4.5.38 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/208
+* chore(deps): update dependency alpine_3_21/github-cli to v2.63.0-r5 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/209
+* chore(deps): update golang:1.24.3 docker digest to 86b4cff by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/210
+* chore(deps): update rust docker tag to v1.87.0 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/211
+* chore(config): migrate renovate config by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/207
+* refactor: max_commits is now optional by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/213
+* refactor: adding default from by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/214
+
+
+**Full Changelog**: https://github.com/DeveloperC286/clean_git_history/compare/v1.0.1...v1.0.2
+
 ## 1.0.1 (2025-04-20)
 
 ## What's Changed
