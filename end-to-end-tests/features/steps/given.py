@@ -15,8 +15,8 @@ def reset_arguments(context):
 def reset_context(context):
     context.behave_directory = os.getcwd()
 
-    context.pre_command = ""
-    context.clean_git_history_path = f"{context.behave_directory}/../target/debug/clean_git_history"
+    context.clean_git_history_path = f"{
+        context.behave_directory}/../target/x86_64-unknown-linux-musl/debug/clean_git_history"
     reset_arguments(context)
 
     if "GIT_DIR" in os.environ:
