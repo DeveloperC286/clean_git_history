@@ -21,16 +21,6 @@ rust-base:
     WORKDIR "/clean_git_history"
 
 
-check-clean-git-history:
-    FROM +rust-base
-    # renovate: datasource=github-releases depName=DeveloperC286/clean_git_history
-    ENV CLEAN_GIT_HISTORY_VERSION="v1.0.2"
-    RUN wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/${CLEAN_GIT_HISTORY_VERSION}/x86_64-unknown-linux-musl.tar.gz" | tar xz --directory "/usr/bin/"
-    DO +COPY_METADATA
-    ARG from="origin/HEAD"
-    RUN ./ci/check-clean-git-history.sh "${from}"
-
-
 check-conventional-commits-linting:
     FROM +rust-base
     # renovate: datasource=github-releases depName=DeveloperC286/conventional_commits_linter
