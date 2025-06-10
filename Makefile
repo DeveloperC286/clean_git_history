@@ -21,8 +21,8 @@ check-python-formatting:
 	docker run --rm -v $(PWD):/clean_git_history -u $(UID):$(GID) check-python-formatting
 
 check-yaml-formatting:
-	docker build -t check-yaml-formatting -f ci/check-yaml-formatting.Dockerfile .
-	docker run --rm -v $(PWD):/clean_git_history -u $(UID):$(GID) check-yaml-formatting
+	docker pull ghcr.io/google/yamlfmt:0.17.0
+	docker run --rm -v $(PWD):/clean_git_history -u $(UID):$(GID) ghcr.io/google/yamlfmt:0.17.0 -verbose -lint -dstar .github/workflows/*
 
 fix-rust-formatting:
 	docker build -t fix-rust-formatting -f ci/fix-rust-formatting.Dockerfile .
@@ -33,8 +33,8 @@ fix-python-formatting:
 	docker run --rm -v $(PWD):/clean_git_history -u $(UID):$(GID) fix-python-formatting
 
 fix-yaml-formatting:
-	docker build -t fix-yaml-formatting -f ci/fix-yaml-formatting.Dockerfile .
-	docker run --rm -v $(PWD):/clean_git_history -u $(UID):$(GID) fix-yaml-formatting
+	docker pull ghcr.io/google/yamlfmt:0.17.0
+	docker run --rm -v $(PWD):/clean_git_history -u $(UID):$(GID) ghcr.io/google/yamlfmt:0.17.0 -verbose -dstar .github/workflows/*
 
 check-rust-linting:
 	docker build -t check-rust-linting -f ci/check-rust-linting.Dockerfile .
