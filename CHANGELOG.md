@@ -1,5 +1,33 @@
 # Changelog
 
+## 1.0.3 (2025-06-10)
+
+## What's Changed
+* chore(deps): update dependency developerc286/clean_git_history to v1.0.2 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/215
+* chore(deps): update dependency alpine_3_21/python3 to v3.12.10-r1 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/223
+* chore(deps): update golang:1.24.3 docker digest to 1bcf884 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/222
+* chore(deps): update golang:1.24.3 docker digest to 02a2275 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/224
+* chore(deps): update golang:1.24.3 docker digest by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/225
+* chore(deps): update golang:1.24.3 docker digest to e84f2e8 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/226
+* chore(deps): update golang:1.24.3 docker digest to baf611f by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/227
+* chore(deps): update golang:1.24.3 docker digest to 795a40c by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/228
+* chore(deps): update golang:1.24.3 docker digest to 4c0a181 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/229
+* chore(deps): update dependency google/yamlfmt to v0.17.0 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/230
+* fix(deps): update rust crate clap to v4.5.39 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/231
+* chore(deps): update golang:1.24.3 docker digest to 81bf592 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/233
+* chore(deps): update ubuntu:24.04 docker digest to b59d215 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/234
+* chore(deps): update golang docker tag to v1.24.4 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/235
+* chore(deps): update dependency alpine_3_21/python3 to v3.12.11-r0 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/236
+* fix(deps): update rust crate clap to v4.5.40 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/237
+* build: replacing Earthly with Makefile & Docker build/run by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/219
+* chore(deps): pin dependencies by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/239
+* build: using yamlfmt Docker image by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/241
+* chore(deps): update python docker tag to v3.13.4 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/242
+* chore(deps): update alpine docker tag to v3.22 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/243
+
+
+**Full Changelog**: https://github.com/DeveloperC286/clean_git_history/compare/v1.0.2...v1.0.3
+
 ## 1.0.2 (2025-05-20)
 
 ## What's Changed
