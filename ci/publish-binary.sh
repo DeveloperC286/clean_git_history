@@ -4,9 +4,9 @@ set -o errexit
 set -o xtrace
 
 if [ "$#" -ne 1 ]; then
-    echo "Usage: $0 RELEASE_TAG"
-    echo "$#"
-    exit 1
+	echo "Usage: $0 RELEASE_TAG"
+	echo "$#"
+	exit 1
 fi
 
 RELEASE="$1"

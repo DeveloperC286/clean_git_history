@@ -16,6 +16,10 @@ check-rust-formatting:
 	docker build -t check-rust-formatting -f ci/check-rust-formatting.Dockerfile .
 	docker run --rm -v $(PWD):/clean_git_history -u $(UID):$(GID) check-rust-formatting
 
+check-shell-formatting:
+	docker pull mvdan/shfmt:v3.11.0-alpine
+	docker run --rm -v $(PWD):/clean_git_history -w /clean_git_history -u $(UID):$(GID) mvdan/shfmt:v3.11.0-alpine --simplify --diff ci/* 
+
 check-python-formatting:
 	docker build -t check-python-formatting -f ci/check-python-formatting.Dockerfile .
 	docker run --rm -v $(PWD):/clean_git_history -u $(UID):$(GID) check-python-formatting
@@ -27,6 +31,10 @@ check-yaml-formatting:
 fix-rust-formatting:
 	docker build -t fix-rust-formatting -f ci/fix-rust-formatting.Dockerfile .
 	docker run --rm -v $(PWD):/clean_git_history -u $(UID):$(GID) fix-rust-formatting
+
+fix-shell-formatting:
+	docker pull mvdan/shfmt:v3.11.0-alpine
+	docker run --rm -v $(PWD):/clean_git_history -w /clean_git_history -u $(UID):$(GID) mvdan/shfmt:v3.11.0-alpine --simplify --write ci/* 
 
 fix-python-formatting:
 	docker build -t fix-python-formatting -f ci/fix-python-formatting.Dockerfile .
