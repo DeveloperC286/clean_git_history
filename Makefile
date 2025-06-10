@@ -52,18 +52,22 @@ unit-test:
 	docker build -t unit-test -f ci/unit-test.Dockerfile .
 	docker run --rm -v $(PWD):/clean_git_history -u $(UID):$(GID) unit-test
 
-static-binary-test: compile
-	docker run --rm -v $(PWD):/clean_git_history -u $(UID):$(GID) compile --release
-	./target/x86_64-unknown-linux-musl/release/clean_git_history --help
-
 end-to-end-test: compile
 	docker build -t end-to-end-test -f ci/end-to-end-test.Dockerfile .
 	docker run --rm -v $(PWD):/clean_git_history -u $(UID):$(GID) end-to-end-test
 
-publish-binary: static-binary-test
+release:
+	docker build -t compile -f ci/compile.Dockerfile .
+	docker run --rm -v $(PWD):/clean_git_history -u $(UID):$(GID) compile --release
+
+publish-binary: release
 	docker build -t publish-binary -f ci/publish-binary.Dockerfile .
 	docker run --rm -v $(PWD):/clean_git_history -u $(UID):$(GID) -e GH_TOKEN publish-binary $(RELEASE)
 
 publish-crate:
 	docker build -t publish-crate -f ci/publish-crate.Dockerfile .
 	docker run --rm -v $(PWD):/clean_git_history -u $(UID):$(GID) -e CARGO_REGISTRY_TOKEN publish-crate
+
+publish-docker: release
+	docker build -t ghcr.io/clean-git-history:${RELEASE} -f Dockerfile .
+	docker push ghcr.io/clean-git-history:${RELEASE}
