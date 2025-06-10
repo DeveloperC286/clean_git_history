@@ -4,4 +4,4 @@ RUN apk add --no-cache \
 
 WORKDIR /clean_git_history
 
-ENTRYPOINT ["/bin/sh", "-c", "ci/publish-binary.sh"]
+ENTRYPOINT ["/clean_git_history/ci/publish-binary.sh"]

@@ -5,6 +5,7 @@ set -o xtrace
 
 if [ "$#" -ne 1 ]; then
     echo "Usage: $0 RELEASE_TAG"
+    echo "$#"
     exit 1
 fi
 
