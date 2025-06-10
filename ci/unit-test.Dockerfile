@@ -4,4 +4,4 @@ RUN apk add --no-cache \
 
 WORKDIR /clean_git_history
 
-ENTRYPOINT ["cargo", "test", "--target=x86_64-unknown-linux-musl", "--verbose", "--locked"]
+ENTRYPOINT ["cargo", "test", "--verbose", "--target=x86_64-unknown-linux-musl", "--locked"]

@@ -62,8 +62,8 @@ end-to-end-test: compile
 
 publish-binary: static-binary-test
 	docker build -t publish-binary -f ci/publish-binary.Dockerfile .
-	docker run --rm -v $(PWD):/clean_git_history -u $(UID):$(GID) publish-binary $(RELEASE)
+	docker run --rm -v $(PWD):/clean_git_history -u $(UID):$(GID) -e GH_TOKEN publish-binary $(RELEASE)
 
 publish-crate:
-	docker build -t publish-crate -f ci/publish-crate.Dockerfile --secret id=CARGO_REGISTRY_TOKEN .
-	docker run --rm -v $(PWD):/clean_git_history -u $(UID):$(GID) publish-crate
+	docker build -t publish-crate -f ci/publish-crate.Dockerfile .
+	docker run --rm -v $(PWD):/clean_git_history -u $(UID):$(GID) -e CARGO_REGISTRY_TOKEN publish-crate
