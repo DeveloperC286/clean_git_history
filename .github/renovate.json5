@@ -44,7 +44,7 @@
         "/(^|/)Makefile[^/]*$/"
       ],
       "matchStrings": [
-        "docker\\s+pull\\s+(?<depName>[^:]+):(?<currentValue>[a-z0-9.-]+)(?:@(?<currentDigest>sha256:[a-f0-9]+))?"
+        "# renovate: depName=(?<depName>.*?)\\s.+_VERSION=(?<currentValue>[a-z0-9.-]+)(?:@(?<currentDigest>sha256:[a-f0-9]+))?"
       ],
       "datasourceTemplate": "docker",
       "versioningTemplate": "docker"
