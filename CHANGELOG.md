@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.0.4 (2025-06-26)
+
+## What's Changed
+* chore(deps): update dependency alpine_3_22/github-cli to v2.72.0-r1 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/246
+* ci: fix passing secrets into make targets by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/247
+* ci: fixing binary packaging by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/249
+* chore(deps): update dependency developerc286/clean_git_history to v1.0.3 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/248
+* ci: adding shell formatting checking by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/251
+* build: changing WORKDIR to workspace by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/252
+* chore(deps): update python docker tag to v3.13.5 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/253
+* chore(deps): update python:3.13.5-alpine3.21 docker digest to c9a09c4 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/254
+* ci: adding Makefile Docker updating by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/255
+* ci: fixing Makefile Renovate Docker image updating by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/256
+* ci: simplifying mirroring workflow by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/257
+* chore(deps): update ghcr.io/google/yamlfmt docker tag to v0.17.1 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/258
+* chore(deps): update ghcr.io/google/yamlfmt docker tag to v0.17.2 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/259
+* ci: publishing Docker image by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/250
+
+
+**Full Changelog**: https://github.com/DeveloperC286/clean_git_history/compare/v1.0.3...v1.0.4
+
 ## 1.0.3 (2025-06-10)
 
 ## What's Changed
