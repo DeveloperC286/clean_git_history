@@ -32,10 +32,10 @@ fn main() {
     pretty_env_logger::init();
     trace!("Version {}.", env!("CARGO_PKG_VERSION"));
     let arguments = Arguments::parse();
-    debug!("The command line arguments provided are {:?}.", arguments);
+    debug!("The command line arguments provided are {arguments:?}.");
 
     if let Err(err) = run(arguments) {
-        error!("{:?}", err);
+        error!("{err:?}");
         std::process::exit(ERROR_EXIT_CODE);
     }
 }
