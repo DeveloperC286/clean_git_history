@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.0.5 (2025-06-28)
+
+## What's Changed
+* chore(deps): update dependency developerc286/clean_git_history to v1.0.4 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/260
+* ci: migrating to clean_git_history Docker image by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/262
+* chore(deps): update rust docker tag to v1.88.0 by @renovate in https://github.com/DeveloperC286/clean_git_history/pull/263
+* ci: conventional commits linter Docker image by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/265
+
+
+**Full Changelog**: https://github.com/DeveloperC286/clean_git_history/compare/v1.0.4...v1.0.5
+
 ## 1.0.4 (2025-06-26)
 
 ## What's Changed
