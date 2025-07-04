@@ -1,4 +1,4 @@
-name: Continuous Integration (CI)
+name: Dogfood
 
 on: pull_request
 
@@ -6,8 +6,8 @@ permissions:
   contents: read
 
 jobs:
-  dogfood:
-    name: Dogfood
+  docker:
+    name: Docker
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code.
@@ -15,5 +15,5 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
-      - name: Dogfooding
-        run: make dogfood
+      - name: Dogfooding Docker
+        run: make dogfood-docker
