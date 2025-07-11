@@ -10,7 +10,6 @@ A Git history linter to ensure it stays clean for those who prefer a linear hist
 ## Content
 - [Usage](#usage)
    * [Git Environment Variables](#git-environment-variables)
-   * [Logging](#logging)
 - [Examples](#examples)
    * [GitHub](#github)
    * [GitLab CI](#gitlab-ci)
@@ -41,12 +40,6 @@ clean_git_history "bac789b4cc5fce9a26d6805c5da4bf17241523f1"
 When looking for a repository the Git environment variables are respected.
 When `${GIT_DIR}` is set, it takes precedence and Clean History begins searching for a repository in the directory specified in `${GIT_DIR}`.
 When `${GIT_DIR}` is not set, Clean History searches for a repository beginning in the current directory.
-
-
-### Logging
-The crates `pretty_env_logger` and `log` are used to provide logging.
-The environment variable `RUST_LOG` can be used to set the logging level.
-See [https://crates.io/crates/pretty_env_logger](https://crates.io/crates/pretty_env_logger) for more detailed documentation.
 
 
 ## Examples

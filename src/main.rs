@@ -22,6 +22,12 @@ pub(crate) struct Arguments {
     pub(crate) max_commits: Option<usize>,
 
     #[arg(
+        long,
+        help = "Enable verbose output, respects RUST_LOG environment variable if set."
+    )]
+    pub(crate) verbose: bool,
+
+    #[arg(
         help = "The Git reference from where to start taking the range of commits from till HEAD to lint. The range is inclusive of HEAD and exclusive of the provided reference.",
         default_value = "origin/HEAD"
     )]
@@ -29,10 +35,16 @@ pub(crate) struct Arguments {
 }
 
 fn main() {
-    pretty_env_logger::init();
-    trace!("Version {}.", env!("CARGO_PKG_VERSION"));
+    info!("Version {}.", env!("CARGO_PKG_VERSION"));
     let arguments = Arguments::parse();
     debug!("The command line arguments provided are {arguments:?}.");
+
+    // Set up logging: if verbose is true and RUST_LOG is not set, default to info level
+    if arguments.verbose && std::env::var("RUST_LOG").is_err() {
+        std::env::set_var("RUST_LOG", "info");
+    }
+
+    pretty_env_logger::init();
 
     if let Err(err) = run(arguments) {
         error!("{err:?}");
