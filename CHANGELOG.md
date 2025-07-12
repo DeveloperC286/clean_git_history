@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.1.0 (2025-07-12)
+
+## What's Changed
+* chore(deps): update dependency developerc286/clean_git_history to v1.0.4 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/260
+* ci: migrating to clean_git_history Docker image by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/262
+* chore(deps): update rust docker tag to v1.88.0 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/263
+* ci: conventional commits linter Docker image by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/265
+* refactor: GitHub Actions setting permissions by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/266
+* build: simplifying Makefile by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/267
+* chore(deps): update mvdan/shfmt docker tag to v3.12.0 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/268
+* chore(deps): update dependency alpine_3_22/git to v2.49.1-r0 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/269
+* feat: adding verbose CLI option by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/272
+* fix(deps): update rust crate clap to v4.5.41 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/271
+
+
+**Full Changelog**: https://github.com/DeveloperC286/clean_git_history/compare/v1.0.4...v1.1.0
+
 ## 1.0.4 (2025-06-26)
 
 ## What's Changed
