@@ -16,4 +16,4 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
       - name: Dogfooding Docker
-        run: make dogfood-docker
+        run: make dogfood-docker FROM="origin/${{ github.base_ref }}"
