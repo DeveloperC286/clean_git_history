@@ -10,9 +10,10 @@ A Git history linter to ensure it stays clean for those who prefer a linear hist
 - [Examples](#examples)
   - [GitHub Actions](#github-actions)
   - [GitLab CI](#gitlab-ci)
-- [Installing](#installing)
+- [Installation](#installation)
   - [Binary](#binary)
   - [Cargo](#cargo)
+  - [Docker](#docker)
 
 ## Usage
 Clean Git History checks the commits from the current `HEAD`(inclusively) till a provided Git reference(exclusively).
@@ -66,7 +67,7 @@ clean-git-history-checking:
 ```
 <!-- x-release-please-end -->
 
-## Installing
+## Installation
 ### Binary
 Statically linked compiled binaries are available for download.
 Visit the releases page at [https://github.com/DeveloperC286/clean_git_history/releases](https://github.com/DeveloperC286/clean_git_history/releases) to see all the releases, the release notes contains links to binary downloads for various architectures.
@@ -97,6 +98,13 @@ cargo install clean_git_history --version "1.0.4"
 <!-- x-release-please-end -->
 
 See [https://doc.rust-lang.org/cargo/commands/cargo-install.html#install-options](https://doc.rust-lang.org/cargo/commands/cargo-install.html#install-options) for more detailed documentation.
+
+### Docker
+You can use the Docker image published to [ghcr.io/developerc286/clean_git_history](https://github.com/DeveloperC286/clean_git_history/pkgs/container/clean_git_history).
+
+```sh
+docker run --rm -v $(pwd):/workspace -w /workspace ghcr.io/developerc286/clean_git_history:latest origin/HEAD
+```
 
 ## Issues/Feature Requests
 Report issues or request features on our [GitHub Issues](https://github.com/DeveloperC286/clean_git_history/issues).
