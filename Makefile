@@ -108,7 +108,7 @@ publish-crate:
 .PHONY: dogfood-docker
 dogfood-docker: release
 	docker build -t clean_git_history -f Dockerfile .
-	docker run $(DOCKER_RUN_WRITE_OPTS) clean_git_history --verbose
+	docker run $(DOCKER_RUN_WRITE_OPTS) clean_git_history --verbose $(FROM)
 
 .PHONY: publish-docker
 publish-docker: release
