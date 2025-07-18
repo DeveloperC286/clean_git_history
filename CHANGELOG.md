@@ -1,5 +1,36 @@
 # Changelog
 
+## 1.1.0 (2025-07-18)
+
+## What's Changed
+* chore(deps): update dependency developerc286/clean_git_history to v1.0.4 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/260
+* ci: migrating to clean_git_history Docker image by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/262
+* chore(deps): update rust docker tag to v1.88.0 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/263
+* ci: conventional commits linter Docker image by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/265
+* refactor: GitHub Actions setting permissions by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/266
+* build: simplifying Makefile by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/267
+* chore(deps): update mvdan/shfmt docker tag to v3.12.0 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/268
+* chore(deps): update dependency alpine_3_22/git to v2.49.1-r0 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/269
+* feat: adding verbose CLI option by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/272
+* fix(deps): update rust crate clap to v4.5.41 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/271
+* docs: condensed/simplified README.md by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/274
+* docs: adding Docker image details by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/275
+* chore(deps): update alpine:3.22 docker digest to 4bcff63 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/276
+* chore(deps): update python:3.13.5-alpine3.21 docker digest to 6a5f50a by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/277
+* chore(deps): update python:3.13.5-alpine3.22 docker digest to e088746 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/278
+* chore(deps): update rust:1.88.0-alpine3.21 docker digest to 63f574f by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/279
+* chore(deps): update python:3.13.5-alpine3.21 docker digest to fd94400 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/280
+* chore(deps): update python:3.13.5-alpine3.22 docker digest to d005934 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/281
+* chore(deps): update python:3.13.5-alpine3.22 docker digest to 610020b by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/283
+* chore(deps): update python:3.13.5-alpine3.21 docker digest to 716e13a by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/282
+* chore(deps): update rust:1.88.0-alpine3.21 docker digest to b7a47e9 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/284
+* chore(deps): update alpine docker tag to v3.22.1 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/285
+* chore(deps): update python:3.13.5-alpine3.21 docker digest to 763eee4 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/286
+* chore(deps): update python:3.13.5-alpine3.22 docker digest to 37b14db by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/287
+
+
+**Full Changelog**: https://github.com/DeveloperC286/clean_git_history/compare/v1.0.4...v1.1.0
+
 ## 1.0.4 (2025-06-26)
 
 ## What's Changed
