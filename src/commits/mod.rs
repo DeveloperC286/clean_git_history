@@ -35,7 +35,7 @@ fn get_commits_till_head_from_oid(
     repository: &Repository,
     from_commit_hash: Oid,
 ) -> Result<Commits> {
-    fn get_revwalker(repository: &Repository, from_commit_hash: Oid) -> Result<Revwalk> {
+    fn get_revwalker(repository: &Repository, from_commit_hash: Oid) -> Result<Revwalk<'_>> {
         let mut commits = repository.revwalk()?;
         commits.simplify_first_parent()?;
         commits.push_head()?;
