@@ -64,7 +64,7 @@ fn run(arguments: Arguments) -> Result<()> {
     if let Some(max_commits) = arguments.max_commits {
         if commits.len() > max_commits {
             bail!(format!(
-                "Exceeded the maxium number of commits {:?} with {:?} commits.",
+                "Exceeded the maximum number of commits {:?} with {:?} commits.",
                 arguments.max_commits,
                 commits.len()
             ));
