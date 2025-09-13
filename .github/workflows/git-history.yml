@@ -9,6 +9,8 @@ jobs:
   clean:
     name: Clean
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/developerc286/clean_git_history:v1.0.4
     steps:
       - name: Checkout code.
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
@@ -16,4 +18,4 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
       - name: Check clean Git history.
-        run: make check-clean-git-history FROM="origin/${{ github.base_ref }}"
+        run: clean_git_history "origin/${{ github.base_ref }}"

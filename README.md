@@ -39,16 +39,16 @@ jobs:
   clean:
     name: Clean
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/developerc286/clean_git_history:v1.0.4
     steps:
       - name: Checkout code.
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
-      - name: Install Clean Git history.
-        run: version="v1.0.4" && wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/${version}/x86_64-unknown-linux-musl.tar.gz" | tar xz --directory "/usr/bin/"
       - name: Check clean Git history.
-        run: clean-git-history "origin/${{ github.base_ref }}"
+        run: clean_git_history "origin/${{ github.base_ref }}"
 ```
 <!-- x-release-please-end -->
 
@@ -57,9 +57,7 @@ jobs:
 ```yaml
 clean-git-history-checking:
   stage: clean-git-history-checking
-  image: rust
-  before_script:
-    - version="v1.0.4" && wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/${version}/x86_64-unknown-linux-musl.tar.gz" | tar xz --directory "/usr/bin/"
+  image: ghcr.io/developerc286/clean_git_history:v1.0.4
   script:
     - clean_git_history "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"
   rules:
@@ -102,9 +100,11 @@ See [https://doc.rust-lang.org/cargo/commands/cargo-install.html#install-options
 ### Docker
 You can use the Docker image published to [ghcr.io/developerc286/clean_git_history](https://github.com/DeveloperC286/clean_git_history/pkgs/container/clean_git_history).
 
+<!-- x-release-please-start-version -->
 ```sh
-docker run --rm -v $(pwd):/workspace -w /workspace ghcr.io/developerc286/clean_git_history:latest origin/HEAD
+docker run --rm -v $(pwd):/workspace -w /workspace ghcr.io/developerc286/clean_git_history:v1.0.4 origin/HEAD
 ```
+<!-- x-release-please-end -->
 
 ## Issues/Feature Requests
 Report issues or request features on our [GitHub Issues](https://github.com/DeveloperC286/clean_git_history/issues).
