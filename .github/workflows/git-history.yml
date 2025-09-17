@@ -18,4 +18,4 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
       - name: Check clean Git history.
-        run: clean_git_history "origin/${{ github.base_ref }}"
+        run: clean_git_history --verbose "origin/${{ github.base_ref }}"
