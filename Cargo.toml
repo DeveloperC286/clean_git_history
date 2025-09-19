@@ -2,7 +2,7 @@
 name = "clean_git_history"
 description = "A Git history linter to ensure it stays clean for those who prefer rebasing and fast-forwarding compared to merge and squash commits."
 authors = ["C <DeveloperC@protonmail.com>"]
-version = "1.1.0"
+version = "1.1.1"
 edition = "2021"
 license = "AGPL-3.0"
 repository = "https://github.com/DeveloperC286/clean_git_history"
