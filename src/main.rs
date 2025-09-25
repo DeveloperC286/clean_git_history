@@ -54,6 +54,30 @@ fn main() {
 }
 
 fn run(arguments: Arguments) -> Result<()> {
+    // Debug: Dump git configuration to help diagnose ownership issues
+    debug!("Current working directory: {:?}", std::env::current_dir());
+    debug!("USER environment variable: {:?}", std::env::var("USER"));
+    debug!("HOME environment variable: {:?}", std::env::var("HOME"));
+
+    // Dump git config to see what safe directories are configured
+    if let Ok(output) = std::process::Command::new("git")
+        .args(&["config", "--list", "--show-origin"])
+        .output()
+    {
+        debug!(
+            "Git config output:\n{}",
+            String::from_utf8_lossy(&output.stdout)
+        );
+        if !output.stderr.is_empty() {
+            debug!(
+                "Git config stderr:\n{}",
+                String::from_utf8_lossy(&output.stderr)
+            );
+        }
+    } else {
+        debug!("Failed to run git config command");
+    }
+
     let repository = Repository::open_from_env().context("Unable to open the Git repository.")?;
     let commits = Commits::from_git(&repository, arguments.from)?;
 
