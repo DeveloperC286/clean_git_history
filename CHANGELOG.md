@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.1.1 (2025-10-01)
+
+## What's Changed
+* chore(deps): pin ghcr.io/developerc286/clean_git_history docker tag to 5783341 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/329
+* chore(deps): update ghcr.io/developerc286/clean_git_history docker tag to v1.1.0 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/330
+* chore(deps): update rust docker tag to v1.90.0 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/334
+* fix(deps): update rust crate anyhow to v1.0.100 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/335
+* fix(deps): update rust crate clap to v4.5.48 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/336
+* ci: adding Claude Code workflows by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/337
+* chore(deps): update ghcr.io/developerc286/conventional_commits_linter docker tag to v0.16.0 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/333
+* chore(deps): update anthropics/claude-code-action digest to 426380f by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/338
+* chore(deps): update docker/login-action digest to 5e57cd1 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/339
+* chore(deps): update anthropics/claude-code-action digest to 90d189f by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/340
+
+
+**Full Changelog**: https://github.com/DeveloperC286/clean_git_history/compare/v1.1.0...v1.1.1
+
 ## 1.1.0 (2025-09-13)
 
 ## What's Changed
