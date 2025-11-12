@@ -2,13 +2,16 @@
 extern crate log;
 extern crate pretty_env_logger;
 
-use anyhow::{bail, Context, Result};
+use anyhow::{Context, Result};
 use clap::Parser;
 use git2::Repository;
 
 mod commits;
+mod linting_results;
+mod output;
 
 use crate::commits::Commits;
+use crate::output::Output;
 
 const ERROR_EXIT_CODE: i32 = 1;
 
@@ -26,6 +29,13 @@ pub(crate) struct Arguments {
         help = "Enable verbose output, respects RUST_LOG environment variable if set."
     )]
     pub(crate) verbose: bool,
+
+    #[arg(
+        long,
+        default_value = "default",
+        help = "Specifies the format for outputting results, acceptable values are quiet, default, and pretty."
+    )]
+    pub(crate) output: Output,
 
     #[arg(
         help = "The Git reference from where to start taking the range of commits from till HEAD to lint. The range is inclusive of HEAD and exclusive of the provided reference.",
@@ -47,29 +57,34 @@ fn main() {
     info!("Version {}.", env!("CARGO_PKG_VERSION"));
     debug!("The command line arguments provided are {arguments:?}.");
 
-    if let Err(err) = run(arguments) {
-        error!("{err:?}");
-        std::process::exit(ERROR_EXIT_CODE);
+    match run(arguments) {
+        Ok(exit_code) => std::process::exit(exit_code),
+        Err(err) => {
+            error!("{err:?}");
+            std::process::exit(ERROR_EXIT_CODE);
+        }
     }
 }
 
-fn run(arguments: Arguments) -> Result<()> {
+fn run(arguments: Arguments) -> Result<i32> {
     let repository = Repository::open_from_env().context("Unable to open the Git repository.")?;
     let commits = Commits::from_git(&repository, arguments.from)?;
 
-    if commits.contains_merge_commits() {
-        bail!("Contains merge commits.");
-    }
-
-    if let Some(max_commits) = arguments.max_commits {
-        if commits.len() > max_commits {
-            bail!(format!(
-                "Exceeded the maximum number of commits {:?} with {:?} commits.",
-                arguments.max_commits,
-                commits.len()
-            ));
+    if let Some(linting_results) = commits.lint(arguments.max_commits) {
+        match arguments.output {
+            Output::Quiet => {}
+            Output::Default => {
+                println!("{}", linting_results.pretty());
+            }
+            Output::Pretty => {
+                println!("{}", linting_results.pretty());
+            }
         }
+
+        // As we don't want an error printed but linting failed so want to exit unsuccessfully.
+        return Ok(1);
     }
 
-    Ok(())
+    info!("Successfully linted all commits.");
+    Ok(0)
 }
