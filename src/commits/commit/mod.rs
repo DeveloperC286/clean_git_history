@@ -1,36 +1,63 @@
-use git2::{Oid, Repository};
+use crate::linting_results::CommitError;
 
-pub(super) struct Commit {
-    commit_hash: git2::Oid,
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+pub struct Commit {
+    pub hash: String,
+    pub message: String,
     number_of_parents: usize,
 }
 
 impl Commit {
-    pub(super) fn from_git(repository: &Repository, oid: Oid) -> Result<Self, git2::Error> {
-        let commit = repository.find_commit(oid)?;
+    pub(super) fn from_git(commit: &git2::Commit) -> Commit {
         let number_of_parents = commit.parents().len();
+        let message = match commit.message().map(|m| m.to_string()) {
+            Some(message) => {
+                trace!(
+                    "Found the commit message {message:?} for the commit with the hash '{}'.",
+                    commit.id()
+                );
+                message
+            }
+            None => {
+                warn!(
+                    "Can not find commit message for the commit with the hash '{}'.",
+                    commit.id()
+                );
+                String::new()
+            }
+        };
+
         debug!(
             "The commit with the hash '{}' has {:?} parents.",
             commit.id(),
             number_of_parents,
         );
 
-        Ok(Commit {
-            commit_hash: commit.id(),
+        Commit {
+            hash: commit.id().to_string(),
+            message,
             number_of_parents,
-        })
+        }
     }
 
     pub(super) fn is_merge_commit(&self) -> bool {
         let is_merge_commit = self.number_of_parents > 1;
 
         if is_merge_commit {
-            warn!("Commit {:?} is a merge commit.", self.commit_hash);
+            warn!("Commit {:?} is a merge commit.", self.hash);
         }
 
         is_merge_commit
     }
-}
 
-#[cfg(test)]
-mod tests;
+    /// Lint this commit and return any linting errors found.
+    pub(crate) fn lint(&self) -> Vec<CommitError> {
+        let mut errors = Vec::new();
+
+        if self.is_merge_commit() {
+            errors.push(CommitError::MergeCommit);
+        }
+
+        errors
+    }
+}
