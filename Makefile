@@ -9,7 +9,7 @@ default: compile
 
 
 # renovate: depName=ghcr.io/developerc286/conventional_commits_linter
-CONVENTIONAL_COMMITS_LINTER_VERSION=0.16.0@sha256:d685b9c20793a87ff85311247394d97feb05cbe313e3d9e2c8a4c9b94eca362a
+CONVENTIONAL_COMMITS_LINTER_VERSION=0.16.1@sha256:571459d02adf6dd5f88f731c6d0eefc5529b1b4fab24a4aeef99fa6b9e0bc95f
 
 .PHONY: check-conventional-commits-linting
 check-conventional-commits-linting:
