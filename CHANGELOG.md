@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.2 (2025-11-12)
+
+## What's Changed
+* chore(deps): update ghcr.io/developerc286/clean_git_history docker tag to v1.1.1 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/372
+* chore(deps): update ghcr.io/developerc286/conventional_commits_linter docker tag to v0.16.1 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/374
+
+
+**Full Changelog**: https://github.com/DeveloperC286/clean_git_history/compare/v1.1.1...v1.1.2
+
 ## 1.1.1 (2025-11-12)
 
 ## What's Changed
