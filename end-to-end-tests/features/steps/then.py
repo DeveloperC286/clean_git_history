@@ -22,7 +22,10 @@ def assert_git_history_is_not_clean(context):
     result = execute_clean_git_history(context)
 
     # Then
-    assert_no_output(result)
+    # Output now goes to stdout instead of stderr
+    assert result.stdout != "", "Expected standard output to contain error information.\n" + \
+        f"Standard output = {result.stdout.encode()}.\n"
+    assert_no_errors(result)
     assert_command_unsuccessful(result)
     return result
 
