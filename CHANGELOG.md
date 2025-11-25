@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.1.2 (2025-11-25)
+
+## What's Changed
+* chore(deps): update ghcr.io/developerc286/clean_git_history docker tag to v1.1.1 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/372
+* chore(deps): update ghcr.io/developerc286/conventional_commits_linter docker tag to v0.16.1 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/374
+* ci: skip Claude Code review on draft PRs by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/376
+* chore(deps): update anthropics/claude-code-action digest to 6902c22 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/378
+* chore(deps): update actions/checkout digest to 93cb6ef by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/377
+* chore(deps): update actions/checkout action to v5.0.1 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/379
+* chore(deps): update rust crate clap to v4.5.52 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/380
+* chore(deps): update rust crate clap to v4.5.53 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/381
+* chore(deps): update actions/checkout action to v6 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/382
+* chore(deps): update rhysd/actionlint docker tag to v1.7.9 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/383
+* chore(deps): update anthropics/claude-code-action digest to f9b2917 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/384
+* chore(deps): update anthropics/claude-code-action digest to 798cf09 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/385
+* chore(deps): update anthropics/claude-code-action digest to a7e4c51 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/386
+
+
+**Full Changelog**: https://github.com/DeveloperC286/clean_git_history/compare/v1.1.1...v1.1.2
+
 ## 1.1.1 (2025-11-12)
 
 ## What's Changed
