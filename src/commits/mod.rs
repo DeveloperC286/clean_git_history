@@ -1,11 +1,14 @@
-use std::collections::VecDeque;
+use std::collections::{HashMap, VecDeque};
 
 use anyhow::{bail, Context, Result};
 use git2::{Oid, Repository, Revwalk};
 
-use crate::commits::commit::Commit;
+use crate::linting_results::{
+    CommitError, CommitErrors, CommitsError, CommitsErrors, LintingResults,
+};
 
-mod commit;
+pub mod commit;
+pub use commit::Commit;
 
 /// A representation of a range of commits within a Git repository, which can have various lints performed upon it after construction.
 pub struct Commits {
@@ -20,14 +23,52 @@ impl Commits {
         get_commits_till_head_from_oid(repository, oid)
     }
 
-    /// A lint that can be performed on the range of commits, which returns true if any of the
-    /// commits are merge commits, i.e. has multiple parents.
-    pub fn contains_merge_commits(&self) -> bool {
-        self.commits.iter().any(|commit| commit.is_merge_commit())
-    }
+    /// Lint all commits and return the linting results if any issues are found.
+    pub fn lint(&self, max_commits: Option<usize>) -> Option<LintingResults> {
+        let mut commit_errors: HashMap<Commit, Vec<CommitError>> = HashMap::new();
 
-    pub fn len(&self) -> usize {
-        self.commits.len()
+        // Check each commit for linting errors
+        for commit in self.commits.iter().cloned() {
+            let errors = commit.lint();
+
+            if !errors.is_empty() {
+                warn!(
+                    "Found {} linting errors for the commit {:?}.",
+                    errors.len(),
+                    commit.hash
+                );
+                commit_errors.insert(commit, errors);
+            }
+        }
+
+        // Check for aggregate errors
+        let commits_errors = max_commits.and_then(|max| {
+            if self.commits.len() > max {
+                Some(vec![CommitsError::MaxCommitsExceeded {
+                    max_commits: max,
+                    actual_commits: self.commits.len(),
+                }])
+            } else {
+                None
+            }
+        });
+
+        // Return None if no issues found, otherwise build LintingResults
+        match (&commit_errors.is_empty(), &commits_errors) {
+            (true, None) => None,
+            (true, Some(ce)) => Some(LintingResults {
+                commit_errors: None,
+                commits_errors: Some(CommitsErrors::new(ce.clone())),
+            }),
+            (false, None) => Some(LintingResults {
+                commit_errors: Some(CommitErrors::new(self.commits.clone(), commit_errors)),
+                commits_errors: None,
+            }),
+            (false, Some(ce)) => Some(LintingResults {
+                commit_errors: Some(CommitErrors::new(self.commits.clone(), commit_errors)),
+                commits_errors: Some(CommitsErrors::new(ce.clone())),
+            }),
+        }
     }
 }
 
@@ -49,12 +90,15 @@ fn get_commits_till_head_from_oid(
     let revwalker = get_revwalker(repository, from_commit_hash)?;
     let mut commits = VecDeque::new();
 
-    for commit in revwalker {
-        let oid = commit?;
-
-        let commit = Commit::from_git(repository, oid)
-            .context(format!("Can not find a commit with the hash '{oid}'."))?;
+    for oid in revwalker {
+        let oid = oid?;
+        let commit = repository.find_commit(oid)?;
+        let commit = Commit::from_git(&commit);
         commits.push_front(commit);
+    }
+
+    if commits.is_empty() {
+        bail!("No Git commits within the provided range.");
     }
 
     info!("Found {} commits within the provided range.", commits.len());
