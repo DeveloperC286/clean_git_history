@@ -4,7 +4,8 @@ RUN apk add --no-cache \
     git=2.49.1-r0 && \
     git config --system --add safe.directory '*'
 
-COPY ./target/x86_64-unknown-linux-musl/release/clean_git_history /usr/local/bin/
+ARG TARGET
+COPY ./target/${TARGET}/release/clean_git_history /usr/local/bin/
 
 WORKDIR /workspace
 
