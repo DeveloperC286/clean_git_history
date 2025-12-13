@@ -32,6 +32,7 @@
           buildInputs = [
             # Rust with cross-compilation targets built-in.
             rustWithTargets
+            pkgs.pkg-config
             pkgs.libgit2
             # Shell scripts.
             pkgs.shfmt
