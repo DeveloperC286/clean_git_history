@@ -7,6 +7,9 @@ endif
 # Use --locked in CI to ensure reproducible builds
 CARGO_LOCKED := $(if $(CI),--locked,)
 
+# Use system libgit2 instead of vendoring to avoid musl/glibc compatibility issues
+export LIBGIT2_NO_VENDOR := 1
+
 .PHONY: default
 default: compile
 
