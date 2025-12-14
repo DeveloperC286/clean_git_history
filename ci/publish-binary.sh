@@ -12,6 +12,6 @@ fi
 RELEASE="$1"
 TARGET="$2"
 
-tar -czvf "${TARGET}.tar.gz" -C "target/${TARGET}/release" "consistent_whitespace"
+tar -czvf "${TARGET}.tar.gz" -C "target/${TARGET}/release" "clean_git_history"
 gh release upload "${RELEASE}" "${TARGET}.tar.gz"
 rm "${TARGET}.tar.gz"
