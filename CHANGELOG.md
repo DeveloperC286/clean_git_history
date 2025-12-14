@@ -1,5 +1,42 @@
 # Changelog
 
+## 1.1.2 (2025-12-14)
+
+## What's Changed
+* chore(deps): update ghcr.io/developerc286/clean_git_history docker tag to v1.1.1 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/372
+* chore(deps): update ghcr.io/developerc286/conventional_commits_linter docker tag to v0.16.1 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/374
+* ci: skip Claude Code review on draft PRs by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/376
+* chore(deps): update anthropics/claude-code-action digest to 6902c22 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/378
+* chore(deps): update actions/checkout digest to 93cb6ef by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/377
+* chore(deps): update actions/checkout action to v5.0.1 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/379
+* chore(deps): update rust crate clap to v4.5.52 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/380
+* chore(deps): update rust crate clap to v4.5.53 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/381
+* chore(deps): update actions/checkout action to v6 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/382
+* chore(deps): update rhysd/actionlint docker tag to v1.7.9 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/383
+* chore(deps): update anthropics/claude-code-action digest to f9b2917 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/384
+* chore(deps): update anthropics/claude-code-action digest to 798cf09 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/385
+* chore(deps): update anthropics/claude-code-action digest to a7e4c51 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/386
+* chore(deps): update anthropics/claude-code-action digest to 6337623 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/387
+* chore(deps): update actions/checkout digest to 8e8c483 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/388
+* chore(deps): update actions/checkout action to v6.0.1 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/389
+* chore(deps): update rust crate log to v0.4.29 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/391
+* chore(deps): update python docker tag to v3.14.1 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/390
+* chore(deps): update ghcr.io/developerc286/conventional_commits_linter docker tag to v0.17.0 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/392
+* chore(deps): update python:3.14.1-alpine3.22 docker digest to cc95388 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/393
+* chore(deps): update dependency alpine_3_22/github-cli to v2.72.0-r5 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/394
+* chore(deps): update python:3.14.1-alpine3.21 docker digest to fd8407c by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/395
+* chore(deps): update rust:1.91.1-alpine3.21 docker digest to 32817dd by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/397
+* chore(deps): update rust crate git2 to v0.20.3 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/398
+* chore(deps): update python docker tag to v3.14.2 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/400
+* chore(deps): update python:3.14.2-alpine3.22 docker digest to 9185922 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/401
+* chore(deps): update anthropics/claude-code-action digest to f0c8eb2 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/402
+* chore(deps): update rust docker tag to v1.92.0 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/403
+* build: converting from Docker -> Nix by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/399
+* chore(deps): update alpine docker tag to v3.23.0 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/396
+
+
+**Full Changelog**: https://github.com/DeveloperC286/clean_git_history/compare/v1.1.1...v1.1.2
+
 ## 1.1.1 (2025-11-12)
 
 ## What's Changed
