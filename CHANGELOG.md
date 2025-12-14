@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.3 (2025-12-14)
+
+## What's Changed
+* ci: fixing publish binary naming by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/404
+
+
+**Full Changelog**: https://github.com/DeveloperC286/clean_git_history/compare/v1.1.2...v1.1.3
+
 ## 1.1.2 (2025-12-14)
 
 ## What's Changed
