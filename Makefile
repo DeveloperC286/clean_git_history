@@ -77,7 +77,7 @@ publish-crate:
 .PHONY: dogfood-docker
 dogfood-docker: release
 	docker build --build-arg TARGET=$(MUSL_TARGET) --tag clean_git_history --file Dockerfile .
-	docker run --rm --volume $(PWD):/workspace --workdir /workspace --env HOME=/github/home --env GITHUB_ACTIONS=true --env CI=true clean_git_history
+	docker run --rm --volume $(PWD):/workspace --workdir /workspace --env HOME=/github/home --env GITHUB_ACTIONS=true --env CI=true clean_git_history $(FROM)
 
 .PHONY: publish-docker
 publish-docker:
