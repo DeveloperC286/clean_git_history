@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.5 (2025-12-25)
+
+## What's Changed
+* fix: add executable permissions to CI scripts by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/413
+
+
+**Full Changelog**: https://github.com/DeveloperC286/clean_git_history/compare/v1.1.4...v1.1.5
+
 ## 1.1.4 (2025-12-25)
 
 ## What's Changed
