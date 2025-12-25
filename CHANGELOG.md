@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.1.4 (2025-12-25)
+
+## What's Changed
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/406
+* chore(deps): update alpine docker tag to v3.23.2 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/408
+* chore(deps): update alpine:3.23.2 docker digest to 865b95f by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/409
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/410
+* chore(deps): update dependency https://github.com/developerc286/template to v1.4.9 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/412
+
+
+**Full Changelog**: https://github.com/DeveloperC286/clean_git_history/compare/v1.1.3...v1.1.4
+
 ## 1.1.3 (2025-12-14)
 
 ## What's Changed
