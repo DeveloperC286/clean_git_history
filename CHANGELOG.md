@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.1.6 (2025-12-26)
+
+## What's Changed
+* chore: remove end-to-end requirements.txt by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/415
+* chore(deps): update dependency https://github.com/developerc286/template to v1.5.0 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/417
+* chore: remove Claude workflow files by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/418
+* ci: fixing scripts permission by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/419
+
+
+**Full Changelog**: https://github.com/DeveloperC286/clean_git_history/compare/v1.1.5...v1.1.6
+
 ## 1.1.5 (2025-12-25)
 
 ## What's Changed
