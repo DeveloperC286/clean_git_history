@@ -46,9 +46,17 @@ fix-yaml-formatting:
 check-rust-linting:
 	cargo clippy --verbose $(CARGO_LOCKED) -- -D warnings
 
+.PHONY: check-shell-linting
+check-shell-linting:
+	shellcheck ci/*.sh
+
 .PHONY: check-github-actions-workflows-linting
 check-github-actions-workflows-linting:
 	actionlint -verbose -color
+
+.PHONY: check-scripts-permissions
+check-scripts-permissions:
+	./ci/check-scripts-permissions.sh
 
 .PHONY: compile
 compile:
