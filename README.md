@@ -40,7 +40,7 @@ jobs:
     name: Clean
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/developerc286/clean_git_history:v1.1.5
+      image: ghcr.io/developerc286/clean_git_history:v1.1.6
     steps:
       - name: Checkout code.
         uses: actions/checkout@v5
@@ -57,7 +57,7 @@ jobs:
 ```yaml
 clean-git-history-checking:
   stage: clean-git-history-checking
-  image: ghcr.io/developerc286/clean_git_history:v1.1.5
+  image: ghcr.io/developerc286/clean_git_history:v1.1.6
   script:
     - clean_git_history "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"
   rules:
@@ -72,7 +72,7 @@ Visit the releases page at [https://github.com/DeveloperC286/clean_git_history/r
 
 <!-- x-release-please-start-version -->
 ```sh
-version="v1.1.5" && wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/${version}/x86_64-unknown-linux-musl.tar.gz" | tar xz --directory "/usr/bin/"
+version="v1.1.6" && wget -O - "https://github.com/DeveloperC286/clean_git_history/releases/download/${version}/x86_64-unknown-linux-musl.tar.gz" | tar xz --directory "/usr/bin/"
 ```
 <!-- x-release-please-end -->
 
@@ -91,7 +91,7 @@ e.g.
 
 <!-- x-release-please-start-version -->
 ```sh
-cargo install clean_git_history --version "1.1.5"
+cargo install clean_git_history --version "1.1.6"
 ```
 <!-- x-release-please-end -->
 
@@ -102,7 +102,7 @@ You can use the Docker image published to [ghcr.io/developerc286/clean_git_histo
 
 <!-- x-release-please-start-version -->
 ```sh
-docker run --rm -v $(pwd):/workspace -w /workspace ghcr.io/developerc286/clean_git_history:v1.1.5 origin/HEAD
+docker run --rm -v $(pwd):/workspace -w /workspace ghcr.io/developerc286/clean_git_history:v1.1.6 origin/HEAD
 ```
 <!-- x-release-please-end -->
 
