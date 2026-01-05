@@ -10,33 +10,37 @@ CARGO_LOCKED := $(if $(CI),--locked,)
 .PHONY: default
 default: compile
 
+.PHONY: check-shell-permissions
+check-shell-permissions:
+	./ci/check-scripts-permissions.sh
+
 .PHONY: check-rust-formatting
 check-rust-formatting:
 	cargo fmt --all -- --check --config=group_imports=StdExternalCrate
-
-.PHONY: check-shell-formatting
-check-shell-formatting:
-	shfmt --simplify --diff ci/*
-
-.PHONY: check-python-formatting
-check-python-formatting:
-	autopep8 --exit-code --diff --aggressive --aggressive --max-line-length 120 --recursive end-to-end-tests/
-
-.PHONY: check-yaml-formatting
-check-yaml-formatting:
-	yamlfmt -verbose -lint -dstar .github/workflows/*
 
 .PHONY: fix-rust-formatting
 fix-rust-formatting:
 	cargo fmt --all -- --config=group_imports=StdExternalCrate
 
+.PHONY: check-shell-formatting
+check-shell-formatting:
+	shfmt --simplify --diff ci/*
+
 .PHONY: fix-shell-formatting
 fix-shell-formatting:
 	shfmt --simplify --write ci/*
 
+.PHONY: check-python-formatting
+check-python-formatting:
+	autopep8 --exit-code --diff --aggressive --aggressive --max-line-length 120 --recursive end-to-end-tests/
+
 .PHONY: fix-python-formatting
 fix-python-formatting:
 	autopep8 --in-place --aggressive --aggressive --max-line-length 120 --recursive end-to-end-tests/
+
+.PHONY: check-yaml-formatting
+check-yaml-formatting:
+	yamlfmt -verbose -lint -dstar .github/workflows/*
 
 .PHONY: fix-yaml-formatting
 fix-yaml-formatting:
@@ -50,13 +54,21 @@ check-rust-linting:
 check-shell-linting:
 	shellcheck ci/*.sh
 
+.PHONY: check-python-linting
+check-python-linting:
+	ruff check --line-length 120 end-to-end-tests/
+
+.PHONY: fix-python-linting
+fix-python-linting:
+	ruff check --fix --line-length 120 end-to-end-tests/
+
 .PHONY: check-github-actions-workflows-linting
 check-github-actions-workflows-linting:
 	actionlint -verbose -color
 
-.PHONY: check-scripts-permissions
-check-scripts-permissions:
-	./ci/check-scripts-permissions.sh
+.PHONY: check-rust-dependencies
+check-rust-dependencies:
+	cargo +nightly udeps --all-targets
 
 .PHONY: compile
 compile:
