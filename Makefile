@@ -68,7 +68,7 @@ check-github-actions-workflows-linting:
 
 .PHONY: check-rust-dependencies
 check-rust-dependencies:
-	cargo +nightly udeps --all-targets
+	cargo udeps --all-targets
 
 .PHONY: compile
 compile:
