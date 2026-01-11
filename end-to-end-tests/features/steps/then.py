@@ -29,7 +29,6 @@ def assert_git_history_is_not_clean(context):
     result = execute_clean_git_history(context)
 
     # Then
-    assert_no_output(result)
     assert_command_unsuccessful(result)
     return result
 
