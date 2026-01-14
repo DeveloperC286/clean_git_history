@@ -18,7 +18,7 @@ jobs:
       - name: Setup Nix.
         uses: cachix/install-nix-action@4e002c8ec80594ecd40e759629461e26c8abed15 # v31.9.0
       - name: Check formatting.
-        run: nix develop -c make check-yaml-formatting
+        run: nix develop -c python tasks.py check-yaml-formatting
 
   linting:
     name: Linting
@@ -32,4 +32,4 @@ jobs:
       - name: Setup Nix.
         uses: cachix/install-nix-action@4e002c8ec80594ecd40e759629461e26c8abed15 # v31.9.0
       - name: Check GitHub Actions workflows linting.
-        run: nix develop -c make check-github-actions-workflows-linting
+        run: nix develop -c python tasks.py check-github-actions-workflows-linting

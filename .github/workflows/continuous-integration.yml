@@ -17,7 +17,7 @@ jobs:
       - name: Checkout code.
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
       - name: Check permissions.
-        run: make check-${{ matrix.language }}-permissions
+        run: python tasks.py check-${{ matrix.language }}-permissions
 
   formatting:
     name: Formatting
@@ -32,7 +32,7 @@ jobs:
       - name: Setup Nix.
         uses: cachix/install-nix-action@4e002c8ec80594ecd40e759629461e26c8abed15 # v31.9.0
       - name: Check formatting.
-        run: nix develop -c make check-${{ matrix.language }}-formatting
+        run: nix develop -c python tasks.py check-${{ matrix.language }}-formatting
 
   linting:
     name: Linting
@@ -47,7 +47,7 @@ jobs:
       - name: Setup Nix.
         uses: cachix/install-nix-action@4e002c8ec80594ecd40e759629461e26c8abed15 # v31.9.0
       - name: Check linting.
-        run: nix develop -c make check-${{ matrix.language }}-linting
+        run: nix develop -c python tasks.py check-${{ matrix.language }}-linting
 
   dependencies:
     name: Dependencies
@@ -62,7 +62,7 @@ jobs:
       - name: Setup Nix.
         uses: cachix/install-nix-action@4e002c8ec80594ecd40e759629461e26c8abed15 # v31.9.0
       - name: Check dependencies.
-        run: nix develop -c make check-${{ matrix.language }}-dependencies
+        run: nix develop -c python tasks.py check-${{ matrix.language }}-dependencies
 
   compile:
     name: Compile
@@ -76,7 +76,7 @@ jobs:
       - name: Setup Nix.
         uses: cachix/install-nix-action@4e002c8ec80594ecd40e759629461e26c8abed15 # v31.9.0
       - name: Compile.
-        run: nix develop -c make compile
+        run: nix develop -c python tasks.py compile
 
   unit-test:
     name: Unit Test
@@ -90,7 +90,7 @@ jobs:
       - name: Setup Nix.
         uses: cachix/install-nix-action@4e002c8ec80594ecd40e759629461e26c8abed15 # v31.9.0
       - name: Unit test.
-        run: nix develop -c make unit-test
+        run: nix develop -c python tasks.py unit-test
 
   end-to-end-test:
     name: End to End Test
@@ -104,4 +104,4 @@ jobs:
       - name: Setup Nix.
         uses: cachix/install-nix-action@4e002c8ec80594ecd40e759629461e26c8abed15 # v31.9.0
       - name: End to End test.
-        run: nix develop -c make end-to-end-test
+        run: nix develop -c python tasks.py end-to-end-test

@@ -22,7 +22,7 @@ jobs:
       - name: Setup Nix.
         uses: cachix/install-nix-action@4e002c8ec80594ecd40e759629461e26c8abed15 # v31.9.0
       - name: Publish binary.
-        run: nix develop -c make publish-binary RELEASE="${GITHUB_REF_NAME}"
+        run: nix develop -c python tasks.py publish-binary --release "${GITHUB_REF_NAME}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by GitHub Actions.
 
@@ -35,7 +35,7 @@ jobs:
       - name: Setup Nix.
         uses: cachix/install-nix-action@4e002c8ec80594ecd40e759629461e26c8abed15 # v31.9.0
       - name: Publish crate.
-        run: nix develop -c make publish-crate
+        run: nix develop -c python tasks.py publish-crate
         env:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
 
@@ -66,7 +66,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish Docker Image
-        run: make publish-docker-image RELEASE="${GITHUB_REF_NAME}" PLATFORM="${{ matrix.platform }}" TARGET="${{ matrix.target }}" SUFFIX="${{ matrix.suffix }}"
+        run: python tasks.py publish-docker-image --release "${GITHUB_REF_NAME}" --platform "${{ matrix.platform }}" --target "${{ matrix.target }}" --suffix "${{ matrix.suffix }}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -86,4 +86,4 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish Docker Manifest
-        run: make publish-docker-manifest RELEASE="${GITHUB_REF_NAME}"
+        run: python tasks.py publish-docker-manifest --release "${GITHUB_REF_NAME}"

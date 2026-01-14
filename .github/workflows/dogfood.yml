@@ -21,4 +21,4 @@ jobs:
       - name: Setup Nix.
         uses: cachix/install-nix-action@4e002c8ec80594ecd40e759629461e26c8abed15 # v31.9.0
       - name: Dogfooding Docker.
-        run: nix develop -c make dogfood-docker FROM="origin/${{ github.base_ref }}"
+        run: nix develop -c python tasks.py dogfood-docker --from "origin/${{ github.base_ref }}"
