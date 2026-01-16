@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.2.0 (2026-01-16)
+
+## What's Changed
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/425
+* chore(deps): update dependency https://github.com/developerc286/template to v1.6.3 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/428
+* feat: add output CLI argument with enum for format control by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/375
+* chore(deps): update dependency https://github.com/developerc286/template to v1.6.4 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/429
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/430
+* chore(deps): update dependency https://github.com/developerc286/template to v1.7.2 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/432
+
+
+**Full Changelog**: https://github.com/DeveloperC286/clean_git_history/compare/v1.1.6...v1.2.0
+
 ## 1.1.6 (2026-01-03)
 
 ## What's Changed
