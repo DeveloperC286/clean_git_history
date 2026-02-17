@@ -33,7 +33,7 @@ pub(crate) struct Arguments {
     #[arg(
         long,
         default_value = "default",
-        help = "Specifies the format for outputting results, acceptable values are quiet, default, pretty, and github."
+        help = "Specifies the format for outputting results, acceptable values are quiet, default, pretty, and github. The default format auto-detects GitHub Actions via the GITHUB_ACTIONS environment variable, using github format when detected and pretty otherwise."
     )]
     pub(crate) output: Output,
 
@@ -74,7 +74,11 @@ fn run(arguments: Arguments) -> Result<i32> {
         match arguments.output {
             Output::Quiet => {}
             Output::Default => {
-                println!("{}", linting_results.pretty());
+                if std::env::var("GITHUB_ACTIONS").is_ok() {
+                    println!("{}", linting_results.github_actions());
+                } else {
+                    println!("{}", linting_results.pretty());
+                }
             }
             Output::Pretty => {
                 println!("{}", linting_results.pretty());

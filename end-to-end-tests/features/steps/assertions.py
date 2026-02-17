@@ -46,3 +46,9 @@ def assert_output_contains(result, output):
     assert output in result.stdout, "Expected standard output to contain the output.\n" + \
         f"Standard output = {result.stdout.encode()}.\n" + \
         f"Output          = {output.encode()}.\n"
+
+
+def assert_output_does_not_contain(result, output):
+    assert output not in result.stdout, "Expected standard output to not contain the output.\n" + \
+        f"Standard output = {result.stdout.encode()}.\n" + \
+        f"Output          = {output.encode()}.\n"
