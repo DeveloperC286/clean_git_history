@@ -9,6 +9,7 @@ from assertions import (
     assert_error_matches_regex,
     assert_no_errors,
     assert_no_output,
+    assert_output_contains,
 )
 
 
@@ -79,3 +80,12 @@ def assert_ambiguous_shortened_commit_hash_error(context, shortened_commit_hash)
 
     # Then
     assert_error_matches_regex(result, ambiguous_shortened_commit_hash_error)
+
+
+@then('the GitHub Actions output contains a merge commit error.')
+def assert_github_output_contains_merge_commit_error(context):
+    result = execute_clean_git_history(context)
+    assert_command_unsuccessful(result)
+    assert_output_contains(result, "::error title=Merge Commit::")
+    assert_output_contains(result, "::group::")
+    assert_output_contains(result, "::endgroup::")

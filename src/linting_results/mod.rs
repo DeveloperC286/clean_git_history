@@ -2,19 +2,18 @@ use std::collections::{HashMap, VecDeque};
 
 use crate::commits::commit::Commit;
 
+mod github_actions;
 mod pretty;
 
 /// The representation of an error that an individual commit can have.
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
 pub enum CommitError {
-    /// Commit is a merge commit (has multiple parents).
     MergeCommit,
 }
 
 /// The representation of an error for the collection of commits as a whole.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum CommitsError {
-    /// The number of commits exceeds the maximum allowed.
     MaxCommitsExceeded {
         max_commits: usize,
         actual_commits: usize,
@@ -51,8 +50,11 @@ pub struct LintingResults {
 }
 
 impl LintingResults {
-    /// Get a pretty representation of the linting results as a string, suitable as output for a user.
     pub fn pretty(&self) -> String {
         pretty::print_all(self)
+    }
+
+    pub fn github_actions(&self) -> String {
+        github_actions::print_all(self)
     }
 }
