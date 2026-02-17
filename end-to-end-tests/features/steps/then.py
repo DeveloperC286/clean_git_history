@@ -10,6 +10,7 @@ from assertions import (
     assert_no_errors,
     assert_no_output,
     assert_output_contains,
+    assert_output_does_not_contain,
 )
 
 
@@ -89,3 +90,11 @@ def assert_github_output_contains_merge_commit_error(context):
     assert_output_contains(result, "::error title=Merge Commit::")
     assert_output_contains(result, "::group::")
     assert_output_contains(result, "::endgroup::")
+
+
+@then('the pretty output contains a merge commit error.')
+def assert_pretty_output_contains_merge_commit_error(context):
+    result = execute_clean_git_history(context)
+    assert_command_unsuccessful(result)
+    assert_output_contains(result, "Commit Hash")
+    assert_output_does_not_contain(result, "::error")

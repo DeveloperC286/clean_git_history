@@ -22,6 +22,12 @@ def reset_context(context):
     if "GIT_DIR" in os.environ:
         del os.environ["GIT_DIR"]
 
+    if "GITHUB_ACTIONS" in os.environ:
+        del os.environ["GITHUB_ACTIONS"]
+
+    if "CI" in os.environ:
+        del os.environ["CI"]
+
 
 @given('the repository "{remote_repository}" is cloned and checked out at the commit "{commit_hash}".')
 def clone_remote_repository_and_checkout_commit(context, remote_repository, commit_hash):
@@ -45,3 +51,9 @@ def clone_remote_repository_and_checkout_commit(context, remote_repository, comm
 @given('the GIT_DIR environment variable is set to the cloned repository.')
 def set_git_dir(context):
     os.environ["GIT_DIR"] = str(context.remote_repository_cache + "/.git")
+
+
+@given('the GITHUB_ACTIONS environment variable is set.')
+def set_github_actions(context):
+    os.environ["GITHUB_ACTIONS"] = "true"
+    os.environ["CI"] = "true"
