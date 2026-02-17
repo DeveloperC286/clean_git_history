@@ -1,5 +1,33 @@
 # Changelog
 
+## 1.2.0 (2026-02-17)
+
+## What's Changed
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/425
+* chore(deps): update dependency https://github.com/developerc286/template to v1.6.3 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/428
+* feat: add output CLI argument with enum for format control by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/375
+* chore(deps): update dependency https://github.com/developerc286/template to v1.6.4 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/429
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/430
+* chore(deps): update dependency https://github.com/developerc286/template to v1.7.2 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/432
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/433
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/434
+* chore(deps): update rust crate clap to v4.5.55 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/435
+* chore(deps): update alpine docker tag to v3.23.3 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/436
+* chore(deps): update rust crate clap to v4.5.56 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/437
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/438
+* chore(deps): update rust crate clap to v4.5.57 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/440
+* chore(deps): update rust crate git2 to v0.20.4 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/439
+* chore(deps): update rust crate anyhow to v1.0.101 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/441
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/442
+* chore(deps): update rust crate clap to v4.5.58 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/443
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/444
+* chore(deps): update rust crate clap to v4.5.59 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/445
+* feat: outputting in GitHub Actions error format by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/446
+* feat: intelligent default output format by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/447
+
+
+**Full Changelog**: https://github.com/DeveloperC286/clean_git_history/compare/v1.1.6...v1.2.0
+
 ## 1.1.6 (2026-01-03)
 
 ## What's Changed
