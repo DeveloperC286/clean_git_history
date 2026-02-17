@@ -9,3 +9,8 @@ def set_linting_from_the(context, git):
 @when('the argument --max-commits is provided as "{max_commits}".')
 def set_max_commits(context, max_commits):
     context.arguments += f" --max-commits {max_commits} "
+
+
+@when('the argument --output is provided as "{output}".')
+def set_output(context, output):
+    context.arguments += f" --output {output} "

@@ -40,3 +40,9 @@ def assert_error_is_one_of(result, errors):
     assert result.stderr in errors, "Expected standard error to equal one of these errors.\n" + \
         f"Standard error = {result.stderr.encode()}.\n" + \
         f"Errors         = {errors}.\n"
+
+
+def assert_output_contains(result, output):
+    assert output in result.stdout, "Expected standard output to contain the output.\n" + \
+        f"Standard output = {result.stdout.encode()}.\n" + \
+        f"Output          = {output.encode()}.\n"

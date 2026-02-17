@@ -33,7 +33,7 @@ pub(crate) struct Arguments {
     #[arg(
         long,
         default_value = "default",
-        help = "Specifies the format for outputting results, acceptable values are quiet, default, and pretty."
+        help = "Specifies the format for outputting results, acceptable values are quiet, default, pretty, and github."
     )]
     pub(crate) output: Output,
 
@@ -78,6 +78,9 @@ fn run(arguments: Arguments) -> Result<i32> {
             }
             Output::Pretty => {
                 println!("{}", linting_results.pretty());
+            }
+            Output::GitHub => {
+                println!("{}", linting_results.github_actions());
             }
         }
 
