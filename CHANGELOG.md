@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.2.1 (2026-02-23)
+
+## What's Changed
+* chore(deps): update dependency https://github.com/developerc286/template to v1.7.5 by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/449
+* chore(deps): update rust crate clap to v4.5.60 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/451
+* chore(deps): update rust crate anyhow to v1.0.102 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/452
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/454
+
+
+**Full Changelog**: https://github.com/DeveloperC286/clean_git_history/compare/v1.2.0...v1.2.1
+
 ## 1.2.0 (2026-02-17)
 
 ## What's Changed
