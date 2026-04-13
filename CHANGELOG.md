@@ -1,5 +1,25 @@
 # Changelog
 
+## 1.2.1 (2026-04-13)
+
+## What's Changed
+* chore(deps): update dependency https://github.com/developerc286/template to v1.7.5 by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/449
+* chore(deps): update rust crate clap to v4.5.60 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/451
+* chore(deps): update rust crate anyhow to v1.0.102 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/452
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/454
+* chore(deps): update dependency https://github.com/developerc286/template to v1.7.6 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/456
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/455
+* chore(deps): update rust crate clap to v4.5.61 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/457
+* chore(deps): update rust crate clap to v4.6.0 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/458
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/459
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/460
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/461
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/462
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/463
+
+
+**Full Changelog**: https://github.com/DeveloperC286/clean_git_history/compare/v1.2.0...v1.2.1
+
 ## 1.2.0 (2026-02-17)
 
 ## What's Changed
