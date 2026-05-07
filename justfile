@@ -1,8 +1,8 @@
-# Auto-detect musl target for static binaries (Linux only)
-# Only set MUSL_TARGET on supported architectures; targets that need it will check
-MUSL_TARGET := `uname -m | sed 's/^x86_64$/x86_64-unknown-linux-musl/;s/^aarch64$/aarch64-unknown-linux-musl/'`
+# Auto-detect musl target for static binaries.
+# Only set MUSL_TARGET on supported architectures; targets that need it will check.
+MUSL_TARGET := `case "$(uname -m)" in x86_64) printf '%s' x86_64-unknown-linux-musl ;; aarch64) printf '%s' aarch64-unknown-linux-musl ;; *) printf '%s' '' ;; esac`
 
-# Use --locked in CI to ensure reproducible builds
+# Use --locked in CI to ensure reproducible builds.
 CARGO_LOCKED := if env("CI", "") != "" { "--locked" } else { "" }
 
 default: compile
@@ -62,8 +62,7 @@ end-to-end-test: compile
     cd end-to-end-tests/ && behave
 
 release:
-    test -n "{{ MUSL_TARGET }}" || \
-        (printf '%s\n' "Unsupported architecture: $(uname -m). Static musl builds only supported on Linux x86_64 and aarch64" >&2; exit 1)
+    test -n "{{ MUSL_TARGET }}" || (printf '%s\n' "Unsupported architecture: $(uname -m)." >&2; exit 1)
     cargo build --release --target={{ MUSL_TARGET }} --locked --verbose
 
 publish-binary RELEASE: release
@@ -74,7 +73,7 @@ publish-crate:
 
 dogfood-docker FROM: release
     docker build --build-arg TARGET={{ MUSL_TARGET }} --tag clean_git_history --file Dockerfile .
-    # Emulate GitHub Actions CI environment for testing.
+    # Emulate GitHub Actions CI environment via environment variables for testing.
     docker run --rm \
         --volume {{ justfile_directory() }}:/workspace \
         --workdir /workspace \
