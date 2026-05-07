@@ -16,8 +16,10 @@ jobs:
     steps:
       - name: Checkout code.
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Setup Nix.
+        uses: cachix/install-nix-action@19effe9fe722874e6d46dd7182e4b8b7a43c4a99 # v31.10.0
       - name: Check permissions.
-        run: just check-${{ matrix.language }}-permissions
+        run: nix develop -c just check-${{ matrix.language }}-permissions
 
   formatting:
     name: Formatting

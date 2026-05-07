@@ -62,6 +62,8 @@ end-to-end-test: compile
     cd end-to-end-tests/ && behave
 
 release:
+    test -n "{{ MUSL_TARGET }}" || \
+        (printf '%s\n' "Unsupported architecture: $(uname -m). Static musl builds only supported on Linux x86_64 and aarch64" >&2; exit 1)
     cargo build --release --target={{ MUSL_TARGET }} --locked --verbose
 
 publish-binary RELEASE: release
@@ -70,12 +72,16 @@ publish-binary RELEASE: release
 publish-crate:
     cargo publish --verbose
 
-# Emulate GitHub Actions CI environment for testing
-GITHUB_ACTIONS_ENV := "--env HOME=/github/home --env GITHUB_ACTIONS=true --env CI=true"
-
 dogfood-docker FROM: release
     docker build --build-arg TARGET={{ MUSL_TARGET }} --tag clean_git_history --file Dockerfile .
-    docker run --rm --volume {{ justfile_directory() }}:/workspace --workdir /workspace {{ GITHUB_ACTIONS_ENV }} clean_git_history --verbose {{ FROM }}
+    # Emulate GitHub Actions CI environment for testing.
+    docker run --rm \
+        --volume {{ justfile_directory() }}:/workspace \
+        --workdir /workspace \
+        --env HOME=/github/home \
+        --env GITHUB_ACTIONS=true \
+        --env CI=true \
+        clean_git_history --verbose {{ FROM }}
 
 publish-docker-image RELEASE PLATFORM TARGET SUFFIX:
     ./ci/publish-docker-image.sh {{ RELEASE }} {{ PLATFORM }} {{ TARGET }} {{ SUFFIX }}
