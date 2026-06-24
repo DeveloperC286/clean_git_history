@@ -25,4 +25,4 @@ ansi_term = "0.12.1"
 # For error handling.
 anyhow = "1.0.89"
 
-git2 = { version = "0.20.0", default-features = false, features=[] }
+git2 = { version = "0.21.0", default-features = false, features=[] }
