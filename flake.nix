@@ -38,6 +38,8 @@
           hardeningDisable = [ "all" ];
 
           buildInputs = [
+            # Task runner.
+            pkgs.just
             # Rust with cross-compilation targets built-in.
             rustWithTargets
             # Shell formatting.
