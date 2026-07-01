@@ -11,14 +11,14 @@ impl Commit {
     pub(super) fn from_git(commit: &git2::Commit) -> Commit {
         let number_of_parents = commit.parents().len();
         let message = match commit.message().map(|m| m.to_string()) {
-            Some(message) => {
+            Ok(message) => {
                 trace!(
                     "Found the commit message {message:?} for the commit with the hash '{}'.",
                     commit.id()
                 );
                 message
             }
-            None => {
+            Err(_) => {
                 warn!(
                     "Can not find commit message for the commit with the hash '{}'.",
                     commit.id()
