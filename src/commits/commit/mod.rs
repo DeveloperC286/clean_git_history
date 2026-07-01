@@ -1,3 +1,5 @@
+use anyhow::{Context, Result};
+
 use crate::linting_results::CommitError;
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
@@ -8,24 +10,22 @@ pub struct Commit {
 }
 
 impl Commit {
-    pub(super) fn from_git(commit: &git2::Commit) -> Commit {
+    pub(super) fn from_git(commit: &git2::Commit) -> Result<Commit> {
         let number_of_parents = commit.parents().len();
-        let message = match commit.message().map(|m| m.to_string()) {
-            Some(message) => {
-                trace!(
-                    "Found the commit message {message:?} for the commit with the hash '{}'.",
+        let message = commit
+            .message()
+            .with_context(|| {
+                format!(
+                    "Can not read the commit message for the commit with the hash '{}'.",
                     commit.id()
-                );
-                message
-            }
-            None => {
-                warn!(
-                    "Can not find commit message for the commit with the hash '{}'.",
-                    commit.id()
-                );
-                String::new()
-            }
-        };
+                )
+            })?
+            .to_string();
+
+        trace!(
+            "Found the commit message {message:?} for the commit with the hash '{}'.",
+            commit.id()
+        );
 
         debug!(
             "The commit with the hash '{}' has {:?} parents.",
@@ -33,11 +33,11 @@ impl Commit {
             number_of_parents,
         );
 
-        Commit {
+        Ok(Commit {
             hash: commit.id().to_string(),
             message,
             number_of_parents,
-        }
+        })
     }
 
     pub(super) fn is_merge_commit(&self) -> bool {
