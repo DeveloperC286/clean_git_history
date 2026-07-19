@@ -83,6 +83,18 @@ def assert_ambiguous_shortened_commit_hash_error(context, shortened_commit_hash)
     assert_error_matches_regex(result, ambiguous_shortened_commit_hash_error)
 
 
+@then('their is an invalid max commits value "{max_commits}" error.')
+def assert_invalid_max_commits_value_error(context, max_commits):
+    # Given
+    invalid_max_commits_value_error = f"error: invalid value '{max_commits}' for '--max-commits <MAX_COMMITS>'"  # fmt: off
+
+    # When/Then
+    result = assert_git_history_is_not_clean(context)
+
+    # Then
+    assert_error_contains(result, invalid_max_commits_value_error)
+
+
 @then('the GitHub Actions output contains a merge commit error.')
 def assert_github_output_contains_merge_commit_error(context):
     result = execute_clean_git_history(context)
