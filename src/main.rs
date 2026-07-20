@@ -20,6 +20,7 @@ const ERROR_EXIT_CODE: i32 = 1;
 pub(crate) struct Arguments {
     #[arg(
         long,
+        value_parser = clap::builder::RangedU64ValueParser::<usize>::new().range(1..),
         help = "The maximum number of commits allowed, if exceeded will cause linting to fail."
     )]
     pub(crate) max_commits: Option<usize>,
