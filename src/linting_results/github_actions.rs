@@ -8,7 +8,7 @@ pub(crate) fn print_all(results: &LintingResults) -> String {
     if let Some(commit_errors) = &results.commit_errors {
         for commit in &commit_errors.order {
             if let Some(errors) = commit_errors.errors.get(commit) {
-                let short_hash = &commit.hash[..7.min(commit.hash.len())];
+                let short_hash = commit.short_hash();
                 let message = commit.message.lines().next().unwrap_or_default();
 
                 let _ = writeln!(output, "::group::{short_hash} - {message}");

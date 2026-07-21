@@ -12,7 +12,12 @@ pub(crate) fn print_all(results: &LintingResults) -> String {
     if let Some(commit_errors) = &results.commit_errors {
         for commit in &commit_errors.order {
             if let Some(errors) = commit_errors.errors.get(commit) {
-                let _ = writeln!(output, "{} - {}", red.paint("Commit Hash"), commit.hash);
+                let _ = writeln!(
+                    output,
+                    "{} - {}",
+                    red.paint("Commit Hash"),
+                    commit.short_hash()
+                );
                 let _ = writeln!(output, "{} - {:?}", red.paint("Message"), commit.message);
 
                 for error in errors {
