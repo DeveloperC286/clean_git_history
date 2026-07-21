@@ -1,10 +1,7 @@
-#[macro_use]
-extern crate log;
-extern crate pretty_env_logger;
-
 use anyhow::{Context, Result};
 use clap::Parser;
 use git2::Repository;
+use log::{debug, error, info};
 
 mod commits;
 mod linting_results;

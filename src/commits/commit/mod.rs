@@ -1,4 +1,5 @@
 use anyhow::{Context, Result};
+use log::{debug, trace, warn};
 
 use crate::linting_results::CommitError;
 
