@@ -2,6 +2,7 @@ use std::collections::{HashMap, VecDeque};
 
 use anyhow::{bail, Context, Result};
 use git2::{Oid, Repository, Revwalk};
+use log::{debug, info, warn};
 
 use crate::linting_results::{
     CommitError, CommitErrors, CommitsError, CommitsErrors, LintingResults,
