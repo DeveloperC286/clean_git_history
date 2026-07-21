@@ -1,5 +1,57 @@
 # Changelog
 
+## 1.2.1 (2026-07-21)
+
+## What's Changed
+* chore(deps): update dependency https://github.com/developerc286/template to v1.7.5 by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/449
+* chore(deps): update rust crate clap to v4.5.60 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/451
+* chore(deps): update rust crate anyhow to v1.0.102 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/452
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/454
+* chore(deps): update dependency https://github.com/developerc286/template to v1.7.6 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/456
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/455
+* chore(deps): update rust crate clap to v4.5.61 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/457
+* chore(deps): update rust crate clap to v4.6.0 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/458
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/459
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/460
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/461
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/462
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/463
+* chore(deps): update dependency https://github.com/developerc286/template to v1.7.7 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/464
+* chore(deps): update alpine docker tag to v3.23.4 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/465
+* chore(deps): update rust crate clap to v4.6.1 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/466
+* chore(deps): update alpine:3.23.4 docker digest to 5b10f43 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/467
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/468
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/469
+* chore(deps): update dependency https://github.com/developerc286/template to v1.7.8 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/470
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/471
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/473
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/474
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/476
+* chore(deps): update rust crate log to v0.4.30 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/477
+* chore(deps): update rust crate log to v0.4.32 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/478
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/479
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/481
+* chore(deps): update rust crate log to v0.4.33 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/482
+* fix(deps): update rust crate git2 to 0.21.0 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/475
+* chore(deps): update rust crate anyhow to v1.0.103 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/483
+* chore(deps): update alpine docker tag to v3.24.1 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/480
+* chore(deps): update dependency https://github.com/developerc286/template to v1.7.9 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/484
+* chore(deps): update rust crate clap to v4.6.2 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/485
+* chore(deps): update rust crate anyhow to v1.0.104 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/486
+* fix: reject 0 as an invalid --max-commits value by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/487
+* chore(deps): update rust crate clap to v4.6.3 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/488
+* refactor: build result fields independently by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/489
+* chore(deps): update dependency https://github.com/developerc286/template to v1.7.10 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/490
+* refactor: use consistent short commit hash across output formats by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/491
+* refactor: set log level explicitly instead of mutating RUST_LOG by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/492
+* refactor: log macro imports to edition 2021 style by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/493
+* docs: align Cargo.toml description with README pitch by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/494
+* build: update to Rust edition 2024 by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/495
+* chore(deps): update rust crate clap to v4.6.4 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/496
+
+
+**Full Changelog**: https://github.com/DeveloperC286/clean_git_history/compare/v1.2.0...v1.2.1
+
 ## 1.2.0 (2026-02-17)
 
 ## What's Changed

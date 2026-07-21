@@ -2,7 +2,7 @@
 name = "clean_git_history"
 description = "A Git history linter to ensure it stays clean for those who prefer a linear history without merge commits."
 authors = ["C <DeveloperC@protonmail.com>"]
-version = "1.2.0"
+version = "1.2.1"
 edition = "2024"
 license = "AGPL-3.0"
 repository = "https://github.com/DeveloperC286/clean_git_history"
