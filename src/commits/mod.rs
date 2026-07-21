@@ -54,19 +54,15 @@ impl Commits {
         });
 
         // Return None if no issues found, otherwise build LintingResults
-        match (&commit_errors.is_empty(), &commits_errors) {
-            (true, None) => None,
-            (true, Some(ce)) => Some(LintingResults {
-                commit_errors: None,
-                commits_errors: Some(CommitsErrors::new(ce.clone())),
-            }),
-            (false, None) => Some(LintingResults {
-                commit_errors: Some(CommitErrors::new(self.commits.clone(), commit_errors)),
-                commits_errors: None,
-            }),
-            (false, Some(ce)) => Some(LintingResults {
-                commit_errors: Some(CommitErrors::new(self.commits.clone(), commit_errors)),
-                commits_errors: Some(CommitsErrors::new(ce.clone())),
+        let commit_errors = (!commit_errors.is_empty())
+            .then(|| CommitErrors::new(self.commits.clone(), commit_errors));
+        let commits_errors = commits_errors.map(CommitsErrors::new);
+
+        match (commit_errors, commits_errors) {
+            (None, None) => None,
+            (commit_errors, commits_errors) => Some(LintingResults {
+                commit_errors,
+                commits_errors,
             }),
         }
     }
