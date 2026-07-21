@@ -48,9 +48,9 @@ pub(crate) struct Arguments {
 fn main() {
     let arguments = Arguments::parse();
 
-    // Set up logging. RUST_LOG, if set, always takes precedence; otherwise
-    // --verbose defaults to the info level. Build the logger explicitly rather
-    // than mutating RUST_LOG so we don't rely on process-wide env var state.
+    // Set up logging. Log level precedence:
+    // - RUST_LOG, if set.
+    // - info, if --verbose is passed.
     let mut logger = pretty_env_logger::formatted_builder();
     match std::env::var("RUST_LOG") {
         Ok(rust_log) => {
