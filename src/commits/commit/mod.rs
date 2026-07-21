@@ -40,6 +40,10 @@ impl Commit {
         })
     }
 
+    pub(crate) fn short_hash(&self) -> String {
+        self.hash.chars().take(7).collect()
+    }
+
     pub(super) fn is_merge_commit(&self) -> bool {
         let is_merge_commit = self.number_of_parents > 1;
 
