@@ -40,10 +40,6 @@ impl Commit {
         })
     }
 
-    /// Return a shortened, 7-character representation of the commit hash.
-    ///
-    /// Truncation is performed on `char` boundaries so it is safe for any
-    /// string, though git hashes are always hex and therefore ASCII.
     pub(crate) fn short_hash(&self) -> String {
         self.hash.chars().take(7).collect()
     }
