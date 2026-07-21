@@ -115,8 +115,29 @@ fn get_reference_oid(repository: &Repository, matching: &str) -> Result<Oid> {
     Ok(commit.id())
 }
 
+/// Resolve a user provided string to an [`Oid`], treating it purely as a commit
+/// hash (full or abbreviated). References, tags and `~`/`^` syntax are not handled
+/// here; when this returns an error [`Commits::from_git`] falls back to
+/// [`get_reference_oid`], and the two errors are chained so the caller still sees a
+/// helpful message.
+///
+/// Dispatch is on length. A full SHA-1 hash is 40 hex characters, so:
+///
+/// * `1..=39` is treated as an abbreviated hash. Git object ids are not stored as
+///   text, so there is nothing to prefix-match against directly; instead we walk
+///   HEAD's ancestry and compare each commit's hash. A consequence is that this arm
+///   only ever resolves commits reachable from HEAD. Anything else (an unreachable
+///   hash, a ref or a tag) yields no match and falls through to
+///   [`get_reference_oid`].
+/// * `40` (and anything longer, which [`Oid::from_str`] rejects) is treated as a
+///   full hash and parsed directly. Note this only validates that the string is
+///   well formed hex; whether the commit actually exists and is reachable from HEAD
+///   is checked later by `hide()` in [`get_commits_till_head_from_oid`], which is
+///   why an unreachable full hash surfaces its "Can not find a commit" error there
+///   rather than here.
 fn parse_to_oid(repository: &Repository, oid: &str) -> Result<Oid> {
     match oid.len() {
+        // Abbreviated hash: prefix-scan HEAD's ancestry (see the doc comment above).
         1..=39 => {
             debug!("Attempting to find a match for the short commit hash {oid:?}.");
             let matching_oid_lowercase = oid.to_lowercase();
@@ -152,6 +173,7 @@ fn parse_to_oid(repository: &Repository, oid: &str) -> Result<Oid> {
                 }
             }
         }
+        // Full hash: parse directly. Existence/reachability is verified later by hide().
         _ => git2::Oid::from_str(oid).context(format!("{oid:?} is not a valid commit hash.")),
     }
 }
