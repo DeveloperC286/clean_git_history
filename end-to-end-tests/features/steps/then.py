@@ -1,7 +1,5 @@
 import re
-from behave import then
 
-from utilities import execute_clean_git_history
 from assertions import (
     assert_command_successful,
     assert_command_unsuccessful,
@@ -12,6 +10,8 @@ from assertions import (
     assert_output_contains,
     assert_output_does_not_contain,
 )
+from behave import then
+from utilities import execute_clean_git_history
 
 
 @then('the Git history is clean.')
