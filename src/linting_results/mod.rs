@@ -49,6 +49,17 @@ pub struct LintingResults {
 }
 
 impl LintingResults {
+    /// Builds the linting results, or `None` if there are no commit or aggregate errors.
+    pub(crate) fn new(
+        commit_errors: Option<CommitErrors>,
+        commits_errors: Option<CommitsErrors>,
+    ) -> Option<Self> {
+        (commit_errors.is_some() || commits_errors.is_some()).then_some(LintingResults {
+            commit_errors,
+            commits_errors,
+        })
+    }
+
     pub fn pretty(&self) -> String {
         pretty::print_all(self)
     }

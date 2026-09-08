@@ -58,14 +58,7 @@ impl Commits {
                 .collect(),
         );
 
-        // Return None if no issues found, otherwise build LintingResults
-        match (commit_errors, commits_errors) {
-            (None, None) => None,
-            (commit_errors, commits_errors) => Some(LintingResults {
-                commit_errors,
-                commits_errors,
-            }),
-        }
+        LintingResults::new(commit_errors, commits_errors)
     }
 }
 
