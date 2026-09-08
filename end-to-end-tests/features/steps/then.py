@@ -110,3 +110,11 @@ def assert_pretty_output_contains_merge_commit_error(context):
     assert_command_unsuccessful(result)
     assert_output_contains(result, "Commit Hash")
     assert_output_does_not_contain(result, "::error")
+
+
+@then('the pretty output contains no ANSI escape codes.')
+def assert_pretty_output_contains_no_ansi_escape_codes(context):
+    # Behave captures standard output through a pipe, so colour has to be disabled.
+    result = execute_clean_git_history(context)
+    assert_command_unsuccessful(result)
+    assert_output_does_not_contain(result, "\x1b[")

@@ -72,6 +72,10 @@ check-github-actions-workflows-linting:
 check-rust-dependencies:
 	cargo machete
 
+.PHONY: check-rust-vulnerabilities
+check-rust-vulnerabilities:
+	cargo audit --deny warnings
+
 .PHONY: compile
 compile:
 	cargo build --verbose $(CARGO_LOCKED)

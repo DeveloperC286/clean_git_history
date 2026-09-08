@@ -1,3 +1,4 @@
+use anstream::println;
 use anyhow::{Context, Result};
 use clap::Parser;
 use git2::Repository;

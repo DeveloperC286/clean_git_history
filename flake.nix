@@ -54,6 +54,8 @@
             pkgs.actionlint
             # Rust dependencies check.
             pkgs.cargo-machete
+            # Rust vulnerability and unmaintained dependency check.
+            pkgs.cargo-audit
             # End to end tests.
             pkgs.python313
             pkgs.python313Packages.behave
