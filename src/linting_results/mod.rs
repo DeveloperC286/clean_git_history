@@ -36,20 +36,9 @@ pub struct CommitsErrors {
 }
 
 impl CommitsErrors {
-    /// Builds the aggregate linting errors, or `None` if `actual_commits` does not exceed `max_commits`.
-    pub(crate) fn new(max_commits: Option<usize>, actual_commits: usize) -> Option<Self> {
-        let max_commits = max_commits?;
-
-        if actual_commits <= max_commits {
-            return None;
-        }
-
-        Some(CommitsErrors {
-            errors: vec![CommitsError::MaxCommitsExceeded {
-                max_commits,
-                actual_commits,
-            }],
-        })
+    /// Builds the aggregate linting errors, or `None` if there are none.
+    pub(crate) fn new(errors: Vec<CommitsError>) -> Option<Self> {
+        (!errors.is_empty()).then_some(CommitsErrors { errors })
     }
 }
 

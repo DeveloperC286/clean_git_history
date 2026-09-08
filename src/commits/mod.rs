@@ -4,7 +4,7 @@ use anyhow::{Context, Result, bail};
 use git2::{Oid, Repository, Revwalk};
 use log::{debug, info, warn};
 
-use crate::linting_results::{CommitErrors, CommitsErrors, LintingResults};
+use crate::linting_results::{CommitErrors, CommitsError, CommitsErrors, LintingResults};
 
 pub mod commit;
 pub use commit::Commit;
@@ -46,7 +46,17 @@ impl Commits {
         );
 
         // Check for aggregate errors
-        let commits_errors = CommitsErrors::new(max_commits, self.commits.len());
+        let actual_commits = self.commits.len();
+        let commits_errors = CommitsErrors::new(
+            max_commits
+                .filter(|max_commits| actual_commits > *max_commits)
+                .map(|max_commits| CommitsError::MaxCommitsExceeded {
+                    max_commits,
+                    actual_commits,
+                })
+                .into_iter()
+                .collect(),
+        );
 
         // Return None if no issues found, otherwise build LintingResults
         match (commit_errors, commits_errors) {
