@@ -1,5 +1,3 @@
-use std::collections::{HashMap, VecDeque};
-
 use crate::commits::commit::Commit;
 
 mod github_actions;
@@ -20,15 +18,14 @@ pub enum CommitsError {
     },
 }
 
-/// Per-commit linting errors.
+/// Per-commit linting errors, in the order the commits were walked in.
 pub struct CommitErrors {
-    pub(crate) order: VecDeque<Commit>,
-    pub(crate) errors: HashMap<Commit, Vec<CommitError>>,
+    pub(crate) errors: Vec<(Commit, Vec<CommitError>)>,
 }
 
 impl CommitErrors {
-    pub(crate) fn new(order: VecDeque<Commit>, errors: HashMap<Commit, Vec<CommitError>>) -> Self {
-        CommitErrors { order, errors }
+    pub(crate) fn new(errors: Vec<(Commit, Vec<CommitError>)>) -> Self {
+        CommitErrors { errors }
     }
 }
 

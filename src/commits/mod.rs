@@ -1,4 +1,4 @@
-use std::collections::{HashMap, VecDeque};
+use std::collections::VecDeque;
 
 use anyhow::{Context, Result, bail};
 use git2::{Oid, Repository, Revwalk};
@@ -26,10 +26,10 @@ impl Commits {
 
     /// Lint all commits and return the linting results if any issues are found.
     pub fn lint(&self, max_commits: Option<usize>) -> Option<LintingResults> {
-        let mut commit_errors: HashMap<Commit, Vec<CommitError>> = HashMap::new();
+        let mut commit_errors: Vec<(Commit, Vec<CommitError>)> = Vec::new();
 
-        // Check each commit for linting errors
-        for commit in self.commits.iter().cloned() {
+        // Check each commit for linting errors, retaining the order they were walked in
+        for commit in &self.commits {
             let errors = commit.lint();
 
             if !errors.is_empty() {
@@ -38,7 +38,7 @@ impl Commits {
                     errors.len(),
                     commit.hash
                 );
-                commit_errors.insert(commit, errors);
+                commit_errors.push((commit.clone(), errors));
             }
         }
 
@@ -55,8 +55,7 @@ impl Commits {
         });
 
         // Return None if no issues found, otherwise build LintingResults
-        let commit_errors = (!commit_errors.is_empty())
-            .then(|| CommitErrors::new(self.commits.clone(), commit_errors));
+        let commit_errors = (!commit_errors.is_empty()).then(|| CommitErrors::new(commit_errors));
         let commits_errors = commits_errors.map(CommitsErrors::new);
 
         match (commit_errors, commits_errors) {
