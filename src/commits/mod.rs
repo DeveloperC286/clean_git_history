@@ -26,38 +26,38 @@ impl Commits {
 
     /// Lint all commits and return the linting results if any issues are found.
     pub fn lint(&self, max_commits: Option<usize>) -> Option<LintingResults> {
-        let mut commit_errors: Vec<(Commit, Vec<CommitError>)> = Vec::new();
-
         // Check each commit for linting errors, retaining the order they were walked in
-        for commit in &self.commits {
-            let errors = commit.lint();
+        let commit_errors = {
+            let mut commit_errors: Vec<(Commit, Vec<CommitError>)> = Vec::new();
 
-            if !errors.is_empty() {
-                warn!(
-                    "Found {} linting errors for the commit {:?}.",
-                    errors.len(),
-                    commit.hash
-                );
-                commit_errors.push((commit.clone(), errors));
+            for commit in &self.commits {
+                let errors = commit.lint();
+
+                if !errors.is_empty() {
+                    warn!(
+                        "Found {} linting errors for the commit {:?}.",
+                        errors.len(),
+                        commit.hash
+                    );
+                    commit_errors.push((commit.clone(), errors));
+                }
             }
-        }
+
+            (!commit_errors.is_empty()).then(|| CommitErrors::new(commit_errors))
+        };
 
         // Check for aggregate errors
-        let commits_errors = max_commits.and_then(|max| {
-            if self.commits.len() > max {
-                Some(vec![CommitsError::MaxCommitsExceeded {
-                    max_commits: max,
-                    actual_commits: self.commits.len(),
+        let actual_commits = self.commits.len();
+        let commits_errors = max_commits
+            .filter(|max_commits| actual_commits > *max_commits)
+            .map(|max_commits| {
+                CommitsErrors::new(vec![CommitsError::MaxCommitsExceeded {
+                    max_commits,
+                    actual_commits,
                 }])
-            } else {
-                None
-            }
-        });
+            });
 
         // Return None if no issues found, otherwise build LintingResults
-        let commit_errors = (!commit_errors.is_empty()).then(|| CommitErrors::new(commit_errors));
-        let commits_errors = commits_errors.map(CommitsErrors::new);
-
         match (commit_errors, commits_errors) {
             (None, None) => None,
             (commit_errors, commits_errors) => Some(LintingResults {
