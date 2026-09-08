@@ -4,9 +4,7 @@ use anyhow::{Context, Result, bail};
 use git2::{Oid, Repository, Revwalk};
 use log::{debug, info, warn};
 
-use crate::linting_results::{
-    CommitError, CommitErrors, CommitsError, CommitsErrors, LintingResults,
-};
+use crate::linting_results::{CommitErrors, CommitsError, CommitsErrors, LintingResults};
 
 pub mod commit;
 pub use commit::Commit;
@@ -27,24 +25,27 @@ impl Commits {
     /// Lint all commits and return the linting results if any issues are found.
     pub fn lint(&self, max_commits: Option<usize>) -> Option<LintingResults> {
         // Check each commit for linting errors, retaining the order they were walked in
-        let commit_errors = {
-            let mut commit_errors: Vec<(Commit, Vec<CommitError>)> = Vec::new();
+        let commit_errors = Some(
+            self.commits
+                .iter()
+                .filter_map(|commit| {
+                    let errors = commit.lint();
 
-            for commit in &self.commits {
-                let errors = commit.lint();
+                    if errors.is_empty() {
+                        return None;
+                    }
 
-                if !errors.is_empty() {
                     warn!(
                         "Found {} linting errors for the commit {:?}.",
                         errors.len(),
                         commit.hash
                     );
-                    commit_errors.push((commit.clone(), errors));
-                }
-            }
-
-            (!commit_errors.is_empty()).then(|| CommitErrors::new(commit_errors))
-        };
+                    Some((commit.clone(), errors))
+                })
+                .collect::<Vec<_>>(),
+        )
+        .filter(|commit_errors| !commit_errors.is_empty())
+        .map(CommitErrors::new);
 
         // Check for aggregate errors
         let actual_commits = self.commits.len();
