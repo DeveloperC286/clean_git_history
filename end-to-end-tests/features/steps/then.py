@@ -83,6 +83,30 @@ def assert_ambiguous_shortened_commit_hash_error(context, shortened_commit_hash)
     assert_error_matches_regex(result, ambiguous_shortened_commit_hash_error)
 
 
+@then('their is a no commits within the provided range error.')
+def assert_no_commits_within_the_provided_range_error(context):
+    # Given
+    no_commits_within_the_provided_range_error = "No Git commits within the provided range.\n"  # fmt: off
+
+    # When/Then
+    result = assert_git_history_is_not_clean(context)
+
+    # Then
+    assert_error_contains(result, no_commits_within_the_provided_range_error)
+
+
+@then('their is an ambiguous reference and commit hash warning for "{ambiguous}".')
+def assert_ambiguous_reference_and_commit_hash_warning(context, ambiguous):
+    # Given
+    ambiguous_reference_and_commit_hash_warning = f"The provided \"{ambiguous}\" is ambiguous, it is both a reference pointing at the commit "  # fmt: off
+
+    # When/Then
+    result = assert_git_history_is_not_clean(context)
+
+    # Then
+    assert_error_contains(result, ambiguous_reference_and_commit_hash_warning)
+
+
 @then('their is an invalid max commits value "{max_commits}" error.')
 def assert_invalid_max_commits_value_error(context, max_commits):
     # Given

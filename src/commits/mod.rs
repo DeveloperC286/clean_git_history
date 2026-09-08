@@ -16,9 +16,7 @@ pub struct Commits {
 
 impl Commits {
     pub fn from_git<T: AsRef<str>>(repository: &Repository, git: T) -> Result<Commits> {
-        let oid = parse_to_oid(repository, git.as_ref()).or_else(|error| {
-            get_reference_oid(repository, git.as_ref()).map_err(|e| error.context(e))
-        })?;
+        let oid = resolve_to_oid(repository, git.as_ref())?;
         get_commits_till_head_from_oid(repository, oid)
     }
 
@@ -94,6 +92,31 @@ fn get_commits_till_head_from_oid(
     Ok(Commits { commits })
 }
 
+/// Resolve to the Oid of a commit, preferring a reference over a commit hash as Git itself does.
+fn resolve_to_oid(repository: &Repository, git: &str) -> Result<Oid> {
+    match get_reference_oid(repository, git) {
+        Ok(reference_oid) => {
+            // Git resolves an ambiguous name to the reference, only warning that the name is also a commit hash.
+            if let Ok(commit_oid) = parse_to_oid(repository, git)
+                && commit_oid != reference_oid
+            {
+                warn!(
+                    "The provided {git:?} is ambiguous, it is both a reference pointing at the commit '{reference_oid}' and the commit hash '{commit_oid}', using the reference as Git does."
+                );
+            }
+
+            info!("Using the reference {git:?}, which points at the commit '{reference_oid}'.");
+            Ok(reference_oid)
+        }
+        Err(reference_error) => {
+            let commit_oid =
+                parse_to_oid(repository, git).map_err(|error| error.context(reference_error))?;
+            info!("Using the commit hash '{commit_oid}'.");
+            Ok(commit_oid)
+        }
+    }
+}
+
 fn get_reference_oid(repository: &Repository, matching: &str) -> Result<Oid> {
     let reference = repository
         .resolve_reference_from_short_name(matching)
@@ -109,6 +132,11 @@ fn get_reference_oid(repository: &Repository, matching: &str) -> Result<Oid> {
 }
 
 fn parse_to_oid(repository: &Repository, oid: &str) -> Result<Oid> {
+    // Avoid searching the history for anything which can not be a commit hash, such as a reference's name.
+    if oid.is_empty() || !oid.chars().all(|character| character.is_ascii_hexdigit()) {
+        bail!("{oid:?} is not a valid commit hash.");
+    }
+
     match oid.len() {
         1..=39 => {
             debug!("Attempting to find a match for the short commit hash {oid:?}.");

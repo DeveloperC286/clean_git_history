@@ -48,6 +48,16 @@ def clone_remote_repository_and_checkout_commit(context, remote_repository, comm
         os.chdir(context.behave_directory)
 
 
+@given('the branch "{branch}" is created pointing at "{pointing_at}".')
+def create_branch(context, branch, pointing_at):
+    os.chdir(context.remote_repository_cache)
+
+    result = execute_command(f"git branch --force {branch} {pointing_at}")
+
+    os.chdir(context.behave_directory)
+    assert_command_successful(result)
+
+
 @given('the GIT_DIR environment variable is set to the cloned repository.')
 def set_git_dir(context):
     os.environ["GIT_DIR"] = str(context.remote_repository_cache + "/.git")
