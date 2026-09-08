@@ -28,6 +28,10 @@ def reset_context(context):
     if "CI" in os.environ:
         del os.environ["CI"]
 
+    for colour_variable in ["NO_COLOR", "CLICOLOR_FORCE"]:
+        if colour_variable in os.environ:
+            del os.environ[colour_variable]
+
 
 @given('the repository "{remote_repository}" is cloned and checked out at the commit "{commit_hash}".')
 def clone_remote_repository_and_checkout_commit(context, remote_repository, commit_hash):
@@ -57,3 +61,13 @@ def set_git_dir(context):
 def set_github_actions(context):
     os.environ["GITHUB_ACTIONS"] = "true"
     os.environ["CI"] = "true"
+
+
+@given('the NO_COLOR environment variable is set.')
+def set_no_color(context):
+    os.environ["NO_COLOR"] = "1"
+
+
+@given('the CLICOLOR_FORCE environment variable is set.')
+def set_clicolor_force(context):
+    os.environ["CLICOLOR_FORCE"] = "1"

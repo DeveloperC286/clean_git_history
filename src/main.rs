@@ -1,3 +1,6 @@
+// Shadows the standard library's macro so the colours in the output are stripped
+// when standard output is not a terminal or the environment opts out of colour.
+use anstream::println;
 use anyhow::{Context, Result};
 use clap::Parser;
 use git2::Repository;

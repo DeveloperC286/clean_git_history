@@ -1,33 +1,31 @@
 use std::fmt::Write;
 
-use ansi_term::Colour::Red;
+use anstyle::{AnsiColor, Color, Style};
 
 use super::{CommitError, CommitsError, LintingResults};
 
+/// The styling applied to the highlighted parts of the output.
+///
+/// The escape codes are always emitted here, printing via `anstream` strips them
+/// when the destination does not support colour.
+const RED: Style = Style::new()
+    .fg_color(Some(Color::Ansi(AnsiColor::Red)))
+    .bold();
+
 pub(crate) fn print_all(results: &LintingResults) -> String {
     let mut output = String::new();
-    let red = Red.bold();
 
     // Print per-commit errors
     if let Some(commit_errors) = &results.commit_errors {
         for commit in &commit_errors.order {
             if let Some(errors) = commit_errors.errors.get(commit) {
-                let _ = writeln!(
-                    output,
-                    "{} - {}",
-                    red.paint("Commit Hash"),
-                    commit.short_hash()
-                );
-                let _ = writeln!(output, "{} - {:?}", red.paint("Message"), commit.message);
+                let _ = writeln!(output, "{RED}Commit Hash{RED:#} - {}", commit.short_hash());
+                let _ = writeln!(output, "{RED}Message{RED:#} - {:?}", commit.message);
 
                 for error in errors {
                     match error {
                         CommitError::MergeCommit => {
-                            let _ = writeln!(
-                                output,
-                                "\t{} - Commit is a merge commit.",
-                                red.paint("X")
-                            );
+                            let _ = writeln!(output, "\t{RED}X{RED:#} - Commit is a merge commit.");
                         }
                     }
                 }
@@ -41,8 +39,7 @@ pub(crate) fn print_all(results: &LintingResults) -> String {
 
         let _ = writeln!(
             output,
-            "{} - Found {total_linting_errors} separate linting errors across {} commits.",
-            red.paint("X"),
+            "{RED}X{RED:#} - Found {total_linting_errors} separate linting errors across {} commits.",
             commit_errors.errors.len()
         );
     }
@@ -57,10 +54,7 @@ pub(crate) fn print_all(results: &LintingResults) -> String {
                 } => {
                     let _ = writeln!(
                         output,
-                        "{} - Maximum commits exceeded: found {} commits, but maximum allowed is {}.",
-                        red.paint("X"),
-                        actual_commits,
-                        max_commits
+                        "{RED}X{RED:#} - Maximum commits exceeded: found {actual_commits} commits, but maximum allowed is {max_commits}."
                     );
                 }
             }

@@ -7,6 +7,7 @@
 A Git history linter to ensure it stays clean for those who prefer a linear history without merge commits.
 
 - [Usage](#usage)
+  - [Output](#output)
 - [Examples](#examples)
   - [GitHub Actions](#github-actions)
   - [GitLab CI](#gitlab-ci)
@@ -25,6 +26,23 @@ __e.g.__
 clean_git_history "origin/main"
 clean_git_history "v0.2.0"
 clean_git_history "bac789b4cc5fce9a26d6805c5da4bf17241523f1"
+```
+
+### Output
+The `--output` argument specifies the format the linting results are printed in, the acceptable values are `quiet`, `default`, `pretty` and `github`.
+The `default` format auto-detects GitHub Actions via the `GITHUB_ACTIONS` environment variable, using the `github` format when detected and the `pretty` format otherwise.
+
+The `pretty` format colours its output, but only when the destination supports it.
+Colour is omitted when standard output is not a terminal, such as when piping to a file, and when the terminal does not support it.
+The [`NO_COLOR`](https://no-color.org/) environment variable disables the colour, whilst `CLICOLOR_FORCE` forces it to be emitted even when standard output is not a terminal.
+Setting `CLICOLOR_FORCE` is how to keep the colour when running in a CI system whose logs render ANSI escape sequences, as their standard output is not a terminal.
+
+__e.g.__
+
+```sh
+clean_git_history --output pretty "origin/main" > results.txt # No colour.
+NO_COLOR=1 clean_git_history --output pretty "origin/main" # No colour.
+CLICOLOR_FORCE=1 clean_git_history --output pretty "origin/main" | less -R # Colour.
 ```
 
 ## Examples

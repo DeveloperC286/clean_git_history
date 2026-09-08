@@ -8,7 +8,9 @@ from assertions import (
     assert_no_errors,
     assert_no_output,
     assert_output_contains,
+    assert_output_contains_ansi_escape_sequences,
     assert_output_does_not_contain,
+    assert_output_does_not_contain_ansi_escape_sequences,
 )
 from behave import then
 from utilities import execute_clean_git_history
@@ -110,3 +112,19 @@ def assert_pretty_output_contains_merge_commit_error(context):
     assert_command_unsuccessful(result)
     assert_output_contains(result, "Commit Hash")
     assert_output_does_not_contain(result, "::error")
+
+
+@then('the pretty output is coloured.')
+def assert_pretty_output_is_coloured(context):
+    result = execute_clean_git_history(context)
+    assert_command_unsuccessful(result)
+    assert_output_contains(result, "Commit Hash")
+    assert_output_contains_ansi_escape_sequences(result)
+
+
+@then('the pretty output is not coloured.')
+def assert_pretty_output_is_not_coloured(context):
+    result = execute_clean_git_history(context)
+    assert_command_unsuccessful(result)
+    assert_output_contains(result, "Commit Hash")
+    assert_output_does_not_contain_ansi_escape_sequences(result)

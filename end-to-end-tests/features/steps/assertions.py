@@ -1,3 +1,8 @@
+import re
+
+ANSI_ESCAPE_SEQUENCE = re.compile("\\x1b\\[[0-9;]*m")
+
+
 def assert_command_successful(result):
     assert result.exit_code == 0, "Expected a zero exit code to indicate a successful execution.\n" + \
         f"Exit code = '{result.exit_code}'.\n"
@@ -52,3 +57,15 @@ def assert_output_does_not_contain(result, output):
     assert output not in result.stdout, "Expected standard output to not contain the output.\n" + \
         f"Standard output = {result.stdout.encode()}.\n" + \
         f"Output          = {output.encode()}.\n"
+
+
+def assert_output_contains_ansi_escape_sequences(result):
+    assert ANSI_ESCAPE_SEQUENCE.search(result.stdout) is not None, \
+        "Expected standard output to contain ANSI escape sequences.\n" + \
+        f"Standard output = {result.stdout.encode()}.\n"
+
+
+def assert_output_does_not_contain_ansi_escape_sequences(result):
+    assert ANSI_ESCAPE_SEQUENCE.search(result.stdout) is None, \
+        "Expected standard output to not contain ANSI escape sequences.\n" + \
+        f"Standard output = {result.stdout.encode()}.\n"
