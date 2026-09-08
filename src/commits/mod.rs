@@ -1,12 +1,10 @@
-use std::collections::{HashMap, VecDeque};
+use std::collections::VecDeque;
 
 use anyhow::{Context, Result, bail};
 use git2::{Oid, Repository, Revwalk};
 use log::{debug, info, warn};
 
-use crate::linting_results::{
-    CommitError, CommitErrors, CommitsError, CommitsErrors, LintingResults,
-};
+use crate::linting_results::{CommitErrors, CommitsError, CommitsErrors, LintingResults};
 
 pub mod commit;
 pub use commit::Commit;
@@ -26,46 +24,40 @@ impl Commits {
 
     /// Lint all commits and return the linting results if any issues are found.
     pub fn lint(&self, max_commits: Option<usize>) -> Option<LintingResults> {
-        let mut commit_errors: HashMap<Commit, Vec<CommitError>> = HashMap::new();
+        // Check each commit for linting errors, retaining the order they were walked in
+        let commit_errors = CommitErrors::new(
+            self.commits
+                .iter()
+                .filter_map(|commit| {
+                    let errors = commit.lint();
 
-        // Check each commit for linting errors
-        for commit in self.commits.iter().cloned() {
-            let errors = commit.lint();
+                    if errors.is_empty() {
+                        return None;
+                    }
 
-            if !errors.is_empty() {
-                warn!(
-                    "Found {} linting errors for the commit {:?}.",
-                    errors.len(),
-                    commit.hash
-                );
-                commit_errors.insert(commit, errors);
-            }
-        }
+                    warn!(
+                        "Found {} linting errors for the commit {:?}.",
+                        errors.len(),
+                        commit.hash
+                    );
+                    Some((commit.clone(), errors))
+                })
+                .collect(),
+        );
 
         // Check for aggregate errors
-        let commits_errors = max_commits.and_then(|max| {
-            if self.commits.len() > max {
-                Some(vec![CommitsError::MaxCommitsExceeded {
-                    max_commits: max,
-                    actual_commits: self.commits.len(),
-                }])
-            } else {
-                None
+        let actual_commits = self.commits.len();
+        let commits_errors = CommitsErrors::new(match max_commits {
+            Some(max_commits) if actual_commits > max_commits => {
+                vec![CommitsError::MaxCommitsExceeded {
+                    max_commits,
+                    actual_commits,
+                }]
             }
+            _ => Vec::new(),
         });
 
-        // Return None if no issues found, otherwise build LintingResults
-        let commit_errors = (!commit_errors.is_empty())
-            .then(|| CommitErrors::new(self.commits.clone(), commit_errors));
-        let commits_errors = commits_errors.map(CommitsErrors::new);
-
-        match (commit_errors, commits_errors) {
-            (None, None) => None,
-            (commit_errors, commits_errors) => Some(LintingResults {
-                commit_errors,
-                commits_errors,
-            }),
-        }
+        LintingResults::new(commit_errors, commits_errors)
     }
 }
 

@@ -6,26 +6,24 @@ pub(crate) fn print_all(results: &LintingResults) -> String {
     let mut output = String::new();
 
     if let Some(commit_errors) = &results.commit_errors {
-        for commit in &commit_errors.order {
-            if let Some(errors) = commit_errors.errors.get(commit) {
-                let short_hash = commit.short_hash();
-                let message = commit.message.lines().next().unwrap_or_default();
+        for (commit, errors) in &commit_errors.errors {
+            let short_hash = commit.short_hash();
+            let message = commit.message.lines().next().unwrap_or_default();
 
-                let _ = writeln!(output, "::group::{short_hash} - {message}");
+            let _ = writeln!(output, "::group::{short_hash} - {message}");
 
-                for error in errors {
-                    match error {
-                        CommitError::MergeCommit => {
-                            let _ = writeln!(
-                                output,
-                                "::error title=Merge Commit::Commit {short_hash} is a merge commit."
-                            );
-                        }
+            for error in errors {
+                match error {
+                    CommitError::MergeCommit => {
+                        let _ = writeln!(
+                            output,
+                            "::error title=Merge Commit::Commit {short_hash} is a merge commit."
+                        );
                     }
                 }
-
-                let _ = writeln!(output, "::endgroup::");
             }
+
+            let _ = writeln!(output, "::endgroup::");
         }
     }
 

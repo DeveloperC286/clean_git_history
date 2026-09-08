@@ -3,7 +3,7 @@ use log::{debug, trace, warn};
 
 use crate::linting_results::CommitError;
 
-#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Commit {
     pub hash: String,
     pub message: String,

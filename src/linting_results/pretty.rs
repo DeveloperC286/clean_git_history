@@ -10,34 +10,29 @@ pub(crate) fn print_all(results: &LintingResults) -> String {
 
     // Print per-commit errors
     if let Some(commit_errors) = &results.commit_errors {
-        for commit in &commit_errors.order {
-            if let Some(errors) = commit_errors.errors.get(commit) {
-                let _ = writeln!(
-                    output,
-                    "{} - {}",
-                    red.paint("Commit Hash"),
-                    commit.short_hash()
-                );
-                let _ = writeln!(output, "{} - {:?}", red.paint("Message"), commit.message);
+        for (commit, errors) in &commit_errors.errors {
+            let _ = writeln!(
+                output,
+                "{} - {}",
+                red.paint("Commit Hash"),
+                commit.short_hash()
+            );
+            let _ = writeln!(output, "{} - {:?}", red.paint("Message"), commit.message);
 
-                for error in errors {
-                    match error {
-                        CommitError::MergeCommit => {
-                            let _ = writeln!(
-                                output,
-                                "\t{} - Commit is a merge commit.",
-                                red.paint("X")
-                            );
-                        }
+            for error in errors {
+                match error {
+                    CommitError::MergeCommit => {
+                        let _ =
+                            writeln!(output, "\t{} - Commit is a merge commit.", red.paint("X"));
                     }
                 }
-
-                let _ = writeln!(output);
             }
+
+            let _ = writeln!(output);
         }
 
         // Print summary of commit errors
-        let total_linting_errors: usize = commit_errors.errors.values().map(|x| x.len()).sum();
+        let total_linting_errors: usize = commit_errors.errors.iter().map(|(_, x)| x.len()).sum();
 
         let _ = writeln!(
             output,

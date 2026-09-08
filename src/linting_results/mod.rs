@@ -1,5 +1,3 @@
-use std::collections::{HashMap, VecDeque};
-
 use crate::commits::commit::Commit;
 
 mod github_actions;
@@ -20,15 +18,15 @@ pub enum CommitsError {
     },
 }
 
-/// Per-commit linting errors.
+/// Per-commit linting errors, in the order the commits were walked in.
 pub struct CommitErrors {
-    pub(crate) order: VecDeque<Commit>,
-    pub(crate) errors: HashMap<Commit, Vec<CommitError>>,
+    pub(crate) errors: Vec<(Commit, Vec<CommitError>)>,
 }
 
 impl CommitErrors {
-    pub(crate) fn new(order: VecDeque<Commit>, errors: HashMap<Commit, Vec<CommitError>>) -> Self {
-        CommitErrors { order, errors }
+    /// Builds the per-commit linting errors, or `None` if none of the commits have any.
+    pub(crate) fn new(errors: Vec<(Commit, Vec<CommitError>)>) -> Option<Self> {
+        (!errors.is_empty()).then_some(CommitErrors { errors })
     }
 }
 
@@ -38,8 +36,9 @@ pub struct CommitsErrors {
 }
 
 impl CommitsErrors {
-    pub(crate) fn new(errors: Vec<CommitsError>) -> Self {
-        CommitsErrors { errors }
+    /// Builds the aggregate linting errors, or `None` if there are none.
+    pub(crate) fn new(errors: Vec<CommitsError>) -> Option<Self> {
+        (!errors.is_empty()).then_some(CommitsErrors { errors })
     }
 }
 
@@ -50,6 +49,20 @@ pub struct LintingResults {
 }
 
 impl LintingResults {
+    /// Builds the linting results, or `None` if there are no commit or aggregate errors.
+    pub(crate) fn new(
+        commit_errors: Option<CommitErrors>,
+        commits_errors: Option<CommitsErrors>,
+    ) -> Option<Self> {
+        match (commit_errors, commits_errors) {
+            (None, None) => None,
+            (commit_errors, commits_errors) => Some(LintingResults {
+                commit_errors,
+                commits_errors,
+            }),
+        }
+    }
+
     pub fn pretty(&self) -> String {
         pretty::print_all(self)
     }
