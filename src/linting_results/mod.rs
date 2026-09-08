@@ -24,8 +24,9 @@ pub struct CommitErrors {
 }
 
 impl CommitErrors {
-    pub(crate) fn new(errors: Vec<(Commit, Vec<CommitError>)>) -> Self {
-        CommitErrors { errors }
+    /// Builds the per-commit linting errors, or `None` if none of the commits have any.
+    pub(crate) fn new(errors: Vec<(Commit, Vec<CommitError>)>) -> Option<Self> {
+        (!errors.is_empty()).then_some(CommitErrors { errors })
     }
 }
 
@@ -35,8 +36,20 @@ pub struct CommitsErrors {
 }
 
 impl CommitsErrors {
-    pub(crate) fn new(errors: Vec<CommitsError>) -> Self {
-        CommitsErrors { errors }
+    /// Builds the aggregate linting errors, or `None` if `actual_commits` does not exceed `max_commits`.
+    pub(crate) fn new(max_commits: Option<usize>, actual_commits: usize) -> Option<Self> {
+        let max_commits = max_commits?;
+
+        if actual_commits <= max_commits {
+            return None;
+        }
+
+        Some(CommitsErrors {
+            errors: vec![CommitsError::MaxCommitsExceeded {
+                max_commits,
+                actual_commits,
+            }],
+        })
     }
 }
 
