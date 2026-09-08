@@ -47,16 +47,15 @@ impl Commits {
 
         // Check for aggregate errors
         let actual_commits = self.commits.len();
-        let commits_errors = CommitsErrors::new(
-            max_commits
-                .filter(|max_commits| actual_commits > *max_commits)
-                .map(|max_commits| CommitsError::MaxCommitsExceeded {
+        let commits_errors = CommitsErrors::new(match max_commits {
+            Some(max_commits) if actual_commits > max_commits => {
+                vec![CommitsError::MaxCommitsExceeded {
                     max_commits,
                     actual_commits,
-                })
-                .into_iter()
-                .collect(),
-        );
+                }]
+            }
+            _ => Vec::new(),
+        });
 
         LintingResults::new(commit_errors, commits_errors)
     }
