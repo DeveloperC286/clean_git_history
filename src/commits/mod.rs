@@ -9,6 +9,12 @@ use crate::linting_results::{CommitErrors, CommitsError, CommitsErrors, LintingR
 pub mod commit;
 pub use commit::Commit;
 
+/// The length of a full commit hash.
+const FULL_COMMIT_HASH_LENGTH: usize = 40;
+
+/// The minimum length of a short commit hash Git will match, as per Git's own MINIMUM_ABBREV.
+const MINIMUM_SHORT_COMMIT_HASH_LENGTH: usize = 4;
+
 /// A representation of a range of commits within a Git repository, which can have various lints performed upon it after construction.
 pub struct Commits {
     commits: VecDeque<Commit>,
@@ -92,14 +98,26 @@ fn get_commits_till_head_from_oid(
     Ok(Commits { commits })
 }
 
-/// Resolve to the Oid of a commit, preferring a reference over a commit hash as Git itself does.
+/// Resolve to the Oid of a commit, matching how Git itself resolves a name which is both a reference and a commit hash.
 fn resolve_to_oid(repository: &Repository, git: &str) -> Result<Oid> {
+    // Git resolves a full commit hash to that commit, even when a reference shares its name.
+    if is_full_commit_hash(git) {
+        let commit_oid = parse_to_oid(repository, git)?;
+
+        if let Some((reference_name, _)) = get_matching_references(repository, git).first() {
+            warn!(
+                "The provided {git:?} is ambiguous, it is both a full commit hash and the reference {reference_name:?}, using the commit hash as Git does."
+            );
+        }
+
+        info!("Using the commit hash '{commit_oid}'.");
+        return Ok(commit_oid);
+    }
+
     match get_reference_oid(repository, git) {
         Ok(reference_oid) => {
-            // Git resolves an ambiguous name to the reference, only warning that the name is also a commit hash.
-            if let Ok(commit_oid) = parse_to_oid(repository, git)
-                && commit_oid != reference_oid
-            {
+            // Git resolves an ambiguous name to the reference, only warning that the name is also a short commit hash.
+            if let Ok(commit_oid) = parse_to_oid(repository, git) {
                 warn!(
                     "The provided {git:?} is ambiguous, it is both a reference pointing at the commit '{reference_oid}' and the commit hash '{commit_oid}', using the reference as Git does."
                 );
@@ -118,27 +136,71 @@ fn resolve_to_oid(repository: &Repository, git: &str) -> Result<Oid> {
 }
 
 fn get_reference_oid(repository: &Repository, matching: &str) -> Result<Oid> {
-    let reference = repository
-        .resolve_reference_from_short_name(matching)
-        .context(format!(
-            "Could not find a reference with the name {matching:?}."
-        ))?;
-    debug!(
-        "Matched {matching:?} to the reference {:?}.",
-        reference.name().unwrap()
-    );
-    let commit = reference.peel_to_commit()?;
-    Ok(commit.id())
+    let matched_references = get_matching_references(repository, matching);
+
+    let (reference_name, reference_oid) = matched_references.first().context(format!(
+        "Could not find a reference with the name {matching:?}."
+    ))?;
+
+    // Git resolves a name matching several references to the first one, only warning that the name is ambiguous.
+    if matched_references.len() > 1 {
+        let reference_names: Vec<&String> = matched_references
+            .iter()
+            .map(|(reference_name, _)| reference_name)
+            .collect();
+        warn!(
+            "The provided {matching:?} is ambiguous, it matches the references {reference_names:?}, using the reference {reference_name:?} as Git does."
+        );
+    }
+
+    debug!("Matched {matching:?} to the reference {reference_name:?}.");
+    Ok(*reference_oid)
+}
+
+/// All the references a name matches, in the order Git itself matches them.
+fn get_matching_references(repository: &Repository, matching: &str) -> Vec<(String, Oid)> {
+    [
+        matching.to_string(),
+        format!("refs/{matching}"),
+        format!("refs/tags/{matching}"),
+        format!("refs/heads/{matching}"),
+        format!("refs/remotes/{matching}"),
+        format!("refs/remotes/{matching}/HEAD"),
+    ]
+    .into_iter()
+    .filter_map(|reference_name| {
+        let commit = repository
+            .find_reference(&reference_name)
+            .ok()?
+            .peel_to_commit()
+            .ok()?;
+        Some((reference_name, commit.id()))
+    })
+    .collect()
+}
+
+fn is_full_commit_hash(oid: &str) -> bool {
+    oid.len() == FULL_COMMIT_HASH_LENGTH && is_commit_hash_characters(oid)
+}
+
+fn is_commit_hash_characters(oid: &str) -> bool {
+    !oid.is_empty() && oid.chars().all(|character| character.is_ascii_hexdigit())
 }
 
 fn parse_to_oid(repository: &Repository, oid: &str) -> Result<Oid> {
     // Avoid searching the history for anything which can not be a commit hash, such as a reference's name.
-    if oid.is_empty() || !oid.chars().all(|character| character.is_ascii_hexdigit()) {
+    if !is_commit_hash_characters(oid) {
         bail!("{oid:?} is not a valid commit hash.");
     }
 
     match oid.len() {
-        1..=39 => {
+        // Git does not match a short commit hash of fewer characters, so neither do we.
+        ..MINIMUM_SHORT_COMMIT_HASH_LENGTH => {
+            bail!(
+                "The provided short commit hash {oid:?} is shorter than the minimum of {MINIMUM_SHORT_COMMIT_HASH_LENGTH} characters."
+            );
+        }
+        MINIMUM_SHORT_COMMIT_HASH_LENGTH..FULL_COMMIT_HASH_LENGTH => {
             debug!("Attempting to find a match for the short commit hash {oid:?}.");
             let matching_oid_lowercase = oid.to_lowercase();
 

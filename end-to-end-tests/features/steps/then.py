@@ -95,16 +95,52 @@ def assert_no_commits_within_the_provided_range_error(context):
     assert_error_contains(result, no_commits_within_the_provided_range_error)
 
 
-@then('their is an ambiguous reference and commit hash warning for "{ambiguous}".')
-def assert_ambiguous_reference_and_commit_hash_warning(context, ambiguous):
+@then('their is a too short commit hash "{shortened_commit_hash}" error.')
+def assert_too_short_commit_hash_error(context, shortened_commit_hash):
     # Given
-    ambiguous_reference_and_commit_hash_warning = f"The provided \"{ambiguous}\" is ambiguous, it is both a reference pointing at the commit "  # fmt: off
+    too_short_commit_hash_error = f"The provided short commit hash \"{shortened_commit_hash}\" is shorter than the minimum of 4 characters.\n"  # fmt: off
 
     # When/Then
     result = assert_git_history_is_not_clean(context)
 
     # Then
+    assert_error_contains(result, too_short_commit_hash_error)
+
+
+@then('their is an ambiguous reference and commit hash warning for "{ambiguous}".')
+def assert_ambiguous_reference_and_commit_hash_warning(context, ambiguous):
+    # Given
+    ambiguous_reference_and_commit_hash_warning = f"The provided \"{ambiguous}\" is ambiguous, it is both a reference pointing at the commit "  # fmt: off
+
+    # When
+    result = execute_clean_git_history(context)
+
+    # Then
     assert_error_contains(result, ambiguous_reference_and_commit_hash_warning)
+
+
+@then('their is an ambiguous full commit hash and reference warning for "{ambiguous}".')
+def assert_ambiguous_full_commit_hash_and_reference_warning(context, ambiguous):
+    # Given
+    ambiguous_full_commit_hash_and_reference_warning = f"The provided \"{ambiguous}\" is ambiguous, it is both a full commit hash and the reference "  # fmt: off
+
+    # When
+    result = execute_clean_git_history(context)
+
+    # Then
+    assert_error_contains(result, ambiguous_full_commit_hash_and_reference_warning)
+
+
+@then('their is an ambiguous references warning for "{ambiguous}".')
+def assert_ambiguous_references_warning(context, ambiguous):
+    # Given
+    ambiguous_references_warning = f"The provided \"{ambiguous}\" is ambiguous, it matches the references "  # fmt: off
+
+    # When
+    result = execute_clean_git_history(context)
+
+    # Then
+    assert_error_contains(result, ambiguous_references_warning)
 
 
 @then('their is an invalid max commits value "{max_commits}" error.')
