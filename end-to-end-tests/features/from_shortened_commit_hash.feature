@@ -2,7 +2,7 @@ Feature: A shortened Git commit hash can be provided as an argument to indicate 
 
 
   Scenario Outline: A shortened and full Git commit hash can be used interchangeably.
-    Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
+    Given the repository "<repository>" is at the commit "<checkout_commit>".
     When linting from the "<commit_hash>".
     Then the Git history is clean.
     Given the arguments are reset.
@@ -16,7 +16,7 @@ Feature: A shortened Git commit hash can be provided as an argument to indicate 
 
 
   Scenario Outline: A shortened and full Git commit hash can be used interchangeably.
-    Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
+    Given the repository "<repository>" is at the commit "<checkout_commit>".
     When linting from the "<commit_hash>".
     Then the Git history is not clean.
     Given the arguments are reset.
@@ -30,7 +30,7 @@ Feature: A shortened Git commit hash can be provided as an argument to indicate 
 
 
   Scenario Outline: The shortened Git commit hash has no matches, so an error is returned.
-    Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
+    Given the repository "<repository>" is at the commit "<checkout_commit>".
     When linting from the "<shortened_commit_hash>".
     Then their is a could not find shortened commit hash "<shortened_commit_hash>" error.
 
@@ -41,7 +41,7 @@ Feature: A shortened Git commit hash can be provided as an argument to indicate 
 
 
   Scenario Outline: The shortened Git commit hash is ambiguous as multiple commit hashes match it, so an error is returned.
-    Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
+    Given the repository "<repository>" is at the commit "<checkout_commit>".
     When linting from the "<shortened_commit_hash>".
     Then their is a ambiguous shortened commit hash "<shortened_commit_hash>" error.
 

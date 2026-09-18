@@ -2,7 +2,7 @@ Feature: A Git reference can be provided as an argument to indicate where to sta
 
 
   Scenario Outline:
-    Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
+    Given the repository "<repository>" is at the commit "<checkout_commit>".
     When linting from the "<reference>".
     Then the Git history is clean.
 
@@ -13,7 +13,7 @@ Feature: A Git reference can be provided as an argument to indicate where to sta
 
 
   Scenario Outline:
-    Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
+    Given the repository "<repository>" is at the commit "<checkout_commit>".
     When linting from the "<reference>".
     Then the Git history is not clean.
 
@@ -24,7 +24,7 @@ Feature: A Git reference can be provided as an argument to indicate where to sta
 
 
   Scenario Outline: You can also provide the long name and partial names not just the short name.
-    Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
+    Given the repository "<repository>" is at the commit "<checkout_commit>".
     When linting from the "<full_reference>".
     Then the Git history is clean.
     Given the arguments are reset.
@@ -41,7 +41,7 @@ Feature: A Git reference can be provided as an argument to indicate where to sta
 
 
   Scenario Outline: When you provide an invalid reference a relevant error message is returned.
-    Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
+    Given the repository "<repository>" is at the commit "<checkout_commit>".
     When linting from the "<reference>".
     Then their is a could not find reference "<reference>" error.
 

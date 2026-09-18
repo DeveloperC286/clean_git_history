@@ -84,6 +84,10 @@ unit-test:
 end-to-end-test: compile
 	cd end-to-end-tests/ && behave
 
+.PHONY: refresh-test-fixtures
+refresh-test-fixtures:
+	./ci/refresh-test-fixtures.sh
+
 .PHONY: release
 release:
 	$(call check-musl-target)

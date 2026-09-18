@@ -2,7 +2,7 @@ Feature: The default output format is automatically detected based on the enviro
 
 
   Scenario Outline: When the GITHUB_ACTIONS environment variable is set, the default output format is github.
-    Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
+    Given the repository "<repository>" is at the commit "<checkout_commit>".
     And the GITHUB_ACTIONS environment variable is set.
     When linting from the "<commit_hash>".
     Then the GitHub Actions output contains a merge commit error.
@@ -14,7 +14,7 @@ Feature: The default output format is automatically detected based on the enviro
 
 
   Scenario Outline: When the GITHUB_ACTIONS environment variable is not set, the default output format is pretty.
-    Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
+    Given the repository "<repository>" is at the commit "<checkout_commit>".
     When linting from the "<commit_hash>".
     Then the pretty output contains a merge commit error.
 

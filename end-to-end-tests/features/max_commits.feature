@@ -2,7 +2,7 @@ Feature: The maximum number of commits allowed, if exceeded will cause linting t
 
 
   Scenario Outline:
-    Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
+    Given the repository "<repository>" is at the commit "<checkout_commit>".
     When linting from the "<commit_hash>".
     Then the Git history is clean.
     Given the arguments are reset.
@@ -17,7 +17,7 @@ Feature: The maximum number of commits allowed, if exceeded will cause linting t
 
 
   Scenario Outline: When the maximum number of commits is provided as 0 an invalid value error is returned.
-    Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
+    Given the repository "<repository>" is at the commit "<checkout_commit>".
     When linting from the "<commit_hash>".
     And the argument --max-commits is provided as "0".
     Then their is an invalid max commits value "0" error.

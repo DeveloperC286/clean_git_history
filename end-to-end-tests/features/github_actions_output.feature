@@ -2,7 +2,7 @@ Feature: GitHub Actions output format emits workflow commands for linting errors
 
 
   Scenario Outline:
-    Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
+    Given the repository "<repository>" is at the commit "<checkout_commit>".
     When linting from the "<commit_hash>".
     And the argument --output is provided as "github".
     Then the GitHub Actions output contains a merge commit error.

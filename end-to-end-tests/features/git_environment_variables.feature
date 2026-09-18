@@ -2,10 +2,10 @@ Feature: Git environment variables are respected and used instead of using the c
 
 
   Scenario Outline:
-    Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
+    Given the repository "<repository>" is at the commit "<checkout_commit>".
     When linting from the "<commit_hash>".
     Then the Git history is clean.
-    Given the GIT_DIR environment variable is set to the cloned repository.
+    Given the GIT_DIR environment variable is set to the repository.
     Then the Git history is clean.
 
 
@@ -15,10 +15,10 @@ Feature: Git environment variables are respected and used instead of using the c
 
 
   Scenario Outline:
-    Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
+    Given the repository "<repository>" is at the commit "<checkout_commit>".
     When linting from the "<commit_hash>".
     Then the Git history is not clean.
-    Given the GIT_DIR environment variable is set to the cloned repository.
+    Given the GIT_DIR environment variable is set to the repository.
     Then the Git history is not clean.
 
 

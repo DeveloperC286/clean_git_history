@@ -23,7 +23,7 @@ def execute_command(command):
 
 def execute_clean_git_history(context):
     if "GIT_DIR" not in os.environ:
-        os.chdir(context.remote_repository_cache)
+        os.chdir(context.repository_directory)
 
     result = execute_command(f"{context.clean_git_history_path} {context.arguments} {context.from_ref}")
 
