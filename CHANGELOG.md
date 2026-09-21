@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.2.2 (2026-09-21)
+
+## What's Changed
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/509
+* chore(deps): update rust crate clap to v4.6.7 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/511
+* chore(deps): update alpine docker tag to v3.24.2 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/512
+* chore(deps): update alpine:3.24.2 docker digest to 31b6477 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/513
+* chore(deps): update alpine:3.24.2 docker digest to 294b683 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/514
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/515
+
+
+**Full Changelog**: https://github.com/DeveloperC286/clean_git_history/compare/v1.2.1...v1.2.2
+
 ## 1.2.1 (2026-09-08)
 
 ## What's Changed
