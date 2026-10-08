@@ -6,6 +6,11 @@ def set_linting_from_the(context, git):
     context.from_ref = f"\"{git}\""
 
 
+@when('the argument --verbose is provided.')
+def set_verbose(context):
+    context.arguments += " --verbose "
+
+
 @when('the argument --max-commits is provided as "{max_commits}".')
 def set_max_commits(context, max_commits):
     context.arguments += f" --max-commits {max_commits} "
