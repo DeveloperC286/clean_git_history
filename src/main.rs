@@ -8,7 +8,7 @@ mod linting_results;
 mod output;
 
 use crate::commits::Commits;
-use crate::output::Output;
+use crate::output::{Output, ResolvedOutput};
 
 const ERROR_EXIT_CODE: i32 = 1;
 
@@ -77,19 +77,12 @@ fn run(arguments: Arguments) -> Result<i32> {
     let commits = Commits::from_git(&repository, arguments.from)?;
 
     if let Some(linting_results) = commits.lint(arguments.max_commits) {
-        match arguments.output {
-            Output::Quiet => {}
-            Output::Default => {
-                if std::env::var("GITHUB_ACTIONS").is_ok() {
-                    println!("{}", linting_results.github_actions());
-                } else {
-                    println!("{}", linting_results.pretty());
-                }
-            }
-            Output::Pretty => {
+        match arguments.output.resolve() {
+            ResolvedOutput::Quiet => {}
+            ResolvedOutput::Pretty => {
                 println!("{}", linting_results.pretty());
             }
-            Output::GitHub => {
+            ResolvedOutput::GitHub => {
                 println!("{}", linting_results.github_actions());
             }
         }
