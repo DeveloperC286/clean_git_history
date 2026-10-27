@@ -18,15 +18,7 @@ def reset_context(context):
     context.clean_git_history_path = f"{
         context.behave_directory}/../target/debug/clean_git_history"
     reset_arguments(context)
-
-    if "GIT_DIR" in os.environ:
-        del os.environ["GIT_DIR"]
-
-    if "GITHUB_ACTIONS" in os.environ:
-        del os.environ["GITHUB_ACTIONS"]
-
-    if "CI" in os.environ:
-        del os.environ["CI"]
+    context.environment_overrides = {}
 
 
 @given('the repository "{remote_repository}" is cloned and checked out at the commit "{commit_hash}".')
@@ -40,20 +32,16 @@ def clone_remote_repository_and_checkout_commit(context, remote_repository, comm
         result = execute_command(f"git clone {remote_repository} {context.remote_repository_cache}")
         assert_command_successful(result)
 
-        os.chdir(context.remote_repository_cache)
-
-        result = execute_command(f"git checkout {commit_hash}")
+        result = execute_command(f"git checkout {commit_hash}", cwd=context.remote_repository_cache)
         assert_command_successful(result)
-
-        os.chdir(context.behave_directory)
 
 
 @given('the GIT_DIR environment variable is set to the cloned repository.')
 def set_git_dir(context):
-    os.environ["GIT_DIR"] = str(context.remote_repository_cache + "/.git")
+    context.environment_overrides["GIT_DIR"] = str(context.remote_repository_cache + "/.git")
 
 
 @given('the GITHUB_ACTIONS environment variable is set.')
 def set_github_actions(context):
-    os.environ["GITHUB_ACTIONS"] = "true"
-    os.environ["CI"] = "true"
+    context.environment_overrides["GITHUB_ACTIONS"] = "true"
+    context.environment_overrides["CI"] = "true"
