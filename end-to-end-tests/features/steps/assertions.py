@@ -13,6 +13,11 @@ def assert_no_output(result):
         f"Standard output = {result.stdout.encode()}.\n"
 
 
+def assert_output_not_empty(result):
+    assert result.stdout != "", "Expected standard output to not be empty.\n" + \
+        f"Standard output = {result.stdout.encode()}.\n"
+
+
 def assert_no_errors(result):
     assert result.stderr == "", "Expected standard error to be empty.\n" + \
         f"Standard error = {result.stderr.encode()}.\n"

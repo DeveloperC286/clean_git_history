@@ -9,6 +9,7 @@ from assertions import (
     assert_no_output,
     assert_output_contains,
     assert_output_does_not_contain,
+    assert_output_not_empty,
 )
 from behave import then
 from utilities import execute_clean_git_history
@@ -95,8 +96,8 @@ def assert_invalid_max_commits_value_error(context, max_commits):
     assert_error_contains(result, invalid_max_commits_value_error)
 
 
-@then('the GitHub Actions output contains a merge commit error.')
-def assert_github_output_contains_merge_commit_error(context):
+@then('the output is in the github format.')
+def assert_output_is_in_github_format(context):
     result = execute_clean_git_history(context)
     assert_command_unsuccessful(result)
     assert_output_contains(result, "::error title=Merge Commit::")
@@ -104,9 +105,24 @@ def assert_github_output_contains_merge_commit_error(context):
     assert_output_contains(result, "::endgroup::")
 
 
-@then('the pretty output contains a merge commit error.')
-def assert_pretty_output_contains_merge_commit_error(context):
+@then('the output is in the pretty format.')
+def assert_output_is_in_pretty_format(context):
     result = execute_clean_git_history(context)
     assert_command_unsuccessful(result)
     assert_output_contains(result, "Commit Hash")
     assert_output_does_not_contain(result, "::error")
+
+
+@then('the output is empty.')
+def assert_output_is_empty(context):
+    result = execute_clean_git_history(context)
+    assert_command_unsuccessful(result)
+    assert_no_output(result)
+    assert_no_errors(result)
+
+
+@then('the output is not empty.')
+def assert_output_is_not_empty(context):
+    result = execute_clean_git_history(context)
+    assert_command_unsuccessful(result)
+    assert_output_not_empty(result)

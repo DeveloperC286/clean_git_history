@@ -83,7 +83,7 @@ fn run(arguments: Arguments) -> Result<i32> {
                 println!("{}", linting_results.pretty());
             }
             ResolvedOutput::GitHub => {
-                println!("{}", linting_results.github_actions());
+                println!("{}", linting_results.github());
             }
         }
 

@@ -1,6 +1,6 @@
 use crate::commits::commit::Commit;
 
-mod github_actions;
+mod github;
 mod pretty;
 
 /// The representation of an error that an individual commit can have.
@@ -67,7 +67,7 @@ impl LintingResults {
         pretty::print_all(self)
     }
 
-    pub fn github_actions(&self) -> String {
-        github_actions::print_all(self)
+    pub fn github(&self) -> String {
+        github::print_all(self)
     }
 }
