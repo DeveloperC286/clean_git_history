@@ -48,4 +48,16 @@ Feature: A shortened Git commit hash can be provided as an argument to indicate 
 
     Examples:
       | repository                                        | checkout_commit                          | shortened_commit_hash |
-      | https://gitlab.com/DSASanFrancisco/membership_api | bf7dacdba6d030250e0ac26805d80be1feb62012 | ff6                   |
+      | https://gitlab.com/DSASanFrancisco/membership_api | bf7dacdba6d030250e0ac26805d80be1feb62012 | 0213                  |
+
+
+  # Git itself will not match a shortened commit hash of fewer than four characters.
+  Scenario Outline: The shortened Git commit hash is too short, so an error is returned.
+    Given the repository "<repository>" is cloned and checked out at the commit "<checkout_commit>".
+    When linting from the "<shortened_commit_hash>".
+    Then their is a too short commit hash "<shortened_commit_hash>" error.
+
+
+    Examples:
+      | repository                                  | checkout_commit                          | shortened_commit_hash |
+      | https://github.com/SergioBenitez/Rocket.git | 549c9241c41320fc5af76b53c2ffc3bd8db88f8c | ecf                   |
