@@ -1,5 +1,31 @@
 # Changelog
 
+## 1.2.2 (2026-10-30)
+
+## What's Changed
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/509
+* chore(deps): update rust crate clap to v4.6.7 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/511
+* chore(deps): update alpine docker tag to v3.24.2 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/512
+* chore(deps): update alpine:3.24.2 docker digest to 31b6477 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/513
+* chore(deps): update alpine:3.24.2 docker digest to 294b683 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/514
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/515
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/516
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/517
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/518
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/519
+* chore(deps): update dependency https://github.com/developerc286/template to v1.8.0 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/520
+* chore(deps): update alpine docker tag to v3.24.3 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/521
+* chore(deps): update alpine:3.24.3 docker digest to b341357 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/522
+* chore(deps): update alpine:3.24.3 docker digest to be26560 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/523
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/524
+* refactor: output format resolution into dedicated enum by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/525
+* test: Isolate e2e environment by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/526
+* test: add end-to-end coverage for quiet output format by @DeveloperC286 in https://github.com/DeveloperC286/clean_git_history/pull/527
+* chore(deps): update rust crate log to v0.4.35 by @renovate[bot] in https://github.com/DeveloperC286/clean_git_history/pull/528
+
+
+**Full Changelog**: https://github.com/DeveloperC286/clean_git_history/compare/v1.2.1...v1.2.2
+
 ## 1.2.1 (2026-09-08)
 
 ## What's Changed
